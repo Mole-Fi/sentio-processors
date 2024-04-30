@@ -15,6 +15,12 @@ import { cetus_clmm_worker as cetus_clmm_worker_cetus_usdc } from './types/sui/0
 import { cetus_clmm_worker as cetus_clmm_worker_usdc_cetus } from './types/sui/0xd8528e2825b7354f5e4fd3bf89e3998e59f4cf92160d65bf491885677229def0.js'
 import { cetus_clmm_worker as cetus_clmm_worker_hasui_sui  } from './types/sui/0x50be9b81baf7204130eea06bb1845d4a0beccbee98c03b5ec0b17a48302351bf.js'
 import { cetus_clmm_worker as cetus_clmm_worker_sui_hasui  } from './types/sui/0xd5f6540d3d3fc7fd8ed64e862a21785932e84ee669fb2e7bbe5bd23fd6552827.js'
+import { cetus_clmm_worker as cetus_clmm_worker_navx_sui   } from './types/sui/0x53e47bac30d4f17fcb0d800de9fc7f0cc96f520531bb8fd7670e9c08f060ec61.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_navx   } from './types/sui/0xd5b04240f6536c7b5276e96b057460a58ac8b1b66b2db03038f3d44bf1ea7cde.js'
+import { cetus_clmm_worker as cetus_clmm_worker_navx_cetus } from './types/sui/0x6665ad06bb0c47a00e3ce6da9c796f8061b9f8178095e421ce36e3f73345f24a.js'
+import { cetus_clmm_worker as cetus_clmm_worker_cetus_navx } from './types/sui/0xf8670497cc6403831fad47f8471cce467661c3e01833953d62fe86527bbe4474.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sca_sui    } from './types/sui/0x0efca73a17c179aee1a5243c66c3f90101f61e9dd974e71b356ecdf0316ca626.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_sca    } from './types/sui/0x9a0355aa800e975678ce812d4ee044f3faa8b48c70d877f90d3ba8d35566e6aa.js'
 
 
 import { pool } from './types/sui/0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb.js'
@@ -34,7 +40,8 @@ const vaultUsdtConfigId  = "0x355915a87a910908ef1ccc1cbad290b07fa01bd0d5f3046f47
 const vaultUsdcConfigId  = "0xe684f8509e90bfc1fe9701266a40d641e80691f0d05dc09cfd9c56041099cc39"
 const vaultCetusConfigId = "0x4389f5425b748b9ddec06730d8a4376bafff215f326b18eccb3dd3b2c4ef7e4f"
 const vaultSuiConfigId   = "0x6ae14611cecaab94070017f4633090ce7ea83922fc8f78b3f8409a7dbffeb9a4"
-
+const vaultNavxConfigId  = "0x8038c996731d6ea078c39be7cb7ac8ed6eec9cfe0299aefcf480c9e286c87af6"
+const vaultScaConfigId   = "0xd7ca39d682822b26e032079b723807e1bb2e90150c40eada7a104832e9e6c47f"
 
 SuiWrappedObjectProcessor.bind({
   //object owner address of vault_usdt_vault_info/vault_sui_vault_info etc.
@@ -66,6 +73,10 @@ SuiWrappedObjectProcessor.bind({
           coinType = "0x06864a6f921804860930db6ddbe2e16acdf8504495ea7481637a1c8b9a8fe54b::cetus::CETUS"
         } else if (configAddr == vaultSuiConfigId) {
           coinType = "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI"
+        } else if (configAddr == vaultNavxConfigId) {
+          coinType = "0xa99b8952d4f7d947ea77fe0ecdcc9e5fc0bcab2841d6e2a5aa00c3044e5544b5::navx::NAVX"
+        } else if (configAddr == vaultScaConfigId) {
+          coinType = "0x7016aae72cfc67f2fadf55769c0a7dd54291a583b63051a5ed71081cce836ac6::sca::SCA"
         } else {
           console.error("CoinType not suppport!")
         }
@@ -206,6 +217,16 @@ let gCurrentSqrtPriceHasuiSui
 let gCurrentSqrtPriceUsdcCetus
 //@ts-ignore
 let gCurrentSqrtPriceCetusSui
+//@ts-ignore
+let gCurrentSqrtPriceNavxSui
+//@ts-ignore
+let gCurrentSqrtPriceNavxCetus
+//@ts-ignore
+let gCurrentSqrtPriceScaSui
+//@ts-ignore
+let gCurrentSqrtPriceWethCetus
+//@ts-ignore
+let gCurrentSqrtPriceUsdtCetus
 
 for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   SuiObjectProcessor.bind({
@@ -233,6 +254,16 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
         gCurrentSqrtPriceUsdcCetus = currentSqrtPrice
       } else if ('0x2e041f3fd93646dcc877f783c1f2b7fa62d30271bdef1f21ef002cebf857bded' == ctx.objectId) {
         gCurrentSqrtPriceCetusSui = currentSqrtPrice
+      } else if ('0x0254747f5ca059a1972cd7f6016485d51392a3fde608107b93bbaebea550f703' == ctx.objectId) {
+        gCurrentSqrtPriceNavxSui = currentSqrtPrice
+      } else if ('0x3ec8401520022aac67935188eb1f82c13cbbc949ab04692e5b62445d89b61c9f' == ctx.objectId) {
+        gCurrentSqrtPriceNavxCetus = currentSqrtPrice
+      } else if ('0xaa72bd551b25715b8f9d72f226fa02526bdf2e085a86faec7184230c5209bb6e' == ctx.objectId) {
+        gCurrentSqrtPriceScaSui = currentSqrtPrice
+      } else if ('0x81f6bdb7f443b2a55de8554d2d694b7666069a481526a1ff0c91775265ac0fc1' == ctx.objectId) {
+        gCurrentSqrtPriceWethCetus = currentSqrtPrice
+      } else if ('0x91ba432e39602d12c2f3d95c7c7f890e1f1c7c8e7d0b9c6d6035a33d1f93e1cb' == ctx.objectId) {
+        gCurrentSqrtPriceUsdtCetus = currentSqrtPrice
       } else {
         console.error("Has not object : ", ctx.objectId)
       }
@@ -289,6 +320,18 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
         res = await ctx.coder.decodedType(self, cetus_clmm_worker_hasui_sui.WorkerInfo.type())
       } else if (workerInfoAddr == "0xc792fa9679b2f73d8debad2963b4cdf629cf78edcab78e2b8c3661b91d7f6a45") {
         res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_hasui.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x262272883f08b1979d27a76f699f1e5020146c1a30213548bf89ccef62d583e1") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_navx_sui.WorkerInfo.type())
+      } else if (workerInfoAddr == "0xbc8b30dd02b349ebf6ee6b5454430c8f2c41206e2067aab251578155c7c7dc7e") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_navx.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x1f8890445e538586657b721ff94b80435296d98bb5a3b984e07d5d326d6dfb3d") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_navx_cetus.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x8eeaa512683fff54710fd3e2297b72ef0f6d0f2c52c63720eac791b74f1a47c6") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_cetus_navx.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x9f3086aaa1f3790b06bb01c0077d0a709cdb234fbae13c70fa5fdeafacb119aa") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_sca_sui.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x7a41fbf19809f80fd1a7282b218ec8326dfaadc2ad20604d052c12d5076596b4") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_sca.WorkerInfo.type())
       } else {
         console.error("Not support workerInfoAddr:", workerInfoAddr)
       } 
@@ -336,6 +379,21 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
       } else if (coin_symbol_a == "CETUS" && coin_symbol_b == "SUI") {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceCetusSui
+      } else if (coin_symbol_a == "NAVX" && coin_symbol_b == "SUI") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceNavxSui
+      } else if (coin_symbol_a == "NAVX" && coin_symbol_b == "CETUS") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceNavxCetus
+      } else if (coin_symbol_a == "SCA" && coin_symbol_b == "SUI") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceScaSui
+      } else if (coin_symbol_a == "WETH" && coin_symbol_b == "CETUS") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceWethCetus
+      } else if (coin_symbol_a == "USDT" && coin_symbol_b == "CETUS") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceUsdtCetus
       } else {
         console.error("Has not price : coin_symbol_a:", coin_symbol_a, ",coin_symbol_b:",coin_symbol_b )
       }
