@@ -1,6 +1,7 @@
 import { Counter, Gauge } from '@sentio/sdk'
 import { SuiNetwork, SuiObjectProcessorTemplate, SuiObjectProcessor, SuiWrappedObjectProcessor} from "@sentio/sdk/sui"
-import { vault, vault_config, managed_vault_config } from './types/sui/0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f.js'
+import { vault } from './types/sui/0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f.js'
+import { sui_incentive } from './types/sui/0xc4dc6948a7d0a58f32fadd44e45efb201f44383bfab1cb6c48b9c186a92cc762.js'
 import { cetus_clmm_worker as cetus_clmm_worker_usdc_sui   } from './types/sui/0x334bed7f6426c1a3710ef7f4d66b1225df74146372b40a64e9d0cbfc76d76e67.js'
 import { cetus_clmm_worker as cetus_clmm_worker_sui_usdc   } from './types/sui/0x1454bd0be3db3c4be862104bde964913182de6d380aea24b88320505baba5e46.js'
 import { cetus_clmm_worker as cetus_clmm_worker_usdt_usdc  } from './types/sui/0x9cb48aa1b41a1183ecdabde578e640e05a08170f8ca165b743ffded0b1256391.js'
@@ -42,6 +43,31 @@ const vaultCetusConfigId = "0x4389f5425b748b9ddec06730d8a4376bafff215f326b18eccb
 const vaultSuiConfigId   = "0x6ae14611cecaab94070017f4633090ce7ea83922fc8f78b3f8409a7dbffeb9a4"
 const vaultNavxConfigId  = "0x8038c996731d6ea078c39be7cb7ac8ed6eec9cfe0299aefcf480c9e286c87af6"
 const vaultScaConfigId   = "0xd7ca39d682822b26e032079b723807e1bb2e90150c40eada7a104832e9e6c47f"
+
+sui_incentive.bind({ 
+    address: '0xc4dc6948a7d0a58f32fadd44e45efb201f44383bfab1cb6c48b9c186a92cc762',
+    network: SuiNetwork.MAIN_NET,
+    startCheckpoint: 32697300n
+  })
+    .onEventHarvestEvent(
+      async (event, ctx) => {
+        const user = event.data_decoded.user
+        const pid = String(event.data_decoded.pid)
+        const amount = Number(event.data_decoded.amount) / Math.pow(10, 9)
+        const action_type = String(event.data_decoded.action_type)
+  
+        ctx.meter.Gauge("harvest_pid").record(amount, { action_type, pid, project: "mole" })
+  
+        ctx.eventLogger.emit("HarvestEvent", {
+          distinctId: user,
+          pid: pid,
+          amount: amount,
+          action_type: action_type,
+          project: "mole"
+        })
+      },
+    )
+
 
 SuiWrappedObjectProcessor.bind({
   //object owner address of vault_usdt_vault_info/vault_sui_vault_info etc.
