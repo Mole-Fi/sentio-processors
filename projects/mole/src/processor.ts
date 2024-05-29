@@ -1,6 +1,7 @@
 import { Counter, Gauge } from '@sentio/sdk'
 import { SuiNetwork, SuiObjectProcessorTemplate, SuiObjectProcessor, SuiWrappedObjectProcessor} from "@sentio/sdk/sui"
-import { vault, vault_config, managed_vault_config } from './types/sui/0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f.js'
+import { vault } from './types/sui/0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f.js'
+import { sui_incentive } from './types/sui/0xc4dc6948a7d0a58f32fadd44e45efb201f44383bfab1cb6c48b9c186a92cc762.js'
 import { cetus_clmm_worker as cetus_clmm_worker_usdc_sui   } from './types/sui/0x334bed7f6426c1a3710ef7f4d66b1225df74146372b40a64e9d0cbfc76d76e67.js'
 import { cetus_clmm_worker as cetus_clmm_worker_sui_usdc   } from './types/sui/0x1454bd0be3db3c4be862104bde964913182de6d380aea24b88320505baba5e46.js'
 import { cetus_clmm_worker as cetus_clmm_worker_usdt_usdc  } from './types/sui/0x9cb48aa1b41a1183ecdabde578e640e05a08170f8ca165b743ffded0b1256391.js'
@@ -15,7 +16,16 @@ import { cetus_clmm_worker as cetus_clmm_worker_cetus_usdc } from './types/sui/0
 import { cetus_clmm_worker as cetus_clmm_worker_usdc_cetus } from './types/sui/0xd8528e2825b7354f5e4fd3bf89e3998e59f4cf92160d65bf491885677229def0.js'
 import { cetus_clmm_worker as cetus_clmm_worker_hasui_sui  } from './types/sui/0x50be9b81baf7204130eea06bb1845d4a0beccbee98c03b5ec0b17a48302351bf.js'
 import { cetus_clmm_worker as cetus_clmm_worker_sui_hasui  } from './types/sui/0xd5f6540d3d3fc7fd8ed64e862a21785932e84ee669fb2e7bbe5bd23fd6552827.js'
-
+import { cetus_clmm_worker as cetus_clmm_worker_navx_sui   } from './types/sui/0x53e47bac30d4f17fcb0d800de9fc7f0cc96f520531bb8fd7670e9c08f060ec61.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_navx   } from './types/sui/0xd5b04240f6536c7b5276e96b057460a58ac8b1b66b2db03038f3d44bf1ea7cde.js'
+import { cetus_clmm_worker as cetus_clmm_worker_navx_cetus } from './types/sui/0x6665ad06bb0c47a00e3ce6da9c796f8061b9f8178095e421ce36e3f73345f24a.js'
+import { cetus_clmm_worker as cetus_clmm_worker_cetus_navx } from './types/sui/0xf8670497cc6403831fad47f8471cce467661c3e01833953d62fe86527bbe4474.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sca_sui    } from './types/sui/0x0efca73a17c179aee1a5243c66c3f90101f61e9dd974e71b356ecdf0316ca626.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_sca    } from './types/sui/0x9a0355aa800e975678ce812d4ee044f3faa8b48c70d877f90d3ba8d35566e6aa.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_wbtc  } from './types/sui/0xff377a83375d63b9c8429362b5c2791bc69f0da861d3d963970ffeac2654d9d5.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wbtc_usdc  } from './types/sui/0x15fbfe8c27c920baaa1e4bd8bfe05c4408311612baf6493ed3285c6bd95a6939.js'
+import { cetus_clmm_worker as cetus_clmm_worker_buck_usdc  } from './types/sui/0xcac7d10d73c3c32f6d40031c8639dfde168e6e1c0e4a86f8d23f21db60f97c94.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_buck  } from './types/sui/0xe6ba97715edd0cfe6a8e40654b37c6f46a8a8af5b7fe2eefa3fd713243857993.js'
 
 import { pool } from './types/sui/0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb.js'
 import { getPriceByType, token } from "@sentio/sdk/utils"
@@ -34,6 +44,34 @@ const vaultUsdtConfigId  = "0x355915a87a910908ef1ccc1cbad290b07fa01bd0d5f3046f47
 const vaultUsdcConfigId  = "0xe684f8509e90bfc1fe9701266a40d641e80691f0d05dc09cfd9c56041099cc39"
 const vaultCetusConfigId = "0x4389f5425b748b9ddec06730d8a4376bafff215f326b18eccb3dd3b2c4ef7e4f"
 const vaultSuiConfigId   = "0x6ae14611cecaab94070017f4633090ce7ea83922fc8f78b3f8409a7dbffeb9a4"
+const vaultNavxConfigId  = "0x8038c996731d6ea078c39be7cb7ac8ed6eec9cfe0299aefcf480c9e286c87af6"
+const vaultScaConfigId   = "0xd7ca39d682822b26e032079b723807e1bb2e90150c40eada7a104832e9e6c47f"
+const vaultWbtcConfigId  = "0xf19fcfcd8da9837580cd0737ef626ac077a5ce33f703d25c990a3c49d888b4f6"
+const vaultBuckConfigId  = "0x73903c5c973f62ab68acdfbd53b17dad2b9be586605664e192cebcb1f3a3f1a2"
+
+sui_incentive.bind({ 
+    address: '0xc4dc6948a7d0a58f32fadd44e45efb201f44383bfab1cb6c48b9c186a92cc762',
+    network: SuiNetwork.MAIN_NET,
+    startCheckpoint: 32697300n
+  })
+    .onEventHarvestEvent(
+      async (event, ctx) => {
+        const user = event.data_decoded.user
+        const pid = String(event.data_decoded.pid)
+        const amount = Number(event.data_decoded.amount) / Math.pow(10, 9)
+        const action_type = String(event.data_decoded.action_type)
+  
+        ctx.meter.Gauge("harvest_pid").record(amount, { action_type, pid, project: "mole" })
+  
+        ctx.eventLogger.emit("HarvestEvent", {
+          distinctId: user,
+          pid: pid,
+          amount: amount,
+          action_type: action_type,
+          project: "mole"
+        })
+      },
+    )
 
 
 SuiWrappedObjectProcessor.bind({
@@ -47,7 +85,12 @@ SuiWrappedObjectProcessor.bind({
 
       const objectType = vault.VaultInfo.type(ANY_TYPE)
 
-      const fields = await ctx.coder.getDynamicFields(dynamicFieldObjects, string_.String.type(),  objectType)
+      let fields = await ctx.coder.getDynamicFields(dynamicFieldObjects, string_.String.type(),  objectType)
+      let retry = 0
+      while (!fields && retry < 50) {
+        fields = await ctx.coder.getDynamicFields(dynamicFieldObjects, string_.String.type(),  objectType)
+        retry++       
+      }
 
       for (const field of fields) {
         //@ts-ignore
@@ -66,17 +109,37 @@ SuiWrappedObjectProcessor.bind({
           coinType = "0x06864a6f921804860930db6ddbe2e16acdf8504495ea7481637a1c8b9a8fe54b::cetus::CETUS"
         } else if (configAddr == vaultSuiConfigId) {
           coinType = "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI"
+        } else if (configAddr == vaultNavxConfigId) {
+          coinType = "0xa99b8952d4f7d947ea77fe0ecdcc9e5fc0bcab2841d6e2a5aa00c3044e5544b5::navx::NAVX"
+        } else if (configAddr == vaultScaConfigId) {
+          coinType = "0x7016aae72cfc67f2fadf55769c0a7dd54291a583b63051a5ed71081cce836ac6::sca::SCA"
+        } else if (configAddr == vaultWbtcConfigId) {
+          coinType = "0x027792d9fed7f9844eb4839566001bb6f6cb4804f66aa2da6fe1ee242d896881::coin::COIN"
+        } else if (configAddr == vaultBuckConfigId) {
+          coinType = "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK"
         } else {
           console.error("CoinType not suppport!")
         }
 
-        const coinInfo = await buildCoinInfo(ctx, coinType!)
+        let coinInfo = await buildCoinInfo(ctx, coinType!)
+        retry = 0
+        while (!coinInfo && retry < 50) {
+          coinInfo = await buildCoinInfo(ctx, coinType!)
+          retry++       
+        }
+
         const coin_symbol = coinInfo.symbol
         
         //@ts-ignore
         const savings_debt = Number(field.value.vault_debt_val) / Math.pow(10, coinInfo.decimal)
 
-        const price = await getPriceByType(SuiNetwork.MAIN_NET, coinType!, ctx.timestamp)
+        let price = await getPriceByType(SuiNetwork.MAIN_NET, coinType!, ctx.timestamp)
+        retry = 0
+        while (!price && retry < 50) {
+          price = await getPriceByType(SuiNetwork.MAIN_NET, coinType!, ctx.timestamp)
+          retry++       
+        }
+
         const savings_debt_usd = savings_debt * price! 
 
         //@ts-ignore
@@ -132,11 +195,19 @@ SuiObjectProcessor.bind({
     
     // get json data from mole
     const data_url = `https://app.mole.fi/api/SuiMainnet/data.json`
-    const res = await axiosInst.get(data_url).catch(err => {
+    let res = await axiosInst.get(data_url).catch(err => {
         console.error('get data error:', err)
     })
     if (!res) {
       console.error('data_get got no response')
+    }
+
+    let retry = 0
+    while (!res && retry < 50) {
+      res = await axiosInst.get(data_url).catch(err => {
+          console.error('get data error:', err)
+      })
+      retry++       
     }
 
     const farmsData = res!.data.farms    
@@ -155,6 +226,49 @@ catch (e) {
 
 
 
+  SuiObjectProcessor.bind({
+    objectId: "0xcf994611fd4c48e277ce3ffd4d4364c914af2c3cbb05f7bf6facd371de688630", // random fake id because no used in here
+    network: SuiNetwork.MAIN_NET,
+    startCheckpoint: 26720650n
+  })
+  .onTimeInterval(async (self, _, ctx) => {
+    try {
+  
+      const data_url = `https://app.mole.fi/api/SuiMainnet/data.json`
+      let res = await axiosInst.get(data_url).catch(err => {
+          console.error('get data error:', err)
+      })
+      if (!res) {
+        console.error('data_get got no response')
+      }
+
+      let retry = 0
+      while (!res && retry < 50) {
+        res = await axiosInst.get(data_url).catch(err => {
+          console.error('get data error:', err)
+        })
+        retry++       
+      }
+  
+      const moleSuiIncentivePoolsData = res!.data.moleSuiIncentivePools  
+  
+      for (let i = 0 ; i < moleSuiIncentivePoolsData.length; i++) {
+        let coin_symbol = moleSuiIncentivePoolsData[i].symbol.toString().substr(1)
+        const apy = moleSuiIncentivePoolsData[i].apy
+  
+        if (coin_symbol == "HASUI") {
+          coin_symbol = "haSUI"
+        }
+  
+        ctx.meter.Gauge("vaults_staking_apy").record(apy, { coin_symbol, project: "mole" })
+      }
+    }
+  catch (e) {
+        console.log(`${e.message} error at ${JSON.stringify(self)}`)
+      }
+    }, 30, 60, undefined, { owned: false })
+  
+  
 
 
 //@ts-ignore
@@ -171,6 +285,20 @@ let gCurrentSqrtPriceHasuiSui
 let gCurrentSqrtPriceUsdcCetus
 //@ts-ignore
 let gCurrentSqrtPriceCetusSui
+//@ts-ignore
+let gCurrentSqrtPriceNavxSui
+//@ts-ignore
+let gCurrentSqrtPriceNavxCetus
+//@ts-ignore
+let gCurrentSqrtPriceScaSui
+//@ts-ignore
+let gCurrentSqrtPriceWethCetus
+//@ts-ignore
+let gCurrentSqrtPriceUsdtCetus
+//@ts-ignore
+let gCurrentSqrtPriceUsdcWbtc
+//@ts-ignore
+let gCurrentSqrtPriceBuckUsdc
 
 for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   SuiObjectProcessor.bind({
@@ -180,7 +308,13 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   })
   .onTimeInterval(async (self, _, ctx) => {
     try {
-      const res = await ctx.coder.decodedType(self, pool.Pool.type())
+      let res = await ctx.coder.decodedType(self, pool.Pool.type())
+      let retry = 0
+      while (!res && retry < 50) {
+        res = await ctx.coder.decodedType(self, pool.Pool.type())
+        retry++
+      }
+      
       //@ts-ignore
       const currentSqrtPrice = Number(res!.current_sqrt_price)
 
@@ -198,6 +332,20 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
         gCurrentSqrtPriceUsdcCetus = currentSqrtPrice
       } else if ('0x2e041f3fd93646dcc877f783c1f2b7fa62d30271bdef1f21ef002cebf857bded' == ctx.objectId) {
         gCurrentSqrtPriceCetusSui = currentSqrtPrice
+      } else if ('0x0254747f5ca059a1972cd7f6016485d51392a3fde608107b93bbaebea550f703' == ctx.objectId) {
+        gCurrentSqrtPriceNavxSui = currentSqrtPrice
+      } else if ('0x3ec8401520022aac67935188eb1f82c13cbbc949ab04692e5b62445d89b61c9f' == ctx.objectId) {
+        gCurrentSqrtPriceNavxCetus = currentSqrtPrice
+      } else if ('0xaa72bd551b25715b8f9d72f226fa02526bdf2e085a86faec7184230c5209bb6e' == ctx.objectId) {
+        gCurrentSqrtPriceScaSui = currentSqrtPrice
+      } else if ('0x81f6bdb7f443b2a55de8554d2d694b7666069a481526a1ff0c91775265ac0fc1' == ctx.objectId) {
+        gCurrentSqrtPriceWethCetus = currentSqrtPrice
+      } else if ('0x91ba432e39602d12c2f3d95c7c7f890e1f1c7c8e7d0b9c6d6035a33d1f93e1cb' == ctx.objectId) {
+        gCurrentSqrtPriceUsdtCetus = currentSqrtPrice
+      } else if ('0xaa57c66ba6ee8f2219376659f727f2b13d49ead66435aa99f57bb008a64a8042' == ctx.objectId) {
+        gCurrentSqrtPriceUsdcWbtc = currentSqrtPrice
+      } else if ('0x81fe26939ed676dd766358a60445341a06cea407ca6f3671ef30f162c84126d5' == ctx.objectId) {
+        gCurrentSqrtPriceBuckUsdc = currentSqrtPrice
       } else {
         console.error("Has not object : ", ctx.objectId)
       }
@@ -254,6 +402,26 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
         res = await ctx.coder.decodedType(self, cetus_clmm_worker_hasui_sui.WorkerInfo.type())
       } else if (workerInfoAddr == "0xc792fa9679b2f73d8debad2963b4cdf629cf78edcab78e2b8c3661b91d7f6a45") {
         res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_hasui.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x262272883f08b1979d27a76f699f1e5020146c1a30213548bf89ccef62d583e1") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_navx_sui.WorkerInfo.type())
+      } else if (workerInfoAddr == "0xbc8b30dd02b349ebf6ee6b5454430c8f2c41206e2067aab251578155c7c7dc7e") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_navx.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x1f8890445e538586657b721ff94b80435296d98bb5a3b984e07d5d326d6dfb3d") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_navx_cetus.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x8eeaa512683fff54710fd3e2297b72ef0f6d0f2c52c63720eac791b74f1a47c6") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_cetus_navx.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x9f3086aaa1f3790b06bb01c0077d0a709cdb234fbae13c70fa5fdeafacb119aa") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_sca_sui.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x7a41fbf19809f80fd1a7282b218ec8326dfaadc2ad20604d052c12d5076596b4") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_sca.WorkerInfo.type())
+      } else if (workerInfoAddr == "0xb0259f15a3c6e40883e85c559b09172c546dc439717347b936d9e1f1559ad53a") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_wbtc.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x99d6a5dad2b4b840d28ea88cc8fb599f4eb54a897bd3573957c8fbefa8e252ac") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_wbtc_usdc.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x1a8ad1068ab9bc5b94f2e3baa7a5eaac67e1337e2a47463fcfbc1b9ed26ef5ce") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_buck_usdc.WorkerInfo.type())
+      } else if (workerInfoAddr == "0xf7fc938356331d7404226c147328750cf2d8ef8a273ed8bc1450ee4e0ff0e659") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_buck.WorkerInfo.type())
       } else {
         console.error("Not support workerInfoAddr:", workerInfoAddr)
       } 
@@ -273,10 +441,21 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
       //@ts-ignore
       const coinTypeB = '0x' + res!.position_nft.coin_type_b.name
 
-      const coinInfoA = await buildCoinInfo(ctx, coinTypeA)
+      let coinInfoA = await buildCoinInfo(ctx, coinTypeA)
+      let retry = 0
+      while (!coinInfoA && retry < 50) {
+        coinInfoA = await buildCoinInfo(ctx, coinTypeA)
+        retry++
+      }
+
       const coin_symbol_a = coinInfoA.symbol
 
-      const coinInfoB = await buildCoinInfo(ctx, coinTypeB)
+      let coinInfoB = await buildCoinInfo(ctx, coinTypeB)
+      retry = 0
+      while (!coinInfoB && retry < 50) {
+        coinInfoB = await buildCoinInfo(ctx, coinTypeB)
+        retry++
+      }
       const coin_symbol_b = coinInfoB.symbol
 
       let currentSqrtPrice
@@ -301,6 +480,27 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
       } else if (coin_symbol_a == "CETUS" && coin_symbol_b == "SUI") {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceCetusSui
+      } else if (coin_symbol_a == "NAVX" && coin_symbol_b == "SUI") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceNavxSui
+      } else if (coin_symbol_a == "NAVX" && coin_symbol_b == "CETUS") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceNavxCetus
+      } else if (coin_symbol_a == "SCA" && coin_symbol_b == "SUI") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceScaSui
+      } else if (coin_symbol_a == "WETH" && coin_symbol_b == "CETUS") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceWethCetus
+      } else if (coin_symbol_a == "USDT" && coin_symbol_b == "CETUS") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceUsdtCetus
+      } else if (coin_symbol_a == "USDC" && coin_symbol_b == "WBTC") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceUsdcWbtc
+      } else if (coin_symbol_a == "BUCK" && coin_symbol_b == "USDC") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceBuckUsdc
       } else {
         console.error("Has not price : coin_symbol_a:", coin_symbol_a, ",coin_symbol_b:",coin_symbol_b )
       }
