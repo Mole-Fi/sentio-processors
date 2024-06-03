@@ -29,7 +29,7 @@ import { cetus_clmm_worker as cetus_clmm_worker_usdc_buck  } from './types/sui/0
 
 import { pool } from './types/sui/0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb.js'
 import { getPriceByType, token } from "@sentio/sdk/utils"
-import { buildCoinInfo, getCoinAmountFromLiquidity, i32BitsToNumber, tickIndexToSqrtPriceX64} from './utils/mole_utils.js'
+import { buildCoinInfo, getCoinAmountFromLiquidity, i32BitsToNumber, sleep, tickIndexToSqrtPriceX64} from './utils/mole_utils.js'
 import * as constant from './utils/constant.js'
 import * as helper from './utils/cetus-clmm.js'
 import { ANY_TYPE, BUILTIN_TYPES } from '@sentio/sdk/move'
@@ -87,9 +87,14 @@ SuiWrappedObjectProcessor.bind({
 
       let fields = await ctx.coder.getDynamicFields(dynamicFieldObjects, string_.String.type(),  objectType)
       let retry = 0
-      while (!fields && retry < 50) {
+      while (!fields && retry < 300) {
+        await sleep(300);
         fields = await ctx.coder.getDynamicFields(dynamicFieldObjects, string_.String.type(),  objectType)
-        retry++       
+        retry++     
+        
+        if (retry == 299) {
+          throw new Error("getDynamicFields error")
+        }
       }
 
       for (const field of fields) {
@@ -123,9 +128,14 @@ SuiWrappedObjectProcessor.bind({
 
         let coinInfo = await buildCoinInfo(ctx, coinType!)
         retry = 0
-        while (!coinInfo && retry < 50) {
+        while (!coinInfo && retry < 300) {
+          await sleep(300);
           coinInfo = await buildCoinInfo(ctx, coinType!)
-          retry++       
+          retry++    
+
+          if (retry == 299) {
+            throw new Error("buildCoinInfo error")
+          }   
         }
 
         const coin_symbol = coinInfo.symbol
@@ -135,9 +145,14 @@ SuiWrappedObjectProcessor.bind({
 
         let price = await getPriceByType(SuiNetwork.MAIN_NET, coinType!, ctx.timestamp)
         retry = 0
-        while (!price && retry < 50) {
+        while (!price && retry < 300) {
+          await sleep(300);
           price = await getPriceByType(SuiNetwork.MAIN_NET, coinType!, ctx.timestamp)
-          retry++       
+          retry++    
+          
+          if (retry == 299) {
+            throw new Error("getPriceByType error")
+          }   
         }
 
         const savings_debt_usd = savings_debt * price! 
@@ -203,11 +218,16 @@ SuiObjectProcessor.bind({
     }
 
     let retry = 0
-    while (!res && retry < 50) {
+    while (!res && retry < 300) {
+      await sleep(300);
       res = await axiosInst.get(data_url).catch(err => {
           console.error('get data error:', err)
       })
-      retry++       
+      retry++
+      
+      if (retry == 299) {
+        throw new Error("axiosInst")
+      }
     }
 
     const farmsData = res!.data.farms    
@@ -243,11 +263,16 @@ catch (e) {
       }
 
       let retry = 0
-      while (!res && retry < 50) {
+      while (!res && retry < 300) {
+        await sleep(300);
         res = await axiosInst.get(data_url).catch(err => {
           console.error('get data error:', err)
         })
-        retry++       
+        retry++      
+        
+        if (retry == 299) {
+          throw new Error("axiosInst get")
+        }
       }
   
       const moleSuiIncentivePoolsData = res!.data.moleSuiIncentivePools  
@@ -310,9 +335,14 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
     try {
       let res = await ctx.coder.decodedType(self, pool.Pool.type())
       let retry = 0
-      while (!res && retry < 50) {
+      while (!res && retry < 300) {
+        await sleep(300);
         res = await ctx.coder.decodedType(self, pool.Pool.type())
         retry++
+
+        if (retry == 299) {
+          throw new Error("decodedType")
+        }
       }
       
       //@ts-ignore
@@ -443,18 +473,28 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
 
       let coinInfoA = await buildCoinInfo(ctx, coinTypeA)
       let retry = 0
-      while (!coinInfoA && retry < 50) {
+      while (!coinInfoA && retry < 300) {
+        await sleep(300);
         coinInfoA = await buildCoinInfo(ctx, coinTypeA)
         retry++
+
+        if (retry == 299) {
+          throw new Error("buildCoinInfo coinInfoA")
+        }
       }
 
       const coin_symbol_a = coinInfoA.symbol
 
       let coinInfoB = await buildCoinInfo(ctx, coinTypeB)
       retry = 0
-      while (!coinInfoB && retry < 50) {
+      while (!coinInfoB && retry < 300) {
+        await sleep(300);
         coinInfoB = await buildCoinInfo(ctx, coinTypeB)
         retry++
+
+        if (retry == 299) {
+          throw new Error("buildCoinInfo coinInfoB")
+        }
       }
       const coin_symbol_b = coinInfoB.symbol
 
