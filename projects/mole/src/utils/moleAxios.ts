@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const axiosInst = axios.create();
+const axiosInst = axios.default.create();
 axiosInst.defaults.timeout = 30000 // time out
 
 axiosInst.interceptors.request.use(config => {

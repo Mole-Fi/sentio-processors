@@ -14,5 +14,6 @@
     "decimal.js": "^10.4.3"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.12"
   }
 }

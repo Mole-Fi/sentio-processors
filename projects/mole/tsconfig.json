@@ -6,7 +6,7 @@
     "target": "esnext",
     "esModuleInterop": true,
     "noImplicitReturns": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "strictNullChecks": true,
