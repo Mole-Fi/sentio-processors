@@ -1,0 +1,54 @@
+project: mole-fee
+contracts:
+  - chain: sui_mainnet
+    address: "0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f"
+  - chain: sui_mainnet
+    address: "0x78bf4657eba8b390474715d51dcee7513593cb9db349071653d1f0a6d2c3b294"
+  - chain: sui_mainnet
+    address: "0x334bed7f6426c1a3710ef7f4d66b1225df74146372b40a64e9d0cbfc76d76e67"
+  - chain: sui_mainnet
+    address: "0x1454bd0be3db3c4be862104bde964913182de6d380aea24b88320505baba5e46"
+  - chain: sui_mainnet
+    address: "0x9cb48aa1b41a1183ecdabde578e640e05a08170f8ca165b743ffded0b1256391"
+  - chain: sui_mainnet
+    address: "0x960ab11d560f05f0ec260c7ac87074b569334713594aa02580642e029fd9dd86"
+  - chain: sui_mainnet
+    address: "0xb7a0d251a9f307b80b1595c87622118e401dc613591b3435786bb7c147599dae"
+  - chain: sui_mainnet
+    address: "0xd49d0a3331bd41005dd1a5e295e07bf4cec1359e201ba71fc5a1e541787328d9"
+  - chain: sui_mainnet
+    address: "0xab01c0cb01a3e50171b898eb2509f53ba2ba83ed844628f3d843b20e99783b58"
+  - chain: sui_mainnet
+    address: "0x8cc36eb225997a7e35661382b5ddfda35f91a7d732e04e22d203151a9e321d66"
+  - chain: sui_mainnet
+    address: "0x7f24e8b7935db7588bfd7035b4aa503c1f29ed71ce2b1dbd425b8ad1096b7463"
+  - chain: sui_mainnet
+    address: "0x57563b5040ac32ff1897a3c40fe9a0e987f40791289fce31ff7388805255076d"
+  - chain: sui_mainnet
+    address: "0xf538241fc4783dbf0eca4cf516fbc7ad5b910517e25d8e4ec7fb754eb9b0280c"
+  - chain: sui_mainnet
+    address: "0xd8528e2825b7354f5e4fd3bf89e3998e59f4cf92160d65bf491885677229def0"
+  - chain: sui_mainnet
+    address: "0x50be9b81baf7204130eea06bb1845d4a0beccbee98c03b5ec0b17a48302351bf"
+  - chain: sui_mainnet
+    address: "0xd5f6540d3d3fc7fd8ed64e862a21785932e84ee669fb2e7bbe5bd23fd6552827"
+  - chain: sui_mainnet
+    address: "0x53e47bac30d4f17fcb0d800de9fc7f0cc96f520531bb8fd7670e9c08f060ec61"
+  - chain: sui_mainnet
+    address: "0xd5b04240f6536c7b5276e96b057460a58ac8b1b66b2db03038f3d44bf1ea7cde"
+  - chain: sui_mainnet
+    address: "0x6665ad06bb0c47a00e3ce6da9c796f8061b9f8178095e421ce36e3f73345f24a"
+  - chain: sui_mainnet
+    address: "0xf8670497cc6403831fad47f8471cce467661c3e01833953d62fe86527bbe4474"
+  - chain: sui_mainnet
+    address: "0x0efca73a17c179aee1a5243c66c3f90101f61e9dd974e71b356ecdf0316ca626"
+  - chain: sui_mainnet
+    address: "0x9a0355aa800e975678ce812d4ee044f3faa8b48c70d877f90d3ba8d35566e6aa"
+  - chain: sui_mainnet
+    address: "0xff377a83375d63b9c8429362b5c2791bc69f0da861d3d963970ffeac2654d9d5"
+  - chain: sui_mainnet
+    address: "0x15fbfe8c27c920baaa1e4bd8bfe05c4408311612baf6493ed3285c6bd95a6939"
+  - chain: sui_mainnet
+    address: "0xcac7d10d73c3c32f6d40031c8639dfde168e6e1c0e4a86f8d23f21db60f97c94"
+  - chain: sui_mainnet
+    address: "0xe6ba97715edd0cfe6a8e40654b37c6f46a8a8af5b7fe2eefa3fd713243857993"

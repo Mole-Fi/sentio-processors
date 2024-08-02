@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "name": "mole-fee",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "sentio build",
+    "gen": "sentio gen",
+    "test": "sentio test",
+    "upload": "sentio upload",
+    "postinstall": "sentio gen"
+  },
+  "dependencies": {
+    "@sentio/sdk": "^2.38.0"
+  },
+  "devDependencies": {
+    "@sentio/cli": "^2.18.1",
+    "typescript": "^5.4.5"
+  }
+}
