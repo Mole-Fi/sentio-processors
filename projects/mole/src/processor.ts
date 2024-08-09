@@ -128,7 +128,7 @@ SuiWrappedObjectProcessor.bind({
 
         let coinInfo = await buildCoinInfo(ctx, coinType!)
         retry = 0
-        while (!coinInfo && retry < 300) {
+        while ((!coinInfo || coinInfo.symbol == "unk") && retry < 300) {
           await sleep(300);
           coinInfo = await buildCoinInfo(ctx, coinType!)
           retry++    
@@ -473,7 +473,7 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
 
       let coinInfoA = await buildCoinInfo(ctx, coinTypeA)
       let retry = 0
-      while (!coinInfoA && retry < 300) {
+      while ((!coinInfoA || coinInfoA.symbol == "unk") && retry < 300) {
         await sleep(300);
         coinInfoA = await buildCoinInfo(ctx, coinTypeA)
         retry++
@@ -487,7 +487,7 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
 
       let coinInfoB = await buildCoinInfo(ctx, coinTypeB)
       retry = 0
-      while (!coinInfoB && retry < 300) {
+      while ((!coinInfoB || coinInfoB.symbol == "unk") && retry < 300) {
         await sleep(300);
         coinInfoB = await buildCoinInfo(ctx, coinTypeB)
         retry++
@@ -643,7 +643,7 @@ SuiWrappedObjectProcessor.bind({
 
         let coinInfo = await buildCoinInfo(ctx, coinType!)
         retry = 0
-        while (!coinInfo && retry < 300) {
+        while ((!coinInfo || coinInfo.symbol == "unk") && retry < 300) {
           await sleep(300);
           coinInfo = await buildCoinInfo(ctx, coinType!)
           retry++    
