@@ -2,21 +2,6 @@ export const CLMM_MAINNET = "0x1eabed72c53feb3805120a081dc15963c204dc8d091542592
 export const INTEGRATE_MAINNET = "0x2eeaab737b37137b94bfa8f841f92e36a153641119da3456dec1926b9960d9be"
 export const LAUNCHPAD_MAINNET = "0x80d114c5d474eabc2eb2fcd1a0903f1eb5b5096a8dc4184d72453f7a9be728e4"
 
-export const POOLS_TVL_BLACK_LIST = [
-    //SUIBUG
-    "0xe012000c4ec53f00cceba0b5e0aeb0d95cd20fc4e31d94f545642e1d48a6fbc4",
-    "0x4223d29009e443245169f43d1e414c62aa8c7d32c2b781586bbfa96fa9b81ed0",
-    "0x14389bd28cd0c2ef13d54d6e56c66e1d1515ee18295d9bb8e5a921a22231ac1d",
-    "0x77494e55a148dc507d858fe6c3b7ff66d8b72a4b4df90d51f51b1f852338ea3e",
-    //MANAGED
-    "0x4855e5b90e0b3282a8c85c1ea1ba2c236ec8429f69f0c2058f710b1084782fe3",
-    //SUISHIB
-    "0x1a439f2d8f47f8f569110838fc6071e0ddfd6d7347414e7d632cd8c9f348fd94",
-    //BRT
-    "0xcde6ea498177a6605f85cfee9a50b3f5433eb773beaa310d083c6e6950b18fe5",
-    //BUCK-USDC 0.01%
-    "0xd4573bdd25c629127d54c5671d72a0754ef47767e6c01758d6dc651f57951e7d"
-]
 
 export const POOLS_MOLE_LIST = [
     // cetus_clmm_pool_usdc_sui
@@ -33,6 +18,16 @@ export const POOLS_MOLE_LIST = [
     "0x238f7e4648e62751de29c982cbf639b4225547c31db7bd866982d7d56fc2c7a8",
     // cetus_clmm_pool_cetus_sui: 
     "0x2e041f3fd93646dcc877f783c1f2b7fa62d30271bdef1f21ef002cebf857bded",
+    // cetus_clmm_pool_navx_sui:
+    "0x0254747f5ca059a1972cd7f6016485d51392a3fde608107b93bbaebea550f703",
+    // cetus_clmm_pool_navx_cetus: 
+    "0x3ec8401520022aac67935188eb1f82c13cbbc949ab04692e5b62445d89b61c9f",
+    // cetus_clmm_pool_sca_sui:
+    "0xaa72bd551b25715b8f9d72f226fa02526bdf2e085a86faec7184230c5209bb6e",
+    // cetus_clmm_pool_usdc_wbtc: 
+    "0xaa57c66ba6ee8f2219376659f727f2b13d49ead66435aa99f57bb008a64a8042",
+    // cetus_clmm_pool_buck_usdc: 
+    "0x81fe26939ed676dd766358a60445341a06cea407ca6f3671ef30f162c84126d5",
 ]
 
 
@@ -65,4 +60,24 @@ export const MOLE_WORKER_INFO_LIST = [
     "0xed1bc37595a30e98c984a1e2c4860babf3420bffd9f4333ffc6fa22f2f9099b8",
     // cetus_worker_sui_hasui_worker_info:
     "0xc792fa9679b2f73d8debad2963b4cdf629cf78edcab78e2b8c3661b91d7f6a45",
+    // cetus_worker_navx_sui_worker_info: 
+    "0x262272883f08b1979d27a76f699f1e5020146c1a30213548bf89ccef62d583e1",
+    // cetus_worker_sui_navx_worker_info: 
+    "0xbc8b30dd02b349ebf6ee6b5454430c8f2c41206e2067aab251578155c7c7dc7e",
+    // cetus_worker_navx_cetus_worker_info: 
+    "0x1f8890445e538586657b721ff94b80435296d98bb5a3b984e07d5d326d6dfb3d",
+    // cetus_worker_cetus_navx_worker_info:
+    "0x8eeaa512683fff54710fd3e2297b72ef0f6d0f2c52c63720eac791b74f1a47c6",
+    // cetus_worker_sca_sui_worker_info:
+    "0x9f3086aaa1f3790b06bb01c0077d0a709cdb234fbae13c70fa5fdeafacb119aa",
+    // cetus_worker_sui_sca_worker_info:
+    "0x7a41fbf19809f80fd1a7282b218ec8326dfaadc2ad20604d052c12d5076596b4",
+    // cetus_worker_usdc_wbtc_worker_info: 
+    "0xb0259f15a3c6e40883e85c559b09172c546dc439717347b936d9e1f1559ad53a",
+    // cetus_worker_wbtc_usdc_worker_info: 
+    "0x99d6a5dad2b4b840d28ea88cc8fb599f4eb54a897bd3573957c8fbefa8e252ac",
+    // cetus_worker_buck_usdc_worker_info: 
+    "0x1a8ad1068ab9bc5b94f2e3baa7a5eaac67e1337e2a47463fcfbc1b9ed26ef5ce",
+    // cetus_worker_usdc_buck_worker_info: 
+    "0xf7fc938356331d7404226c147328750cf2d8ef8a273ed8bc1450ee4e0ff0e659",
 ]
