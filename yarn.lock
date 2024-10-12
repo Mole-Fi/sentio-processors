@@ -1813,7 +1813,7 @@
     tsup "npm:@sentio/tsup@^6.7.2"
     tsx "^4.15.2"
 
-"@sentio/cli@^2.14.1", "@sentio/cli@^2.18.1":
+"@sentio/cli@^2.14.1":
   version "2.20.0"
   resolved "https://registry.npmmirror.com/@sentio/cli/-/cli-2.20.0.tgz"
   integrity sha512-qUDYwUm/ACtswWrxuka9+B5PAkn88nSxvH4vb7S3hnG8OZ729XZNO7VF85/r3/BzCYq1V5zzwHUtIzTglhuQYA==
@@ -1949,7 +1949,7 @@
     utility-types "^3.11.0"
     yaml "^2.3.4"
 
-"@sentio/sdk@^2.32.3", "@sentio/sdk@^2.38.0":
+"@sentio/sdk@^2.32.3":
   version "2.41.0"
   resolved "https://registry.npmmirror.com/@sentio/sdk/-/sdk-2.41.0.tgz"
   integrity sha512-WXNejsmJtpmEPmhJz3fs24RIthDVCJXZz60wKLHwn4YUWPfSi5vmI193wnWvkbz9SxcJFiWTixkyJUlKxusxAQ==

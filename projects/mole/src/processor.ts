@@ -29,13 +29,14 @@ import { cetus_clmm_worker as cetus_clmm_worker_usdc_buck  } from './types/sui/0
 
 import { pool } from './types/sui/0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb.js'
 import { getPriceByType, token } from "@sentio/sdk/utils"
-import { buildCoinInfo, getCoinAmountFromLiquidity, i32BitsToNumber, sleep, tickIndexToSqrtPriceX64} from './utils/mole_utils.js'
+import { buildCoinInfo, getCoinAmountFromLiquidity, getMTokenByToken, getPoolByToken, getPoolInfoByPoolId, getShareObjectByWorkerInfo, i32BitsToNumber, sleep, tickIndexToSqrtPriceX64} from './utils/mole_utils.js'
 import * as constant from './utils/constant.js'
 import * as helper from './utils/cetus-clmm.js'
 import { ANY_TYPE, BUILTIN_TYPES } from '@sentio/sdk/move'
 import { string_ } from "@sentio/sdk/sui/builtin/0x1";
 import BN from 'bn.js'
 import axiosInst from './utils/moleAxios.js'
+import { worker_config } from './types/sui/0x30e7109c6b3b813cd7af2c724183ffc6202958d1baf9744258870a4877d34370.js'
 
 
 const vaultWethConfigId  = "0x7fa4aa18fc4488947dc7528b5177c4475ec478c28014e77a31dc2318fa4f125e"
@@ -60,12 +61,16 @@ sui_incentive.bind({
         const pid = String(event.data_decoded.pid)
         const amount = Number(event.data_decoded.amount) / Math.pow(10, 9)
         const action_type = String(event.data_decoded.action_type)
-  
-        ctx.meter.Gauge("harvest_pid").record(amount, { action_type, pid, project: "mole" })
+        const poolInfo = getPoolInfoByPoolId(pid)
+
+        ctx.meter.Gauge("harvest_pid").record(amount, { action_type, pid, pool_address: poolInfo![0], underlying_token_address: poolInfo![1], project: "mole" })
+
   
         ctx.eventLogger.emit("HarvestEvent", {
           distinctId: user,
           pid: pid,
+          pool_address: poolInfo![0],
+          underlying_token_address: poolInfo![1],
           amount: amount,
           action_type: action_type,
           project: "mole"
@@ -154,18 +159,25 @@ SuiWrappedObjectProcessor.bind({
             throw new Error("getPriceByType error")
           }   
         }
+        const pool = getPoolByToken(coinType)!
 
         const savings_debt_usd = savings_debt * price! 
 
         //@ts-ignore
-        ctx.meter.Gauge("savings_debt_usd").record(savings_debt_usd, { coin_symbol, project: "mole" })
+        ctx.meter.Gauge("savings_debt_amount").record(savings_debt, { coin_symbol, pool_address: pool, underlying_token_address: coinType, project: "mole" })
+
+        //@ts-ignore
+        ctx.meter.Gauge("savings_debt_usd").record(savings_debt_usd, { coin_symbol, pool_address: pool, underlying_token_address: coinType, project: "mole" })
 
         // savings_free_coin = deposit - debt
         //@ts-ignore
         const savings_free_coin = Number(field.value.coin) / Math.pow(10, coinInfo.decimal)
         const savings_free_coin_usd = savings_free_coin * price! 
-        ctx.meter.Gauge("savings_free_coin_usd").record(savings_free_coin_usd, { coin_symbol, project: "mole" })
 
+        ctx.meter.Gauge("savings_free_coin_amount").record(savings_free_coin, { coin_symbol, pool_address: pool, underlying_token_address: coinType, project: "mole" })
+        ctx.meter.Gauge("savings_free_coin_usd").record(savings_free_coin_usd, { coin_symbol, pool_address: pool, underlying_token_address: coinType, project: "mole" })
+
+        console.log("savings_debt:", savings_debt, ", savings_free_coin:", savings_free_coin, ",coin_symbol:", coin_symbol)
         console.log("savings_debt_usd:", savings_debt_usd, ", savings_free_coin_usd:", savings_free_coin_usd, ",coin_symbol:", coin_symbol)
 
         const use_rate = savings_debt / (savings_debt + savings_free_coin)
@@ -913,185 +925,481 @@ SuiWrappedObjectProcessor.bind({
 
 
 
-// vault.bind({ 
-//   address: '0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f',
-//   network: SuiNetwork.MAIN_NET,
-//   // startCheckpoint: 4000000n
-//   startCheckpoint: 11763619n
-// })
-//   .onEventDepositEvent(
-//     async (event, ctx) => {
-//       const coinType = event.type_arguments[0]
+vault.bind({ 
+  // old vault address
+  address: '0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f',
+  network: SuiNetwork.MAIN_NET,
+  startCheckpoint: 4073066n
+})
+  .onEventDepositEvent(
+    async (event, ctx) => {
+      // if newer than this , should use upgraded address
+      if (ctx.checkpoint > 34608243) {
+        return
+      }
 
-//       const coinInfo = await buildCoinInfo(ctx, coinType)
-//       const coin_symbol = coinInfo.symbol
+      const coinType = event.type_arguments[0]
 
-//       const amount = Number(event.data_decoded.amount) / Math.pow(10, coinInfo.decimal)
-//       const share = Number(event.data_decoded.share) / Math.pow(10, coinInfo.decimal)
+      const coinInfo = await buildCoinInfo(ctx, coinType)
+      const coin_symbol = coinInfo.symbol
+
+      const amount = Number(event.data_decoded.amount) / Math.pow(10, coinInfo.decimal)
+      const share = Number(event.data_decoded.share) / Math.pow(10, coinInfo.decimal)
       
-//       const price = await getPriceByType(SuiNetwork.MAIN_NET, coinType, ctx.timestamp)
-//       const amount_usd = amount * price!
+      const price = await getPriceByType(SuiNetwork.MAIN_NET, coinType, ctx.timestamp)
+      const amount_usd = amount * price!
 
-//       ctx.meter.Counter("vault_deposit_amount_usd").add(amount_usd, { coin_symbol,  project: "mole" })
-//       ctx.meter.Counter("vault_deposit_counter").add(1, { coin_symbol,  project: "mole" })
+      const pool = getPoolByToken(coinType)!
+      const mTokenInfo = getMTokenByToken(coinType)!
 
-//       ctx.eventLogger.emit("VaultDepositEvent", {
-//         distinctId: event.sender,
-//         amount: amount,
-//         amount_usd: amount_usd,
-//         share: share,
-//         project: "mole"
-//       })
-//     },
-//   )
+      ctx.meter.Counter("supplied_amount").add(amount_usd, { pool_address: pool, underlying_token_address: coinType, underlying_token_symbol: coin_symbol, 
+        supplier_address: event.sender, collateral_amount: "NA", collateral_amount_usd: "NA", project: "mole" })
 
-//   .onEventWithdrawEvent(
-//     async (event, ctx) => {
-//       const coinType = event.type_arguments[0]
+      ctx.meter.Counter("supplied_usd").add(amount, {pool_address: pool, underlying_token_address: coinType, underlying_token_symbol: coin_symbol, 
+        supplier_address: event.sender, collateral_amount: "NA", collateral_amount_usd: "NA", project: "mole" })
 
-//       const coinInfo = await buildCoinInfo(ctx, coinType)
-//       const coin_symbol = coinInfo.symbol
+      ctx.eventLogger.emit("Lending_List_of_Suppliers_Deposit", {
+        pool_address: pool,
+        underlying_token_address: coinType,
+        underlying_token_symbol: coin_symbol,
+        supplier_address: event.sender,
+        supplied_amount: amount,
+        supplied_usd: amount_usd,
+        collateral_amount: "NA",
+        collateral_amount_usd: "NA",
+        project: "mole"
+      })
 
-//       const amount = Number(event.data_decoded.amount) / Math.pow(10, coinInfo.decimal)
-//       const share = Number(event.data_decoded.share) / Math.pow(10, coinInfo.decimal)
+      ctx.eventLogger.emit("Lending_List_of_Pool", {
+        underlying_token_address: coinType,
+        underlying_token_symbol: coin_symbol,
+        receipt_token_address: mTokenInfo[0],
+        receipt_token_symbol: mTokenInfo[1],
+        pool_address: pool,
+        pool_type: "MoleSavingsPool",
+        project: "mole"
+      })
+
+
+    },
+  )
+
+  .onEventWithdrawEvent(
+    async (event, ctx) => {
+      // if newer than this , should use upgraded address
+      if (ctx.checkpoint > 34608243n) {
+        return
+      }
+
+      const coinType = event.type_arguments[0]
+
+      const coinInfo = await buildCoinInfo(ctx, coinType)
+      const coin_symbol = coinInfo.symbol
+
+      const amount = Number(event.data_decoded.amount) / Math.pow(10, coinInfo.decimal)
+      const share = Number(event.data_decoded.share) / Math.pow(10, coinInfo.decimal)
       
-//       const price = await getPriceByType(SuiNetwork.MAIN_NET, coinType, ctx.timestamp)
-//       const amount_usd = amount * price!
+      const price = await getPriceByType(SuiNetwork.MAIN_NET, coinType, ctx.timestamp)
+      const amount_usd = amount * price!
 
-//       ctx.meter.Counter("vault_withdraw_amount_usd").add(amount_usd, { coin_symbol,  project: "mole" })
-//       ctx.meter.Counter("vault_withdraw_counter").add(1, { coin_symbol,  project: "mole" })
+      const pool = getPoolByToken(coinType)!
 
-//       ctx.eventLogger.emit("VaultWithdrawEvent", {
-//         distinctId: event.sender,
-//         amount: amount,
-//         amount_usd: amount_usd,
-//         share: share,
-//         project: "mole"
-//       })
-//     },
-//   )
+      ctx.meter.Counter("supplied_amount").sub(amount_usd, {pool_address: pool, underlying_token_address: coinType, underlying_token_symbol: coin_symbol, 
+        supplier_address: event.sender, collateral_amount: "NA", collateral_amount_usd: "NA", project: "mole" })
 
-  // .onEventAddDebtEvent(
-  //   async (event, ctx) => {
-  //     const coinType = event.type_arguments[0]
+      ctx.meter.Counter("supplied_usd").sub(amount, {pool_address: pool, underlying_token_address: coinType, underlying_token_symbol: coin_symbol, 
+        supplier_address: event.sender, collateral_amount: "NA", collateral_amount_usd: "NA", project: "mole" })
 
-  //     const coinInfo = await buildCoinInfo(ctx, coinType)
-  //     const coin_symbol = coinInfo.symbol
+      ctx.eventLogger.emit("Lending_List_of_Suppliers_Withdraw", {
+        pool_address: pool,
+        underlying_token_address: coinType,
+        underlying_token_symbol: coin_symbol,
+        supplier_address: event.sender,
+        supplied_amount: amount,
+        supplied_usd: amount_usd,
+        collateral_amount: "NA",
+        collateral_amount_usd: "NA",
+        project: "mole"
+      })
+    },
+  )
 
-  //     const debt_share = Number(event.data_decoded.debt_share) / Math.pow(10, coinInfo.decimal)
-      
-  //     const price = await getPriceByType(SuiNetwork.MAIN_NET, coinType, ctx.timestamp)
-  //     const debt_share_usd = debt_share * price!
-
-  //     ctx.meter.Counter("vault_add_debt_share_usd").add(debt_share_usd, { coin_symbol,  project: "mole" })
-
-  //     ctx.eventLogger.emit("VaultAddDebtEvent", {
-  //       distinctId: event.sender,
-  //       debt_share: debt_share,
-  //       debt_share_usd: debt_share_usd,
-  //       project: "mole"
-  //     })
-  //   },
-  // )
   
-//   .onEventRemoveDebtEvent(
-//     async (event, ctx) => {
-//       const coinType = event.type_arguments[0]
 
-//       const coinInfo = await buildCoinInfo(ctx, coinType)
-//       const coin_symbol = coinInfo.symbol
 
-//       const debt_share = Number(event.data_decoded.debt_share) / Math.pow(10, coinInfo.decimal)
+  vault.bind({ 
+    // upgraded vault address
+    address: '0x78bf4657eba8b390474715d51dcee7513593cb9db349071653d1f0a6d2c3b294',
+    network: SuiNetwork.MAIN_NET,
+    startCheckpoint: 34608243n
+  })
+  .onEventDepositEvent(
+    async (event, ctx) => {
+      const coinType = event.type_arguments[0]
+
+      const coinInfo = await buildCoinInfo(ctx, coinType)
+      const coin_symbol = coinInfo.symbol
+
+      const amount = Number(event.data_decoded.amount) / Math.pow(10, coinInfo.decimal)
+      const share = Number(event.data_decoded.share) / Math.pow(10, coinInfo.decimal)
       
-//       const price = await getPriceByType(SuiNetwork.MAIN_NET, coinType, ctx.timestamp)
-//       const debt_share_usd = debt_share * price!
+      const price = await getPriceByType(SuiNetwork.MAIN_NET, coinType, ctx.timestamp)
+      const amount_usd = amount * price!
 
-//       ctx.meter.Counter("vault_remove_debt_share_usd").add(debt_share_usd, {coin_symbol,  project: "mole" })
+      const pool = getPoolByToken(coinType)!
 
-//       ctx.eventLogger.emit("VaultRemoveDebtEvent", {
-//         distinctId: event.sender,
-//         debt_share: debt_share,
-//         debt_share_usd: debt_share_usd,
-//         project: "mole"
-//       })
+      ctx.meter.Counter("supplied_amount").add(amount_usd, { pool_address: pool, underlying_token_address: coinType, underlying_token_symbol: coin_symbol, 
+        supplier_address: event.sender, collateral_amount: "NA", collateral_amount_usd: "NA", project: "mole" })
 
-//     },
-//   )
+      ctx.meter.Counter("supplied_usd").add(amount, {pool_address: pool, underlying_token_address: coinType, underlying_token_symbol: coin_symbol, 
+        supplier_address: event.sender, collateral_amount: "NA", collateral_amount_usd: "NA", project: "mole" })
+
+      ctx.eventLogger.emit("Lending_List_of_Suppliers_Deposit", {
+        pool_address: pool,
+        underlying_token_address: coinType,
+        underlying_token_symbol: coin_symbol,
+        supplier_address: event.sender,
+        supplied_amount: amount,
+        supplied_usd: amount_usd,
+        collateral_amount: "NA",
+        collateral_amount_usd: "NA",
+        project: "mole"
+      })
+    },
+  )
+
+  .onEventWithdrawEvent(
+    async (event, ctx) => {
+      const coinType = event.type_arguments[0]
+
+      const coinInfo = await buildCoinInfo(ctx, coinType)
+      const coin_symbol = coinInfo.symbol
+
+      const amount = Number(event.data_decoded.amount) / Math.pow(10, coinInfo.decimal)
+      const share = Number(event.data_decoded.share) / Math.pow(10, coinInfo.decimal)
+      
+      const price = await getPriceByType(SuiNetwork.MAIN_NET, coinType, ctx.timestamp)
+      const amount_usd = amount * price!
+
+      const pool = getPoolByToken(coinType)!
+
+      ctx.meter.Counter("supplied_amount").sub(amount_usd, {pool_address: pool, underlying_token_address: coinType, underlying_token_symbol: coin_symbol, 
+        supplier_address: event.sender, collateral_amount: "NA", collateral_amount_usd: "NA", project: "mole" })
+
+      ctx.meter.Counter("supplied_usd").sub(amount, {pool_address: pool, underlying_token_address: coinType, underlying_token_symbol: coin_symbol, 
+        supplier_address: event.sender, collateral_amount: "NA", collateral_amount_usd: "NA", project: "mole" })
+
+      ctx.eventLogger.emit("Lending_List_of_Suppliers_Withdraw", {
+        pool_address: pool,
+        underlying_token_address: coinType,
+        underlying_token_symbol: coin_symbol,
+        supplier_address: event.sender,
+        supplied_amount: amount,
+        supplied_usd: amount_usd,
+        collateral_amount: "NA",
+        collateral_amount_usd: "NA",
+        project: "mole"
+      })
+    },
+  )
+
+
+
+
+
+// key: workerInfoAddr,  value: sharesMap
+let workerInfoSharesMap = new Map<string, Map<string, string>>()
+
+   
+for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
+  let sharesMap = new Map()
+  const workerInfoAddr = constant.MOLE_WORKER_INFO_LIST[i]
+  let sharesObjectId = getShareObjectByWorkerInfo(workerInfoAddr)
+
+  SuiWrappedObjectProcessor.bind({
+    objectId: String(sharesObjectId),
+    network: SuiNetwork.MAIN_NET,
+    startCheckpoint: 34608243n
+  })
+    .onTimeInterval(async (dynamicFieldObjects, ctx) => {
+      try {
+        for (let i = 0; i < dynamicFieldObjects.length; i++){
+          const fields = dynamicFieldObjects[i].fields
+
+          //@ts-ignore
+          sharesMap.set(fields.name, fields.value)
+         
+          //@ts-ignore
+          console.log(`Set sharesMap key: ${fields.name}, value: ${JSON.stringify(fields.value)}`)
+        }
+        
+        for (let [key, value] of sharesMap) {
+          console.log(`sharesMap key: ${key}, value: ${value}`)
+        }
+
+        workerInfoSharesMap.set(workerInfoAddr, sharesMap)
+              
+        console.log(`Set workerInfoSharesMap key: ${workerInfoAddr}, value: ${JSON.stringify(sharesMap)}`)
+
+      }
+      catch (e) {
+        console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
+      }
+    }, 60, 240, undefined, { owned: true })
+  }
+
   
-//   .onEventWorkEvent(
-//     async (event, ctx) => {
-//       const coinType = event.type_arguments[0]
 
-//       const coinInfo = await buildCoinInfo(ctx, coinType)
-//       const coin_symbol = coinInfo.symbol
 
-//       const loan = Number(event.data_decoded.loan) / Math.pow(10, coinInfo.decimal)
-//       const price = await getPriceByType(SuiNetwork.MAIN_NET, coinType, ctx.timestamp)
-//       const loan_usd = loan * price!
-
-//       ctx.meter.Counter("work_loan_usd").add(loan_usd, { coin_symbol,  project: "mole" })
-//       ctx.meter.Counter("work_counter").add(1, { coin_symbol,  project: "mole" })
-
-//       ctx.eventLogger.emit("VaultWorkerEvent", {
-//         distinctId: event.sender,
-//         loan: loan,
-//         loan_usd: loan_usd,
-//         project: "mole"
-//       })
-
-//     },
-//   )
-
-//   .onEventKillEvent(
-//     async (event, ctx) => {
-//       const coinType = event.type_arguments[0]
-
-//       const coinInfo = await buildCoinInfo(ctx, coinType)
-//       const coin_symbol = coinInfo.symbol
-//       const price = await getPriceByType(SuiNetwork.MAIN_NET, coinType, ctx.timestamp)
-      
-//       const debt = Number(event.data_decoded.debt) / Math.pow(10, coinInfo.decimal)
-
-//       const posVal = Number(event.data_decoded.posVal) / Math.pow(10, coinInfo.decimal)
-//       const posVal_usd = posVal * price!
-
-//       const prize = Number(event.data_decoded.prize) / Math.pow(10, coinInfo.decimal)
-      
-//       ctx.meter.Counter("kill_posVal_usd").add(posVal_usd, { coin_symbol,  project: "mole" })
-//       ctx.meter.Counter("kill_counter").add(1, { coin_symbol,  project: "mole" })
-
-//       ctx.eventLogger.emit("VaultKillEvent", {
-//         distinctId: event.sender,
-//         debt: debt,
-//         posVal: posVal,
-//         posVal_usd: posVal_usd,
-//         prize: prize,
-//         project: "mole"
-//       })
-//     },
-//   )
   
-//   .onEventAddCollateralEvent(
-//     async (event, ctx) => {
-//       const coinType = event.type_arguments[0]
+// Worker info    
+for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
+  const workerInfoAddr = constant.MOLE_WORKER_INFO_LIST[i]
 
-//       const coinInfo = await buildCoinInfo(ctx, coinType)
-//       const coin_symbol = coinInfo.symbol
-//       const price = await getPriceByType(SuiNetwork.MAIN_NET, coinType, ctx.timestamp)
+  SuiObjectProcessor.bind({
+    objectId: workerInfoAddr,
+    network: SuiNetwork.MAIN_NET,
+    // startCheckpoint: 11763619n
+    startCheckpoint: 34608243n
+  })
+  .onTimeInterval(async (self, _, ctx) => {
+    // console.log("ctx.objectId:" , ctx.objectId, ", slef:",JSON.stringify(self))
 
-//       const amount = Number(event.data_decoded.amount) / Math.pow(10, coinInfo.decimal)
-//       const amount_usd = amount * price!
+    
+    try {
+      let res, workerAddr
+      if (workerInfoAddr == "0x98f354c9e166862f079aaadd5e85940c55c440a8461e8e468513e2a86106042c") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_sui.WorkerInfo.type())
+        workerAddr = "0x334bed7f6426c1a3710ef7f4d66b1225df74146372b40a64e9d0cbfc76d76e67"
+      } else if (workerInfoAddr == "0x3d946af3a3c0bec5f232541accf2108b97326734e626f704dda1dfb7450deb4c") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_usdc.WorkerInfo.type())
+        workerAddr = "0x1454bd0be3db3c4be862104bde964913182de6d380aea24b88320505baba5e46"
+      } else if (workerInfoAddr == "0x3f99d841487141e46602424b1b4125751a2df29a23b65f6c56786f3679f2c2c1") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdt_usdc.WorkerInfo.type())
+        workerAddr = "0x9cb48aa1b41a1183ecdabde578e640e05a08170f8ca165b743ffded0b1256391"
+      } else if (workerInfoAddr == "0xc28878cfc99628743b13eebca9bdff703daeccb285f8c6ea48120b06f4079926") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_usdt.WorkerInfo.type())
+        workerAddr = "0x960ab11d560f05f0ec260c7ac87074b569334713594aa02580642e029fd9dd86"
+      } else if (workerInfoAddr == "0xbeb69ca36f0ab6cb87247a366f50aab851180332216730e63e983ca0e617f326") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_weth_usdc.WorkerInfo.type())
+        workerAddr = "0xb7a0d251a9f307b80b1595c87622118e401dc613591b3435786bb7c147599dae"
+      } else if (workerInfoAddr == "0x1774ca4f9e37f37c6b0df9c7f9526adc67113532eb4eaa07f36942092c8e5f51") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_weth.WorkerInfo.type())
+        workerAddr = "0xd49d0a3331bd41005dd1a5e295e07bf4cec1359e201ba71fc5a1e541787328d9"
+      } else if (workerInfoAddr == "0x9a510e18c37df3d9ddfe0b2d6673582f702bf281116a4ee334f7ef3edfa2b9ab") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdt_sui.WorkerInfo.type())
+        workerAddr = "0xab01c0cb01a3e50171b898eb2509f53ba2ba83ed844628f3d843b20e99783b58"
+      } else if (workerInfoAddr == "0xcd00ff33e9a71ea807f41641d515449263a905a850a4fd9c4ce03203c0f954b5") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_usdt.WorkerInfo.type())
+        workerAddr = "0x8cc36eb225997a7e35661382b5ddfda35f91a7d732e04e22d203151a9e321d66"
+      } else if (workerInfoAddr == "0x83d7639b08ffc1408f4383352a2070b2f58328caa7fbbdfa42ec5f3cf4694a5d") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_cetus.WorkerInfo.type())
+        workerAddr = "0x7f24e8b7935db7588bfd7035b4aa503c1f29ed71ce2b1dbd425b8ad1096b7463"
+      } else if (workerInfoAddr == "0xb690a7107f198c538fac2d40418d1708e08b886c8dfbe86c585412bea18cadcb") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_cetus_sui.WorkerInfo.type())
+        workerAddr = "0x57563b5040ac32ff1897a3c40fe9a0e987f40791289fce31ff7388805255076d"
+      } else if (workerInfoAddr == "0x88af306756ce514c6a70b378336489f8773ed48f8880d3171a60c2ecb8e7a5ec") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_cetus_usdc.WorkerInfo.type())
+        workerAddr = "0xf538241fc4783dbf0eca4cf516fbc7ad5b910517e25d8e4ec7fb754eb9b0280c"
+      } else if (workerInfoAddr == "0xd093219b4b2be6c44461f1bb32a70b81c496bc14655e7e81d2687f3d77d085da") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_cetus.WorkerInfo.type())
+        workerAddr = "0xd8528e2825b7354f5e4fd3bf89e3998e59f4cf92160d65bf491885677229def0"
+      } else if (workerInfoAddr == "0xed1bc37595a30e98c984a1e2c4860babf3420bffd9f4333ffc6fa22f2f9099b8") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_hasui_sui.WorkerInfo.type())
+        workerAddr = "0x50be9b81baf7204130eea06bb1845d4a0beccbee98c03b5ec0b17a48302351bf"
+      } else if (workerInfoAddr == "0xc792fa9679b2f73d8debad2963b4cdf629cf78edcab78e2b8c3661b91d7f6a45") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_hasui.WorkerInfo.type())
+        workerAddr = "0xd5f6540d3d3fc7fd8ed64e862a21785932e84ee669fb2e7bbe5bd23fd6552827"
+      } else if (workerInfoAddr == "0x262272883f08b1979d27a76f699f1e5020146c1a30213548bf89ccef62d583e1") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_navx_sui.WorkerInfo.type())
+        workerAddr = "0x53e47bac30d4f17fcb0d800de9fc7f0cc96f520531bb8fd7670e9c08f060ec61"
+      } else if (workerInfoAddr == "0xbc8b30dd02b349ebf6ee6b5454430c8f2c41206e2067aab251578155c7c7dc7e") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_navx.WorkerInfo.type())
+        workerAddr = "0xd5b04240f6536c7b5276e96b057460a58ac8b1b66b2db03038f3d44bf1ea7cde"
+      } else if (workerInfoAddr == "0x1f8890445e538586657b721ff94b80435296d98bb5a3b984e07d5d326d6dfb3d") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_navx_cetus.WorkerInfo.type())
+        workerAddr = "0x6665ad06bb0c47a00e3ce6da9c796f8061b9f8178095e421ce36e3f73345f24a"
+      } else if (workerInfoAddr == "0x8eeaa512683fff54710fd3e2297b72ef0f6d0f2c52c63720eac791b74f1a47c6") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_cetus_navx.WorkerInfo.type())
+        workerAddr = "0xf8670497cc6403831fad47f8471cce467661c3e01833953d62fe86527bbe4474"
+      } else if (workerInfoAddr == "0x9f3086aaa1f3790b06bb01c0077d0a709cdb234fbae13c70fa5fdeafacb119aa") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_sca_sui.WorkerInfo.type())
+        workerAddr = "0x0efca73a17c179aee1a5243c66c3f90101f61e9dd974e71b356ecdf0316ca626"
+      } else if (workerInfoAddr == "0x7a41fbf19809f80fd1a7282b218ec8326dfaadc2ad20604d052c12d5076596b4") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_sca.WorkerInfo.type())
+        workerAddr = "0x9a0355aa800e975678ce812d4ee044f3faa8b48c70d877f90d3ba8d35566e6aa"
+      } else if (workerInfoAddr == "0xb0259f15a3c6e40883e85c559b09172c546dc439717347b936d9e1f1559ad53a") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_wbtc.WorkerInfo.type())
+        workerAddr = "0xff377a83375d63b9c8429362b5c2791bc69f0da861d3d963970ffeac2654d9d5"
+      } else if (workerInfoAddr == "0x99d6a5dad2b4b840d28ea88cc8fb599f4eb54a897bd3573957c8fbefa8e252ac") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_wbtc_usdc.WorkerInfo.type())
+        workerAddr = "0x15fbfe8c27c920baaa1e4bd8bfe05c4408311612baf6493ed3285c6bd95a6939"
+      } else if (workerInfoAddr == "0x1a8ad1068ab9bc5b94f2e3baa7a5eaac67e1337e2a47463fcfbc1b9ed26ef5ce") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_buck_usdc.WorkerInfo.type())
+        workerAddr = "0xcac7d10d73c3c32f6d40031c8639dfde168e6e1c0e4a86f8d23f21db60f97c94"
+      } else if (workerInfoAddr == "0xf7fc938356331d7404226c147328750cf2d8ef8a273ed8bc1450ee4e0ff0e659") {
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_buck.WorkerInfo.type())
+        workerAddr = "0xe6ba97715edd0cfe6a8e40654b37c6f46a8a8af5b7fe2eefa3fd713243857993"
+      } else {
+        console.error("Not support workerInfoAddr:", workerInfoAddr)
+      } 
+      
+      // console.log("ctx.objectId:" , ctx.objectId, ",res : ", JSON.stringify(res))
 
-//       ctx.meter.Counter("add_collateral_amount_usd").add(amount_usd, { coin_symbol,  project: "mole" })
+      //@ts-ignore
+      const totalLiquidity = Number(res!.position_nft.liquidity)
+      //@ts-ignore
+      const tickLowerIndex = i32BitsToNumber((res!.position_nft.tick_lower_index.bits).toString())
+      //@ts-ignore
+      const tickUpperIndex = i32BitsToNumber((res!.position_nft.tick_upper_index.bits).toString())
+      //@ts-ignore
+      const poolId = res!.position_nft.pool
+      //@ts-ignore
+      const coinTypeA = '0x' + res!.position_nft.coin_type_a.name
+      //@ts-ignore
+      const coinTypeB = '0x' + res!.position_nft.coin_type_b.name
+     
+      let coinInfoA = await buildCoinInfo(ctx, coinTypeA)
+      let retry = 0
+      while ((!coinInfoA || coinInfoA.symbol == "unk") && retry < 300) {
+        await sleep(300);
+        coinInfoA = await buildCoinInfo(ctx, coinTypeA)
+        retry++
 
-//       ctx.meter.Counter("add_collateral_counter").add(1, { coin_symbol,  project: "mole" })
+        if (retry == 299) {
+          throw new Error("buildCoinInfo coinInfoA")
+        }
+      }
 
-//       ctx.eventLogger.emit("VaultAddCollateralEvent", {
-//         distinctId: event.sender,
-//         amount: amount,
-//         amount_usd: amount_usd,
-//         project: "mole"
-//       })
-//     },
-//   )
+      const coin_symbol_a = coinInfoA.symbol
+
+      let coinInfoB = await buildCoinInfo(ctx, coinTypeB)
+      retry = 0
+      while ((!coinInfoB || coinInfoB.symbol == "unk") && retry < 300) {
+        await sleep(300);
+        coinInfoB = await buildCoinInfo(ctx, coinTypeB)
+        retry++
+
+        if (retry == 299) {
+          throw new Error("buildCoinInfo coinInfoB")
+        }
+      }
+      const coin_symbol_b = coinInfoB.symbol
+
+      let currentSqrtPrice
+      if (coin_symbol_a == "USDC" && coin_symbol_b == "SUI") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceUsdcSui
+      } else if (coin_symbol_a == "USDT" && coin_symbol_b == "USDC") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceUsdtUsdc
+      } else if (coin_symbol_a == "WETH" && coin_symbol_b == "USDC") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceWethUsdc
+      } else if (coin_symbol_a == "USDT" && coin_symbol_b == "SUI") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceUsdtSui
+      } else if (coin_symbol_a == "haSUI" && coin_symbol_b == "SUI") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceHasuiSui
+      } else if (coin_symbol_a == "USDC" && coin_symbol_b == "CETUS") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceUsdcCetus
+      } else if (coin_symbol_a == "CETUS" && coin_symbol_b == "SUI") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceCetusSui
+      } else if (coin_symbol_a == "NAVX" && coin_symbol_b == "SUI") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceNavxSui
+      } else if (coin_symbol_a == "NAVX" && coin_symbol_b == "CETUS") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceNavxCetus
+      } else if (coin_symbol_a == "SCA" && coin_symbol_b == "SUI") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceScaSui
+      } else if (coin_symbol_a == "WETH" && coin_symbol_b == "CETUS") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceWethCetus
+      } else if (coin_symbol_a == "USDT" && coin_symbol_b == "CETUS") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceUsdtCetus
+      } else if (coin_symbol_a == "USDC" && coin_symbol_b == "WBTC") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceUsdcWbtc
+      } else if (coin_symbol_a == "BUCK" && coin_symbol_b == "USDC") {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceBuckUsdc
+      } else {
+        console.error("Has not price : coin_symbol_a:", coin_symbol_a, ",coin_symbol_b:",coin_symbol_b )
+      }
+
+      if (!currentSqrtPrice) {
+        console.error("gCurrentSqrtPrice is undefined")
+        return
+      }
+      
+      // console.log("liquidity:", liquidity, ",tickLowerIndex:", tickLowerIndex, ",tickUpperIndex:", tickUpperIndex, ",poolId:", poolId, ",coinTypeA:", coinTypeA,
+      //  ",coinTypeB:", coinTypeB, ",currentSqrtPrice:", currentSqrtPrice)
+
+      const lowerSqrtPriceX64 = tickIndexToSqrtPriceX64(tickLowerIndex)
+
+      // console.log("lowerSqrtPriceX64:", lowerSqrtPriceX64.toString())
+
+      const upperSqrtPriceX64 = tickIndexToSqrtPriceX64(tickUpperIndex)
+      // console.log("upperSqrtPriceX64:", upperSqrtPriceX64.toString())
+
+
+      const coinAmounts = getCoinAmountFromLiquidity(new BN(totalLiquidity.toString()), new BN(currentSqrtPrice.toString()), lowerSqrtPriceX64, upperSqrtPriceX64, false)
+
+      const coinAamount = coinAmounts.coinA
+      const coinBamount = coinAmounts.coinB
+      // console.log("coinAamount:", coinAamount.toString(), ", coinBamount:", coinBamount.toString())
+
+      const priceA = await getPriceByType(SuiNetwork.MAIN_NET, coinTypeA, ctx.timestamp)
+      const priceB = await getPriceByType(SuiNetwork.MAIN_NET, coinTypeB, ctx.timestamp)
+
+      const lyf_usd_farm_usd = Number(coinAamount) * priceA! / Math.pow(10, coinInfoA.decimal) + Number(coinBamount) * priceB! / Math.pow(10, coinInfoB.decimal)
+
+      // console.log("lyf_usd_farm_usd:", lyf_usd_farm_usd)
+
+      const farmPairName = coin_symbol_a + '-' + coin_symbol_b
+
+      ctx.meter.Gauge("lyf_usd_farm_usd").record(lyf_usd_farm_usd, {farmPairName , project: "mole" })
+    
+      const total_share = Number(res!.total_share)
+      console.log("total_share:", total_share)
+
+      const sharesMap = workerInfoSharesMap.get(workerInfoAddr)!
+     
+      for (let [key, value] of sharesMap) {
+        const positionId = key
+        const share = Number(value)
+
+        const shareRatio = share / total_share
+        console.log("shareRatio:", shareRatio)
+
+        const lyf_usd_farm_user_usd = lyf_usd_farm_usd * shareRatio
+
+        // let uid = ""
+        // const positionMap = workerAddrUserMap.get(workerAddr)
+        // if (positionMap) {
+        //   uid = positionMap.get(positionId)!
+        //   console.log("get theuid right:", uid)
+        // } else {
+        //   console.log("get nouid ", ", workerAddr:", workerAddr,  ", positionMap:", positionMap)
+        // }
+
+        ctx.meter.Gauge("lyf_usd_farm_user_usd").record(lyf_usd_farm_user_usd, {farmPairName, positionId, project: "mole" })
+        console.log("lyf_usd_farm_user_usd:", lyf_usd_farm_user_usd, ", farmPairName:", farmPairName, ", positionId:", positionId )
+      }
+    
+    }
+    catch (e) {
+      console.log(`${e.message} error at ${JSON.stringify(self)}`)
+    }
+  }, 60, 240, undefined, { owned: false })
+}
+  
+
+
 

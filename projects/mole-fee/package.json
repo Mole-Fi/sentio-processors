@@ -11,10 +11,9 @@
     "postinstall": "sentio gen"
   },
   "dependencies": {
-    "@sentio/sdk": "^2.38.0"
+    "decimal.js": "^10.4.3"
   },
   "devDependencies": {
-    "@sentio/cli": "^2.18.1",
-    "typescript": "^5.4.5"
+    "@types/jest": "^29.5.12"
   }
 }
