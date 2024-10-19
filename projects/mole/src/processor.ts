@@ -72,40 +72,41 @@ const coinAddrWBTC  = "0x027792d9fed7f9844eb4839566001bb6f6cb4804f66aa2da6fe1ee2
 const coinAddrBUCK  = "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK"
 const coinAddrUSDC  = "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC"
 
-sui_incentive.bind({ 
-    address: '0xc4dc6948a7d0a58f32fadd44e45efb201f44383bfab1cb6c48b9c186a92cc762',
-    network: SuiNetwork.MAIN_NET,
-    startCheckpoint: 32697300n
-  })
-    .onEventHarvestEvent(
-      async (event, ctx) => {
-        const user = event.data_decoded.user
-        const pid = String(event.data_decoded.pid)
-        const amount = Number(event.data_decoded.amount) / Math.pow(10, 9)
-        const action_type = String(event.data_decoded.action_type)
-        const poolInfo = getPoolInfoByPoolId(pid)
+// sui_incentive.bind({ 
+//     address: '0xc4dc6948a7d0a58f32fadd44e45efb201f44383bfab1cb6c48b9c186a92cc762',
+//     network: SuiNetwork.MAIN_NET,
+//     startCheckpoint: 32697300n
+//   })
+//     .onEventHarvestEvent(
+//       async (event, ctx) => {
+//         const user = event.data_decoded.user
+//         const pid = String(event.data_decoded.pid)
+//         const amount = Number(event.data_decoded.amount) / Math.pow(10, 9)
+//         const action_type = String(event.data_decoded.action_type)
+//         const poolInfo = getPoolInfoByPoolId(pid)
 
-        ctx.meter.Gauge("harvest_pid").record(amount, { action_type, pid, pool_address: poolInfo![0], underlying_token_address: poolInfo![1], project: "mole" })
+//         ctx.meter.Gauge("harvest_pid").record(amount, { action_type, pid, pool_address: poolInfo![0], underlying_token_address: poolInfo![1], project: "mole" })
 
   
-        ctx.eventLogger.emit("HarvestEvent", {
-          distinctId: user,
-          pid: pid,
-          pool_address: poolInfo![0],
-          underlying_token_address: poolInfo![1],
-          amount: amount,
-          action_type: action_type,
-          project: "mole"
-        })
-      },
-    )
+//         ctx.eventLogger.emit("HarvestEvent", {
+//           distinctId: user,
+//           pid: pid,
+//           pool_address: poolInfo![0],
+//           underlying_token_address: poolInfo![1],
+//           amount: amount,
+//           action_type: action_type,
+//           project: "mole"
+//         })
+//       },
+//     )
 
 
 SuiWrappedObjectProcessor.bind({
   //object owner address of vault_usdt_vault_info/vault_sui_vault_info etc.
   objectId: "0x0dcd6ff3155967823494c7d4dd3bc952e551102879562ff7c75019b290281583",
   network: SuiNetwork.MAIN_NET,
-  startCheckpoint: 11763619n
+  // startCheckpoint: 11763619n
+  startCheckpoint: 22247749n
 })
   .onTimeInterval(async (dynamicFieldObjects, ctx) => {
     try {
@@ -167,7 +168,11 @@ SuiWrappedObjectProcessor.bind({
           }   
         }
 
-        const coin_symbol = coinInfo.symbol
+        let coin_symbol = coinInfo.symbol
+
+        if (coinType == coinAddrwUSDC) {
+          coin_symbol = 'wUSDC'
+        }
         
         //@ts-ignore
         const savings_debt = Number(field.value.vault_debt_val) / Math.pow(10, coinInfo.decimal)
@@ -233,7 +238,7 @@ SuiWrappedObjectProcessor.bind({
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
     }
-  }, 60, 240, undefined, { owned: true })
+  }, 60, 720, undefined, { owned: true })
 
   
 SuiObjectProcessor.bind({
@@ -278,7 +283,7 @@ SuiObjectProcessor.bind({
 catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
-  }, 30, 240, undefined, { owned: false })
+  }, 60, 720, undefined, { owned: false })
 
 
 
@@ -327,7 +332,7 @@ catch (e) {
   catch (e) {
         console.log(`${e.message} error at ${JSON.stringify(self)}`)
       }
-    }, 30, 60, undefined, { owned: false })
+    }, 60, 720, undefined, { owned: false })
   
   
 
@@ -373,7 +378,8 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   SuiObjectProcessor.bind({
     objectId: constant.POOLS_MOLE_LIST[i],
     network: SuiNetwork.MAIN_NET,
-    startCheckpoint: 11763619n
+    // startCheckpoint: 11763619n
+    startCheckpoint: 22247749n
   })
   .onTimeInterval(async (self, _, ctx) => {
     try {
@@ -437,7 +443,7 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   catch (e) {
         console.log(`${e.message} error at ${JSON.stringify(self)}`)
       }
-    }, 60, 240, undefined, { owned: false })
+    }, 60, 720, undefined, { owned: false })
 }
 
 
@@ -449,7 +455,8 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
   SuiObjectProcessor.bind({
     objectId: workerInfoAddr,
     network: SuiNetwork.MAIN_NET,
-    startCheckpoint: 11763619n
+    // startCheckpoint: 11763619n
+    startCheckpoint: 22247749n
   })
   .onTimeInterval(async (self, _, ctx) => {
     // console.log("ctx.objectId:" , ctx.objectId, ", slef:",JSON.stringify(self))
@@ -551,7 +558,11 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
         }
       }
 
-      const coin_symbol_a = coinInfoA.symbol
+      let coin_symbol_a = coinInfoA.symbol
+
+      if (coinTypeA == coinAddrwUSDC) {
+        coin_symbol_a = 'wUSDC'
+      }
 
       let coinInfoB = await buildCoinInfo(ctx, coinTypeB)
       retry = 0
@@ -564,7 +575,11 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
           throw new Error("buildCoinInfo coinInfoB")
         }
       }
-      const coin_symbol_b = coinInfoB.symbol
+      let coin_symbol_b = coinInfoB.symbol
+
+      if (coinTypeB == coinAddrwUSDC) {
+        coin_symbol_b = 'wUSDC'
+      }
 
       let currentSqrtPrice
       if (coinTypeA == coinAddrwUSDC && coinTypeB == coinAddrSUI) {
@@ -663,7 +678,7 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
-  }, 60, 240, undefined, { owned: false })
+  }, 60, 720, undefined, { owned: false })
 }
 
 
@@ -672,7 +687,8 @@ SuiWrappedObjectProcessor.bind({
   //object owner address of vault_usdt_vault_info/vault_sui_vault_info etc.
   objectId: "0x0dcd6ff3155967823494c7d4dd3bc952e551102879562ff7c75019b290281583",
   network: SuiNetwork.MAIN_NET,
-  startCheckpoint: 11763619n
+  // startCheckpoint: 11763619n
+  startCheckpoint: 22247749n
 })
   .onTimeInterval(async (dynamicFieldObjects, ctx) => {
     try {
@@ -735,7 +751,11 @@ SuiWrappedObjectProcessor.bind({
           }   
         }
 
-        const coin_symbol = coinInfo.symbol
+        let coin_symbol = coinInfo.symbol
+
+        if (coinType == coinAddrwUSDC) {
+          coin_symbol = 'wUSDC'
+        }
         
         //@ts-ignore
         const savingsCurrentFee = Number(field.value.reserve_pool) / Math.pow(10, coinInfo.decimal)
@@ -1009,7 +1029,7 @@ SuiWrappedObjectProcessor.bind({
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
     }
-  }, 60, 240, undefined, { owned: true })
+  }, 60, 720, undefined, { owned: true })
 
 
 
@@ -1017,7 +1037,8 @@ SuiWrappedObjectProcessor.bind({
 //   // old vault address
 //   address: '0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f',
 //   network: SuiNetwork.MAIN_NET,
-//   startCheckpoint: 4073066n
+//   // startCheckpoint: 4073066n
+//   startCheckpoint: 22247749n
 // })
 //   .onEventDepositEvent(
 //     async (event, ctx) => {
@@ -1233,7 +1254,7 @@ SuiWrappedObjectProcessor.bind({
 //       catch (e) {
 //         console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
 //       }
-//     }, 60, 240, undefined, { owned: true })
+//     }, 60, 720, undefined, { owned: true })
 //   }
 
   
@@ -1248,7 +1269,7 @@ SuiWrappedObjectProcessor.bind({
 //     objectId: workerInfoAddr,
 //     network: SuiNetwork.MAIN_NET,
 //     // startCheckpoint: 11763619n
-//     startCheckpoint: 34608243n
+//     startCheckpoint:    34608243n
 //   })
 //   .onTimeInterval(async (self, _, ctx) => {
 //     // console.log("ctx.objectId:" , ctx.objectId, ", slef:",JSON.stringify(self))
@@ -1521,7 +1542,7 @@ SuiWrappedObjectProcessor.bind({
 //     catch (e) {
 //       console.log(`${e.message} error at ${JSON.stringify(self)}`)
 //     }
-//   }, 60, 240, undefined, { owned: false })
+//   }, 60, 720, undefined, { owned: false })
 // }
   
 
