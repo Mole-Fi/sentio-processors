@@ -404,6 +404,15 @@ function tickIndexToSqrtPriceNegative(tickIndex: number) {
       sharesObjectId = "0xd13e93b7342e95e7a7707ee361ce609e7d2fba122d5b4cc9ee264ee70f5fe7e4"
     } else if (workerInfoAddr == "0x9b0e6176f25aeff94388fcf2c7d98ca481997f9e08160875263c4c50b669d242") {
       sharesObjectId = "0x08480d511e669fe187fe8628aac5626cad8c925f1505eab655c30cd2f943de8f"
+
+    } else if (workerInfoAddr == "0x1c0a2e9e57e51b8f3557c3a6a1163b4909d9a14516ad7ecf7dd7814e7328d6fc") {
+      sharesObjectId = "0xb0fe872b16f5bd9c271822cef20c6a0d58ba22da517d19d4a4f520d9b760865d"
+    } else if (workerInfoAddr == "0x05d0e4b408c1a66bc7ed21a591970962f7e60ebc569a35ff1c61cbb2cdbf3832") {
+      sharesObjectId = "0xaa9f248abba7da474e4b8401010c6eca7811c086b7e12994d0a745e41d2269fe"
+    } else if (workerInfoAddr == "0xae7c55844e42ef1296af174ae10c247d091fd6be87a718a34af2f9dffaf05fc8") {
+      sharesObjectId = "0x5d5a89a9d594cebecf3baa549755121914ad0528c715722305d079fa524c88ad"
+    } else if (workerInfoAddr == "0x89a808d0ba894599b89e7d8010682ce937af991fafebecb11667bb11d407d8c3") {
+      sharesObjectId = "0xf51c14652806637d93df5c431d6b9bbd7bcd005d67418c088ed535a43345adda"
     } else {
       console.error("Not support workerInfoAddr:", workerInfoAddr)
     } 

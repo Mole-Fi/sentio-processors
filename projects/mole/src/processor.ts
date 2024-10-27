@@ -26,7 +26,6 @@ import { cetus_clmm_worker as cetus_clmm_worker_wusdc_wbtc } from './types/sui/0
 import { cetus_clmm_worker as cetus_clmm_worker_wbtc_wusdc } from './types/sui/0x15fbfe8c27c920baaa1e4bd8bfe05c4408311612baf6493ed3285c6bd95a6939.js'
 import { cetus_clmm_worker as cetus_clmm_worker_buck_wusdc } from './types/sui/0xcac7d10d73c3c32f6d40031c8639dfde168e6e1c0e4a86f8d23f21db60f97c94.js'
 import { cetus_clmm_worker as cetus_clmm_worker_wusdc_buck } from './types/sui/0xe6ba97715edd0cfe6a8e40654b37c6f46a8a8af5b7fe2eefa3fd713243857993.js'
-
 import { cetus_clmm_worker as cetus_clmm_worker_usdc_sui   } from './types/sui/0x1d25aa479630953f1313749759a476aa620ce65a3f2eab7a2e52a3a5e1e6e797.js'
 import { cetus_clmm_worker as cetus_clmm_worker_sui_usdc   } from './types/sui/0x6e30dd0792fc4232e40cbbff861ece3c0a029d431cc3a62c5c46031524c2c91a.js'
 import { cetus_clmm_worker as cetus_clmm_worker_usdc_usdt  } from './types/sui/0xf74d70ad742dcbb0f75dc75312b3e7f2a5dd0b9f01634565289cbb6a6eb812c0.js'
@@ -35,6 +34,10 @@ import { cetus_clmm_worker as cetus_clmm_worker_cetus_usdc } from './types/sui/0
 import { cetus_clmm_worker as cetus_clmm_worker_usdc_cetus } from './types/sui/0xbeae77b098564b7e62be51527b71300759014085c8ce849f2726397a5fcc411d.js'
 import { cetus_clmm_worker as cetus_clmm_worker_usdc_wusdc } from './types/sui/0xe6cc53c3778e022568b546411bdd7011d3112660dae8a6f118ff2c460522866d.js'
 import { cetus_clmm_worker as cetus_clmm_worker_wusdc_usdc } from './types/sui/0xdcb271ff2e80185557d651707aeaaa21f899cb8de9be9c2fb4efef9c9500f6d9.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_buck  } from './types/sui/0x3001c0d95f0498b8e92fe95878b25e1c2e85ff213f3ff5b1ef088390ed185fc1.js'
+import { cetus_clmm_worker as cetus_clmm_worker_buck_usdc  } from './types/sui/0x0ffcc188b67223e6e883bc8e997e051af38657699d7ba745e43e8489b6104cdc.js'
+import { cetus_clmm_worker as cetus_clmm_worker_buck_sui   } from './types/sui/0x19252be299bb3a9202f308077042d01df6126d8c571a021069313860db2c1294.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_buck   } from './types/sui/0xb34ffeebd804d18b0e3537dab0f46c81f6f32a3f61b78ec4207dde8205e81aaa.js'
 
 import { pool } from './types/sui/0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb.js'
 import { getPriceByType, token } from "@sentio/sdk/utils"
@@ -373,6 +376,14 @@ let gCurrentSqrtPriceUsdcUsdt
 let gCurrentSqrtPriceUsdcCetus
 //@ts-ignore
 let gCurrentSqrtPriceUsdcwUsdc
+//@ts-ignore
+let gCurrentSqrtPriceUsdcBuck
+//@ts-ignore
+let gCurrentSqrtPriceBuckUsdc
+//@ts-ignore
+let gCurrentSqrtPriceBuckSui
+//@ts-ignore
+let gCurrentSqrtPriceSuiBuck
 
 for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   SuiObjectProcessor.bind({
@@ -434,6 +445,10 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
         gCurrentSqrtPriceUsdcCetus = currentSqrtPrice
       } else if ('0xc29be5c19c35be7af76c89e85e6deb076789d70019b9f8d22a80e77e720bdec0' == ctx.objectId) {
         gCurrentSqrtPriceUsdcwUsdc = currentSqrtPrice
+      } else if ('0x4c50ba9d1e60d229800293a4222851c9c3f797aa5ba8a8d32cc67ec7e79fec60' == ctx.objectId) {
+        gCurrentSqrtPriceUsdcBuck = currentSqrtPrice
+      } else if ('0x59cf0d333464ad29443d92bfd2ddfd1f794c5830141a5ee4a815d1ef3395bf6c' == ctx.objectId) {
+        gCurrentSqrtPriceBuckSui = currentSqrtPrice
       } else {
         console.error("Has not object : ", ctx.objectId)
       }
@@ -527,6 +542,14 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
         res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_wusdc.WorkerInfo.type())
       } else if (workerInfoAddr == "0x9b0e6176f25aeff94388fcf2c7d98ca481997f9e08160875263c4c50b669d242") { 
         res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_usdc.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x1c0a2e9e57e51b8f3557c3a6a1163b4909d9a14516ad7ecf7dd7814e7328d6fc") { 
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_buck.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x05d0e4b408c1a66bc7ed21a591970962f7e60ebc569a35ff1c61cbb2cdbf3832") { 
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_buck_usdc.WorkerInfo.type())
+      } else if (workerInfoAddr == "0xae7c55844e42ef1296af174ae10c247d091fd6be87a718a34af2f9dffaf05fc8") { 
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_buck_sui.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x89a808d0ba894599b89e7d8010682ce937af991fafebecb11667bb11d407d8c3") { 
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_buck.WorkerInfo.type())
       } else {
         console.error("Not support workerInfoAddr:", workerInfoAddr)
       } 
@@ -636,6 +659,18 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
       } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrwUSDC) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceUsdcwUsdc
+      } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrBUCK) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceUsdcBuck
+      } else if (coinTypeA == coinAddrBUCK && coinTypeB == coinAddrUSDC) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceBuckUsdc
+      } else if (coinTypeA == coinAddrBUCK && coinTypeB == coinAddrSUI) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceBuckSui
+      } else if (coinTypeA == coinAddrSUI && coinTypeB == coinAddrBUCK) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceSuiBuck
       } else {
         console.error("Has not price : coin_symbol_a:", coin_symbol_a, ",coin_symbol_b:",coin_symbol_b )
       }
