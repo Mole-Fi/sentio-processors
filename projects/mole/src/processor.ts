@@ -2,42 +2,47 @@ import { Counter, Gauge } from '@sentio/sdk'
 import { SuiNetwork, SuiObjectProcessorTemplate, SuiObjectProcessor, SuiWrappedObjectProcessor} from "@sentio/sdk/sui"
 import { vault } from './types/sui/0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f.js'
 import { sui_incentive } from './types/sui/0xc4dc6948a7d0a58f32fadd44e45efb201f44383bfab1cb6c48b9c186a92cc762.js'
-import { cetus_clmm_worker as cetus_clmm_worker_wusdc_sui  } from './types/sui/0x334bed7f6426c1a3710ef7f4d66b1225df74146372b40a64e9d0cbfc76d76e67.js'
-import { cetus_clmm_worker as cetus_clmm_worker_sui_wusdc  } from './types/sui/0x1454bd0be3db3c4be862104bde964913182de6d380aea24b88320505baba5e46.js'
-import { cetus_clmm_worker as cetus_clmm_worker_usdt_wusdc } from './types/sui/0x9cb48aa1b41a1183ecdabde578e640e05a08170f8ca165b743ffded0b1256391.js'
-import { cetus_clmm_worker as cetus_clmm_worker_wusdc_usdt } from './types/sui/0x960ab11d560f05f0ec260c7ac87074b569334713594aa02580642e029fd9dd86.js'
-import { cetus_clmm_worker as cetus_clmm_worker_weth_wusdc } from './types/sui/0xb7a0d251a9f307b80b1595c87622118e401dc613591b3435786bb7c147599dae.js'
-import { cetus_clmm_worker as cetus_clmm_worker_wusdc_weth } from './types/sui/0xd49d0a3331bd41005dd1a5e295e07bf4cec1359e201ba71fc5a1e541787328d9.js'
-import { cetus_clmm_worker as cetus_clmm_worker_usdt_sui   } from './types/sui/0xab01c0cb01a3e50171b898eb2509f53ba2ba83ed844628f3d843b20e99783b58.js'
-import { cetus_clmm_worker as cetus_clmm_worker_sui_usdt   } from './types/sui/0x8cc36eb225997a7e35661382b5ddfda35f91a7d732e04e22d203151a9e321d66.js'
-import { cetus_clmm_worker as cetus_clmm_worker_sui_cetus  } from './types/sui/0x7f24e8b7935db7588bfd7035b4aa503c1f29ed71ce2b1dbd425b8ad1096b7463.js'
-import { cetus_clmm_worker as cetus_clmm_worker_cetus_sui  } from './types/sui/0x57563b5040ac32ff1897a3c40fe9a0e987f40791289fce31ff7388805255076d.js'
-import { cetus_clmm_worker as cetus_clmm_worker_cetus_wusdc} from './types/sui/0xf538241fc4783dbf0eca4cf516fbc7ad5b910517e25d8e4ec7fb754eb9b0280c.js'
-import { cetus_clmm_worker as cetus_clmm_worker_wusdc_cetus} from './types/sui/0xd8528e2825b7354f5e4fd3bf89e3998e59f4cf92160d65bf491885677229def0.js'
-import { cetus_clmm_worker as cetus_clmm_worker_hasui_sui  } from './types/sui/0x50be9b81baf7204130eea06bb1845d4a0beccbee98c03b5ec0b17a48302351bf.js'
-import { cetus_clmm_worker as cetus_clmm_worker_sui_hasui  } from './types/sui/0xd5f6540d3d3fc7fd8ed64e862a21785932e84ee669fb2e7bbe5bd23fd6552827.js'
-import { cetus_clmm_worker as cetus_clmm_worker_navx_sui   } from './types/sui/0x53e47bac30d4f17fcb0d800de9fc7f0cc96f520531bb8fd7670e9c08f060ec61.js'
-import { cetus_clmm_worker as cetus_clmm_worker_sui_navx   } from './types/sui/0xd5b04240f6536c7b5276e96b057460a58ac8b1b66b2db03038f3d44bf1ea7cde.js'
-import { cetus_clmm_worker as cetus_clmm_worker_navx_cetus } from './types/sui/0x6665ad06bb0c47a00e3ce6da9c796f8061b9f8178095e421ce36e3f73345f24a.js'
-import { cetus_clmm_worker as cetus_clmm_worker_cetus_navx } from './types/sui/0xf8670497cc6403831fad47f8471cce467661c3e01833953d62fe86527bbe4474.js'
-import { cetus_clmm_worker as cetus_clmm_worker_sca_sui    } from './types/sui/0x0efca73a17c179aee1a5243c66c3f90101f61e9dd974e71b356ecdf0316ca626.js'
-import { cetus_clmm_worker as cetus_clmm_worker_sui_sca    } from './types/sui/0x9a0355aa800e975678ce812d4ee044f3faa8b48c70d877f90d3ba8d35566e6aa.js'
-import { cetus_clmm_worker as cetus_clmm_worker_wusdc_wbtc } from './types/sui/0xff377a83375d63b9c8429362b5c2791bc69f0da861d3d963970ffeac2654d9d5.js'
-import { cetus_clmm_worker as cetus_clmm_worker_wbtc_wusdc } from './types/sui/0x15fbfe8c27c920baaa1e4bd8bfe05c4408311612baf6493ed3285c6bd95a6939.js'
-import { cetus_clmm_worker as cetus_clmm_worker_buck_wusdc } from './types/sui/0xcac7d10d73c3c32f6d40031c8639dfde168e6e1c0e4a86f8d23f21db60f97c94.js'
-import { cetus_clmm_worker as cetus_clmm_worker_wusdc_buck } from './types/sui/0xe6ba97715edd0cfe6a8e40654b37c6f46a8a8af5b7fe2eefa3fd713243857993.js'
-import { cetus_clmm_worker as cetus_clmm_worker_usdc_sui   } from './types/sui/0x1d25aa479630953f1313749759a476aa620ce65a3f2eab7a2e52a3a5e1e6e797.js'
-import { cetus_clmm_worker as cetus_clmm_worker_sui_usdc   } from './types/sui/0x6e30dd0792fc4232e40cbbff861ece3c0a029d431cc3a62c5c46031524c2c91a.js'
-import { cetus_clmm_worker as cetus_clmm_worker_usdc_usdt  } from './types/sui/0xf74d70ad742dcbb0f75dc75312b3e7f2a5dd0b9f01634565289cbb6a6eb812c0.js'
-import { cetus_clmm_worker as cetus_clmm_worker_usdt_usdc  } from './types/sui/0x76e6fd74c625e04879d0aefdd8bbae10a836504ef0d41e6124b0e965dcec8683.js'
-import { cetus_clmm_worker as cetus_clmm_worker_cetus_usdc } from './types/sui/0xe77bf63a6b95ce64a04c156a27c69e3ae4f823773fa9dc441c854d106ae21fda.js'
-import { cetus_clmm_worker as cetus_clmm_worker_usdc_cetus } from './types/sui/0xbeae77b098564b7e62be51527b71300759014085c8ce849f2726397a5fcc411d.js'
-import { cetus_clmm_worker as cetus_clmm_worker_usdc_wusdc } from './types/sui/0xe6cc53c3778e022568b546411bdd7011d3112660dae8a6f118ff2c460522866d.js'
-import { cetus_clmm_worker as cetus_clmm_worker_wusdc_usdc } from './types/sui/0xdcb271ff2e80185557d651707aeaaa21f899cb8de9be9c2fb4efef9c9500f6d9.js'
-import { cetus_clmm_worker as cetus_clmm_worker_usdc_buck  } from './types/sui/0x3001c0d95f0498b8e92fe95878b25e1c2e85ff213f3ff5b1ef088390ed185fc1.js'
-import { cetus_clmm_worker as cetus_clmm_worker_buck_usdc  } from './types/sui/0x0ffcc188b67223e6e883bc8e997e051af38657699d7ba745e43e8489b6104cdc.js'
-import { cetus_clmm_worker as cetus_clmm_worker_buck_sui   } from './types/sui/0x19252be299bb3a9202f308077042d01df6126d8c571a021069313860db2c1294.js'
-import { cetus_clmm_worker as cetus_clmm_worker_sui_buck   } from './types/sui/0xb34ffeebd804d18b0e3537dab0f46c81f6f32a3f61b78ec4207dde8205e81aaa.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wusdc_sui      } from './types/sui/0x334bed7f6426c1a3710ef7f4d66b1225df74146372b40a64e9d0cbfc76d76e67.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_wusdc      } from './types/sui/0x1454bd0be3db3c4be862104bde964913182de6d380aea24b88320505baba5e46.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdt_wusdc     } from './types/sui/0x9cb48aa1b41a1183ecdabde578e640e05a08170f8ca165b743ffded0b1256391.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wusdc_usdt     } from './types/sui/0x960ab11d560f05f0ec260c7ac87074b569334713594aa02580642e029fd9dd86.js'
+import { cetus_clmm_worker as cetus_clmm_worker_weth_wusdc     } from './types/sui/0xb7a0d251a9f307b80b1595c87622118e401dc613591b3435786bb7c147599dae.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wusdc_weth     } from './types/sui/0xd49d0a3331bd41005dd1a5e295e07bf4cec1359e201ba71fc5a1e541787328d9.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdt_sui       } from './types/sui/0xab01c0cb01a3e50171b898eb2509f53ba2ba83ed844628f3d843b20e99783b58.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_usdt       } from './types/sui/0x8cc36eb225997a7e35661382b5ddfda35f91a7d732e04e22d203151a9e321d66.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_cetus      } from './types/sui/0x7f24e8b7935db7588bfd7035b4aa503c1f29ed71ce2b1dbd425b8ad1096b7463.js'
+import { cetus_clmm_worker as cetus_clmm_worker_cetus_sui      } from './types/sui/0x57563b5040ac32ff1897a3c40fe9a0e987f40791289fce31ff7388805255076d.js'
+import { cetus_clmm_worker as cetus_clmm_worker_cetus_wusdc    } from './types/sui/0xf538241fc4783dbf0eca4cf516fbc7ad5b910517e25d8e4ec7fb754eb9b0280c.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wusdc_cetus    } from './types/sui/0xd8528e2825b7354f5e4fd3bf89e3998e59f4cf92160d65bf491885677229def0.js'
+import { cetus_clmm_worker as cetus_clmm_worker_hasui_sui      } from './types/sui/0x50be9b81baf7204130eea06bb1845d4a0beccbee98c03b5ec0b17a48302351bf.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_hasui      } from './types/sui/0xd5f6540d3d3fc7fd8ed64e862a21785932e84ee669fb2e7bbe5bd23fd6552827.js'
+import { cetus_clmm_worker as cetus_clmm_worker_navx_sui       } from './types/sui/0x53e47bac30d4f17fcb0d800de9fc7f0cc96f520531bb8fd7670e9c08f060ec61.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_navx       } from './types/sui/0xd5b04240f6536c7b5276e96b057460a58ac8b1b66b2db03038f3d44bf1ea7cde.js'
+import { cetus_clmm_worker as cetus_clmm_worker_navx_cetus     } from './types/sui/0x6665ad06bb0c47a00e3ce6da9c796f8061b9f8178095e421ce36e3f73345f24a.js'
+import { cetus_clmm_worker as cetus_clmm_worker_cetus_navx     } from './types/sui/0xf8670497cc6403831fad47f8471cce467661c3e01833953d62fe86527bbe4474.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sca_sui        } from './types/sui/0x0efca73a17c179aee1a5243c66c3f90101f61e9dd974e71b356ecdf0316ca626.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_sca        } from './types/sui/0x9a0355aa800e975678ce812d4ee044f3faa8b48c70d877f90d3ba8d35566e6aa.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wusdc_wbtc     } from './types/sui/0xff377a83375d63b9c8429362b5c2791bc69f0da861d3d963970ffeac2654d9d5.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wbtc_wusdc     } from './types/sui/0x15fbfe8c27c920baaa1e4bd8bfe05c4408311612baf6493ed3285c6bd95a6939.js'
+import { cetus_clmm_worker as cetus_clmm_worker_buck_wusdc     } from './types/sui/0xcac7d10d73c3c32f6d40031c8639dfde168e6e1c0e4a86f8d23f21db60f97c94.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wusdc_buck     } from './types/sui/0xe6ba97715edd0cfe6a8e40654b37c6f46a8a8af5b7fe2eefa3fd713243857993.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_sui       } from './types/sui/0x1d25aa479630953f1313749759a476aa620ce65a3f2eab7a2e52a3a5e1e6e797.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_usdc       } from './types/sui/0x6e30dd0792fc4232e40cbbff861ece3c0a029d431cc3a62c5c46031524c2c91a.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_usdt      } from './types/sui/0xf74d70ad742dcbb0f75dc75312b3e7f2a5dd0b9f01634565289cbb6a6eb812c0.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdt_usdc      } from './types/sui/0x76e6fd74c625e04879d0aefdd8bbae10a836504ef0d41e6124b0e965dcec8683.js'
+import { cetus_clmm_worker as cetus_clmm_worker_cetus_usdc     } from './types/sui/0xe77bf63a6b95ce64a04c156a27c69e3ae4f823773fa9dc441c854d106ae21fda.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_cetus     } from './types/sui/0xbeae77b098564b7e62be51527b71300759014085c8ce849f2726397a5fcc411d.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_wusdc     } from './types/sui/0xe6cc53c3778e022568b546411bdd7011d3112660dae8a6f118ff2c460522866d.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wusdc_usdc     } from './types/sui/0xdcb271ff2e80185557d651707aeaaa21f899cb8de9be9c2fb4efef9c9500f6d9.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_buck      } from './types/sui/0x3001c0d95f0498b8e92fe95878b25e1c2e85ff213f3ff5b1ef088390ed185fc1.js'
+import { cetus_clmm_worker as cetus_clmm_worker_buck_usdc      } from './types/sui/0x0ffcc188b67223e6e883bc8e997e051af38657699d7ba745e43e8489b6104cdc.js'
+import { cetus_clmm_worker as cetus_clmm_worker_buck_sui       } from './types/sui/0x19252be299bb3a9202f308077042d01df6126d8c571a021069313860db2c1294.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_buck       } from './types/sui/0xb34ffeebd804d18b0e3537dab0f46c81f6f32a3f61b78ec4207dde8205e81aaa.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_wusdc_new } from './types/sui/0x5d8c52a3bc49d7d33eacd754a03b255f789484df4872863aff74f004d3ba76f7.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wusdc_usdc_new } from './types/sui/0x8a53585a00bb54ce21c618e21ec135420814fc36857625c2a004c3dd2c26405e.js'
+import { cetus_clmm_worker as cetus_clmm_worker_buck_wusdc_new } from './types/sui/0x12403855fe4d02bec07d72c24614a3ded445d84acef96a1bccd33bea252e0540.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wusdc_buck_new } from './types/sui/0x1da9b36af87eba57e751075851cb57742c7eeb8e051eaa548b583d3fff2a9778.js'
+
 
 import { pool } from './types/sui/0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb.js'
 import { getPriceByType, token } from "@sentio/sdk/utils"
@@ -384,6 +389,14 @@ let gCurrentSqrtPriceBuckUsdc
 let gCurrentSqrtPriceBuckSui
 //@ts-ignore
 let gCurrentSqrtPriceSuiBuck
+//@ts-ignore
+let gCurrentSqrtPriceUsdcwUsdcNew
+//@ts-ignore
+let gCurrentSqrtPricewUsdcUsdcNew
+//@ts-ignore
+let gCurrentSqrtPriceBuckwUsdcNew
+//@ts-ignore
+let gCurrentSqrtPricewUsdcBuckNew
 
 for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   SuiObjectProcessor.bind({
@@ -449,6 +462,10 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
         gCurrentSqrtPriceUsdcBuck = currentSqrtPrice
       } else if ('0x59cf0d333464ad29443d92bfd2ddfd1f794c5830141a5ee4a815d1ef3395bf6c' == ctx.objectId) {
         gCurrentSqrtPriceBuckSui = currentSqrtPrice
+      } else if ('0x1efc96c99c9d91ac0f54f0ca78d2d9a6ba11377d29354c0a192c86f0495ddec7' == ctx.objectId) {
+        gCurrentSqrtPriceUsdcwUsdcNew = currentSqrtPrice
+      } else if ('0xd4573bdd25c629127d54c5671d72a0754ef47767e6c01758d6dc651f57951e7d' == ctx.objectId) {
+        gCurrentSqrtPriceBuckwUsdcNew = currentSqrtPrice
       } else {
         console.error("Has not object : ", ctx.objectId)
       }
@@ -550,6 +567,14 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
         res = await ctx.coder.decodedType(self, cetus_clmm_worker_buck_sui.WorkerInfo.type())
       } else if (workerInfoAddr == "0x89a808d0ba894599b89e7d8010682ce937af991fafebecb11667bb11d407d8c3") { 
         res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_buck.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x27e235491f516aaa2b6d7a4b1fd402a518f3da93d1e208ec9e7c072b4cf32e0a") { 
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_wusdc_new.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x6759e2cb781a5a4f47b8b55684b1ab87ba46a7ff770a3e2f2c42cf94fb306d76") { 
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_usdc_new.WorkerInfo.type())
+      } else if (workerInfoAddr == "0xee0430bce1e4ba2802719000300d9f5f1f179554669ca96b594b2ffa501b92d2") { 
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_buck_wusdc_new.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x57a70d4108b54e2b8b8f1a327975ae222d16eaf006eba90f479a3fce857cb5b1") { 
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_buck_new.WorkerInfo.type())
       } else {
         console.error("Not support workerInfoAddr:", workerInfoAddr)
       } 
@@ -644,7 +669,10 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
       } else if (coinTypeA == coinAddrwUSDC && coinTypeB == coinAddrWBTC) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPricewUsdcWbtc
-      } else if (coinTypeA == coinAddrBUCK && coinTypeB == coinAddrwUSDC) {
+      } else if (coinTypeA == coinAddrBUCK && coinTypeB == coinAddrwUSDC 
+        && ( workerInfoAddr == "0x1a8ad1068ab9bc5b94f2e3baa7a5eaac67e1337e2a47463fcfbc1b9ed26ef5ce" 
+          || workerInfoAddr == "0xf7fc938356331d7404226c147328750cf2d8ef8a273ed8bc1450ee4e0ff0e659"
+      )) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceBuckwUsdc
       } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrSUI) {
@@ -656,7 +684,10 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
       } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrCETUS) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceUsdcCetus
-      } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrwUSDC) {
+      } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrwUSDC 
+        && ( workerInfoAddr == "0x6b65414a6244fdbd71d0e1fc8e0a27c717f68db51faf5a7cce7256abae9a320e" 
+            || workerInfoAddr == "0x9b0e6176f25aeff94388fcf2c7d98ca481997f9e08160875263c4c50b669d242"
+      )) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceUsdcwUsdc
       } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrBUCK) {
@@ -671,6 +702,20 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
       } else if (coinTypeA == coinAddrSUI && coinTypeB == coinAddrBUCK) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceSuiBuck
+      } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrwUSDC 
+        && ( workerInfoAddr == "0x27e235491f516aaa2b6d7a4b1fd402a518f3da93d1e208ec9e7c072b4cf32e0a" 
+            || workerInfoAddr == "0x6759e2cb781a5a4f47b8b55684b1ab87ba46a7ff770a3e2f2c42cf94fb306d76"
+      )) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceUsdcwUsdcNew
+        coin_symbol_b = coin_symbol_b + '-new'
+      } else if (coinTypeA == coinAddrBUCK && coinTypeB == coinAddrwUSDC 
+        && ( workerInfoAddr == "0xee0430bce1e4ba2802719000300d9f5f1f179554669ca96b594b2ffa501b92d2" 
+          || workerInfoAddr == "0x57a70d4108b54e2b8b8f1a327975ae222d16eaf006eba90f479a3fce857cb5b1"
+      )) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceBuckwUsdcNew
+        coin_symbol_b = coin_symbol_b + '-new'
       } else {
         console.error("Has not price : coin_symbol_a:", coin_symbol_a, ",coin_symbol_b:",coin_symbol_b )
       }

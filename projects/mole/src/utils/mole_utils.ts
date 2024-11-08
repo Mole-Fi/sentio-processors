@@ -404,7 +404,6 @@ function tickIndexToSqrtPriceNegative(tickIndex: number) {
       sharesObjectId = "0xd13e93b7342e95e7a7707ee361ce609e7d2fba122d5b4cc9ee264ee70f5fe7e4"
     } else if (workerInfoAddr == "0x9b0e6176f25aeff94388fcf2c7d98ca481997f9e08160875263c4c50b669d242") {
       sharesObjectId = "0x08480d511e669fe187fe8628aac5626cad8c925f1505eab655c30cd2f943de8f"
-
     } else if (workerInfoAddr == "0x1c0a2e9e57e51b8f3557c3a6a1163b4909d9a14516ad7ecf7dd7814e7328d6fc") {
       sharesObjectId = "0xb0fe872b16f5bd9c271822cef20c6a0d58ba22da517d19d4a4f520d9b760865d"
     } else if (workerInfoAddr == "0x05d0e4b408c1a66bc7ed21a591970962f7e60ebc569a35ff1c61cbb2cdbf3832") {
@@ -413,6 +412,14 @@ function tickIndexToSqrtPriceNegative(tickIndex: number) {
       sharesObjectId = "0x5d5a89a9d594cebecf3baa549755121914ad0528c715722305d079fa524c88ad"
     } else if (workerInfoAddr == "0x89a808d0ba894599b89e7d8010682ce937af991fafebecb11667bb11d407d8c3") {
       sharesObjectId = "0xf51c14652806637d93df5c431d6b9bbd7bcd005d67418c088ed535a43345adda"
+    } else if (workerInfoAddr == "0x27e235491f516aaa2b6d7a4b1fd402a518f3da93d1e208ec9e7c072b4cf32e0a") {
+      sharesObjectId = "0x6c458205b5c4e520471fa4bff5cd123ac824fd43d6e17ccedd54abf1f419a108"
+    } else if (workerInfoAddr == "0x6759e2cb781a5a4f47b8b55684b1ab87ba46a7ff770a3e2f2c42cf94fb306d76") {
+      sharesObjectId = "0xe3d6166ffe5e9b3a3a0dff1051a6cf6d777cd1fc2713e3ff6cd592b069eef4ea"
+    } else if (workerInfoAddr == "0xee0430bce1e4ba2802719000300d9f5f1f179554669ca96b594b2ffa501b92d2") {
+      sharesObjectId = "0xc7df886d53793eafa159d932feeb46f812ad8ffe4d1052adcf5d3ed71138db88"
+    } else if (workerInfoAddr == "0x57a70d4108b54e2b8b8f1a327975ae222d16eaf006eba90f479a3fce857cb5b1") {
+      sharesObjectId = "0xaa21e1580b5b32e885a2daff149a2f04d100ed038980c745bb8cd6f3cddd30bb"
     } else {
       console.error("Not support workerInfoAddr:", workerInfoAddr)
     } 
