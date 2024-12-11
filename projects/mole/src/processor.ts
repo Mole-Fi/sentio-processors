@@ -1050,7 +1050,7 @@ SuiWrappedObjectProcessor.bind({
           } else {
             console.error("CoinType not suppport!")
           }
-        } else if (ctx.checkpoint >= 35481090 ) {
+        } else if (ctx.checkpoint >= 35481090 && ctx.checkpoint <= 89328791) {
           if (configAddr == vaultWethConfigId) {
             accumulateFee = 0.00315804 + 0 + 0.09845773 + 0 + 0.00000013 + 0.00002272 + 0.00000006 + 0 + 0.00187223 
           } else if (configAddr == vaultHaSuiConfigId) {
@@ -1073,6 +1073,32 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0.032972178
           } else if (configAddr == vaultUsdcConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else {
+            console.error("CoinType not suppport!")
+          }
+        } else if (ctx.checkpoint > 89328791) {
+          if (configAddr == vaultWethConfigId) {
+            accumulateFee = 0.00315804 + 0 + 0.09845773 + 0 + 0.00000013 + 0.00002272 + 0.00000006 + 0 + 0.00187223 + 0.12178293
+          } else if (configAddr == vaultHaSuiConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0.058995068 + 0 + 0 + 0 + 0.100466176 + 0.418409173
+          } else if (configAddr == vaultUsdtConfigId) {
+            accumulateFee = 52.443544 + 158.347969 + 0 + 0.482047 + 0.247548 + 0.073082 + 0 + 0.143209 + 0.010165 + 0.148551
+          } else if (configAddr == vaultwUsdcConfigId) {
+            accumulateFee = 49.80559 + 211.449818 + 157.650286 + 31.421483 + 81.100837 + 43.951883 + 34.270039 + 34.108969 + 172.970752 + 3805.021933
+          } else if (configAddr == vaultCetusConfigId) {
+            accumulateFee = 0 + 0 + 0 + 1.122338056 + 0.264680249 + 0 + 0 + 0 + 81.334258105 + 311.820012603
+          } else if (configAddr == vaultSuiConfigId) {
+            accumulateFee = 7.915105448 + 63.85454832 + 246.552150586 + 33.885724004 + 116.901576637 + 65.050304323 + 62.596474695 + 175.976913576 + 2157.302282819 + 1605.159619797
+          } else if (configAddr == vaultNavxConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0.000429911 + 0 + 0 + 0 + 0.375408055 + 0.436247858
+          } else if (configAddr == vaultScaConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 25.646615746 + 28.350234249
+          } else if (configAddr == vaultWbtcConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0.00000187 + 0.00014818
+          } else if (configAddr == vaultBuckConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0.032972178 + 4005.622594355
+          } else if (configAddr == vaultUsdcConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 777.934996
           } else {
             console.error("CoinType not suppport!")
           }
