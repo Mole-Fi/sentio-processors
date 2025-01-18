@@ -86,3 +86,7 @@ contracts:
     address: "0x12403855fe4d02bec07d72c24614a3ded445d84acef96a1bccd33bea252e0540"
   - chain: sui_mainnet
     address: "0x1da9b36af87eba57e751075851cb57742c7eeb8e051eaa548b583d3fff2a9778"
+  - chain: sui_mainnet
+    address: "0x4633d7f3b557b5ad474e89d6c0944eb53c779032304b2cf70c5c18a85f62a6bb"
+  - chain: sui_mainnet
+    address: "0x94d42a393f936278b43aca8b84ab6d7fafb975e1b7447cf007434bc75695bc02"

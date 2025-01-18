@@ -1,76 +1,84 @@
-import { Counter, Gauge } from '@sentio/sdk'
-import { SuiNetwork, SuiObjectProcessorTemplate, SuiObjectProcessor, SuiWrappedObjectProcessor} from "@sentio/sdk/sui"
+import { SuiNetwork, SuiObjectProcessor, SuiWrappedObjectProcessor} from "@sentio/sdk/sui"
 import { vault } from './types/sui/0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f.js'
-import { sui_incentive } from './types/sui/0xc4dc6948a7d0a58f32fadd44e45efb201f44383bfab1cb6c48b9c186a92cc762.js'
-import { cetus_clmm_worker as cetus_clmm_worker_wusdc_sui  } from './types/sui/0x334bed7f6426c1a3710ef7f4d66b1225df74146372b40a64e9d0cbfc76d76e67.js'
-import { cetus_clmm_worker as cetus_clmm_worker_sui_wusdc  } from './types/sui/0x1454bd0be3db3c4be862104bde964913182de6d380aea24b88320505baba5e46.js'
-import { cetus_clmm_worker as cetus_clmm_worker_usdt_wusdc } from './types/sui/0x9cb48aa1b41a1183ecdabde578e640e05a08170f8ca165b743ffded0b1256391.js'
-import { cetus_clmm_worker as cetus_clmm_worker_wusdc_usdt } from './types/sui/0x960ab11d560f05f0ec260c7ac87074b569334713594aa02580642e029fd9dd86.js'
-import { cetus_clmm_worker as cetus_clmm_worker_weth_wusdc } from './types/sui/0xb7a0d251a9f307b80b1595c87622118e401dc613591b3435786bb7c147599dae.js'
-import { cetus_clmm_worker as cetus_clmm_worker_wusdc_weth } from './types/sui/0xd49d0a3331bd41005dd1a5e295e07bf4cec1359e201ba71fc5a1e541787328d9.js'
-import { cetus_clmm_worker as cetus_clmm_worker_usdt_sui   } from './types/sui/0xab01c0cb01a3e50171b898eb2509f53ba2ba83ed844628f3d843b20e99783b58.js'
-import { cetus_clmm_worker as cetus_clmm_worker_sui_usdt   } from './types/sui/0x8cc36eb225997a7e35661382b5ddfda35f91a7d732e04e22d203151a9e321d66.js'
-import { cetus_clmm_worker as cetus_clmm_worker_sui_cetus  } from './types/sui/0x7f24e8b7935db7588bfd7035b4aa503c1f29ed71ce2b1dbd425b8ad1096b7463.js'
-import { cetus_clmm_worker as cetus_clmm_worker_cetus_sui  } from './types/sui/0x57563b5040ac32ff1897a3c40fe9a0e987f40791289fce31ff7388805255076d.js'
-import { cetus_clmm_worker as cetus_clmm_worker_cetus_wusdc} from './types/sui/0xf538241fc4783dbf0eca4cf516fbc7ad5b910517e25d8e4ec7fb754eb9b0280c.js'
-import { cetus_clmm_worker as cetus_clmm_worker_wusdc_cetus} from './types/sui/0xd8528e2825b7354f5e4fd3bf89e3998e59f4cf92160d65bf491885677229def0.js'
-import { cetus_clmm_worker as cetus_clmm_worker_hasui_sui  } from './types/sui/0x50be9b81baf7204130eea06bb1845d4a0beccbee98c03b5ec0b17a48302351bf.js'
-import { cetus_clmm_worker as cetus_clmm_worker_sui_hasui  } from './types/sui/0xd5f6540d3d3fc7fd8ed64e862a21785932e84ee669fb2e7bbe5bd23fd6552827.js'
-import { cetus_clmm_worker as cetus_clmm_worker_navx_sui   } from './types/sui/0x53e47bac30d4f17fcb0d800de9fc7f0cc96f520531bb8fd7670e9c08f060ec61.js'
-import { cetus_clmm_worker as cetus_clmm_worker_sui_navx   } from './types/sui/0xd5b04240f6536c7b5276e96b057460a58ac8b1b66b2db03038f3d44bf1ea7cde.js'
-import { cetus_clmm_worker as cetus_clmm_worker_navx_cetus } from './types/sui/0x6665ad06bb0c47a00e3ce6da9c796f8061b9f8178095e421ce36e3f73345f24a.js'
-import { cetus_clmm_worker as cetus_clmm_worker_cetus_navx } from './types/sui/0xf8670497cc6403831fad47f8471cce467661c3e01833953d62fe86527bbe4474.js'
-import { cetus_clmm_worker as cetus_clmm_worker_sca_sui    } from './types/sui/0x0efca73a17c179aee1a5243c66c3f90101f61e9dd974e71b356ecdf0316ca626.js'
-import { cetus_clmm_worker as cetus_clmm_worker_sui_sca    } from './types/sui/0x9a0355aa800e975678ce812d4ee044f3faa8b48c70d877f90d3ba8d35566e6aa.js'
-import { cetus_clmm_worker as cetus_clmm_worker_wusdc_wbtc } from './types/sui/0xff377a83375d63b9c8429362b5c2791bc69f0da861d3d963970ffeac2654d9d5.js'
-import { cetus_clmm_worker as cetus_clmm_worker_wbtc_wusdc } from './types/sui/0x15fbfe8c27c920baaa1e4bd8bfe05c4408311612baf6493ed3285c6bd95a6939.js'
-import { cetus_clmm_worker as cetus_clmm_worker_buck_wusdc } from './types/sui/0xcac7d10d73c3c32f6d40031c8639dfde168e6e1c0e4a86f8d23f21db60f97c94.js'
-import { cetus_clmm_worker as cetus_clmm_worker_wusdc_buck } from './types/sui/0xe6ba97715edd0cfe6a8e40654b37c6f46a8a8af5b7fe2eefa3fd713243857993.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wusdc_sui      } from './types/sui/0x334bed7f6426c1a3710ef7f4d66b1225df74146372b40a64e9d0cbfc76d76e67.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_wusdc      } from './types/sui/0x1454bd0be3db3c4be862104bde964913182de6d380aea24b88320505baba5e46.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdt_wusdc     } from './types/sui/0x9cb48aa1b41a1183ecdabde578e640e05a08170f8ca165b743ffded0b1256391.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wusdc_usdt     } from './types/sui/0x960ab11d560f05f0ec260c7ac87074b569334713594aa02580642e029fd9dd86.js'
+import { cetus_clmm_worker as cetus_clmm_worker_weth_wusdc     } from './types/sui/0xb7a0d251a9f307b80b1595c87622118e401dc613591b3435786bb7c147599dae.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wusdc_weth     } from './types/sui/0xd49d0a3331bd41005dd1a5e295e07bf4cec1359e201ba71fc5a1e541787328d9.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdt_sui       } from './types/sui/0xab01c0cb01a3e50171b898eb2509f53ba2ba83ed844628f3d843b20e99783b58.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_usdt       } from './types/sui/0x8cc36eb225997a7e35661382b5ddfda35f91a7d732e04e22d203151a9e321d66.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_cetus      } from './types/sui/0x7f24e8b7935db7588bfd7035b4aa503c1f29ed71ce2b1dbd425b8ad1096b7463.js'
+import { cetus_clmm_worker as cetus_clmm_worker_cetus_sui      } from './types/sui/0x57563b5040ac32ff1897a3c40fe9a0e987f40791289fce31ff7388805255076d.js'
+import { cetus_clmm_worker as cetus_clmm_worker_cetus_wusdc    } from './types/sui/0xf538241fc4783dbf0eca4cf516fbc7ad5b910517e25d8e4ec7fb754eb9b0280c.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wusdc_cetus    } from './types/sui/0xd8528e2825b7354f5e4fd3bf89e3998e59f4cf92160d65bf491885677229def0.js'
+import { cetus_clmm_worker as cetus_clmm_worker_hasui_sui      } from './types/sui/0x50be9b81baf7204130eea06bb1845d4a0beccbee98c03b5ec0b17a48302351bf.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_hasui      } from './types/sui/0xd5f6540d3d3fc7fd8ed64e862a21785932e84ee669fb2e7bbe5bd23fd6552827.js'
+import { cetus_clmm_worker as cetus_clmm_worker_navx_sui       } from './types/sui/0x53e47bac30d4f17fcb0d800de9fc7f0cc96f520531bb8fd7670e9c08f060ec61.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_navx       } from './types/sui/0xd5b04240f6536c7b5276e96b057460a58ac8b1b66b2db03038f3d44bf1ea7cde.js'
+import { cetus_clmm_worker as cetus_clmm_worker_navx_cetus     } from './types/sui/0x6665ad06bb0c47a00e3ce6da9c796f8061b9f8178095e421ce36e3f73345f24a.js'
+import { cetus_clmm_worker as cetus_clmm_worker_cetus_navx     } from './types/sui/0xf8670497cc6403831fad47f8471cce467661c3e01833953d62fe86527bbe4474.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sca_sui        } from './types/sui/0x0efca73a17c179aee1a5243c66c3f90101f61e9dd974e71b356ecdf0316ca626.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_sca        } from './types/sui/0x9a0355aa800e975678ce812d4ee044f3faa8b48c70d877f90d3ba8d35566e6aa.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wusdc_wbtc     } from './types/sui/0xff377a83375d63b9c8429362b5c2791bc69f0da861d3d963970ffeac2654d9d5.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wbtc_wusdc     } from './types/sui/0x15fbfe8c27c920baaa1e4bd8bfe05c4408311612baf6493ed3285c6bd95a6939.js'
+import { cetus_clmm_worker as cetus_clmm_worker_buck_wusdc     } from './types/sui/0xcac7d10d73c3c32f6d40031c8639dfde168e6e1c0e4a86f8d23f21db60f97c94.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wusdc_buck     } from './types/sui/0xe6ba97715edd0cfe6a8e40654b37c6f46a8a8af5b7fe2eefa3fd713243857993.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_sui       } from './types/sui/0x1d25aa479630953f1313749759a476aa620ce65a3f2eab7a2e52a3a5e1e6e797.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_usdc       } from './types/sui/0x6e30dd0792fc4232e40cbbff861ece3c0a029d431cc3a62c5c46031524c2c91a.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_usdt      } from './types/sui/0xf74d70ad742dcbb0f75dc75312b3e7f2a5dd0b9f01634565289cbb6a6eb812c0.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdt_usdc      } from './types/sui/0x76e6fd74c625e04879d0aefdd8bbae10a836504ef0d41e6124b0e965dcec8683.js'
+import { cetus_clmm_worker as cetus_clmm_worker_cetus_usdc     } from './types/sui/0xe77bf63a6b95ce64a04c156a27c69e3ae4f823773fa9dc441c854d106ae21fda.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_cetus     } from './types/sui/0xbeae77b098564b7e62be51527b71300759014085c8ce849f2726397a5fcc411d.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_wusdc     } from './types/sui/0xe6cc53c3778e022568b546411bdd7011d3112660dae8a6f118ff2c460522866d.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wusdc_usdc     } from './types/sui/0xdcb271ff2e80185557d651707aeaaa21f899cb8de9be9c2fb4efef9c9500f6d9.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_buck      } from './types/sui/0x3001c0d95f0498b8e92fe95878b25e1c2e85ff213f3ff5b1ef088390ed185fc1.js'
+import { cetus_clmm_worker as cetus_clmm_worker_buck_usdc      } from './types/sui/0x0ffcc188b67223e6e883bc8e997e051af38657699d7ba745e43e8489b6104cdc.js'
+import { cetus_clmm_worker as cetus_clmm_worker_buck_sui       } from './types/sui/0x19252be299bb3a9202f308077042d01df6126d8c571a021069313860db2c1294.js'
+import { cetus_clmm_worker as cetus_clmm_worker_sui_buck       } from './types/sui/0xb34ffeebd804d18b0e3537dab0f46c81f6f32a3f61b78ec4207dde8205e81aaa.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_wusdc_new } from './types/sui/0x5d8c52a3bc49d7d33eacd754a03b255f789484df4872863aff74f004d3ba76f7.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wusdc_usdc_new } from './types/sui/0x8a53585a00bb54ce21c618e21ec135420814fc36857625c2a004c3dd2c26405e.js'
+import { cetus_clmm_worker as cetus_clmm_worker_buck_wusdc_new } from './types/sui/0x12403855fe4d02bec07d72c24614a3ded445d84acef96a1bccd33bea252e0540.js'
+import { cetus_clmm_worker as cetus_clmm_worker_wusdc_buck_new } from './types/sui/0x1da9b36af87eba57e751075851cb57742c7eeb8e051eaa548b583d3fff2a9778.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_suiusdt   } from './types/sui/0x4633d7f3b557b5ad474e89d6c0944eb53c779032304b2cf70c5c18a85f62a6bb.js'
+import { cetus_clmm_worker as cetus_clmm_worker_suiusdt_usdc   } from './types/sui/0x94d42a393f936278b43aca8b84ab6d7fafb975e1b7447cf007434bc75695bc02.js'
 
-import { cetus_clmm_worker as cetus_clmm_worker_usdc_sui   } from './types/sui/0x1d25aa479630953f1313749759a476aa620ce65a3f2eab7a2e52a3a5e1e6e797.js'
-import { cetus_clmm_worker as cetus_clmm_worker_sui_usdc   } from './types/sui/0x6e30dd0792fc4232e40cbbff861ece3c0a029d431cc3a62c5c46031524c2c91a.js'
-import { cetus_clmm_worker as cetus_clmm_worker_usdc_usdt  } from './types/sui/0xf74d70ad742dcbb0f75dc75312b3e7f2a5dd0b9f01634565289cbb6a6eb812c0.js'
-import { cetus_clmm_worker as cetus_clmm_worker_usdt_usdc  } from './types/sui/0x76e6fd74c625e04879d0aefdd8bbae10a836504ef0d41e6124b0e965dcec8683.js'
-import { cetus_clmm_worker as cetus_clmm_worker_cetus_usdc } from './types/sui/0xe77bf63a6b95ce64a04c156a27c69e3ae4f823773fa9dc441c854d106ae21fda.js'
-import { cetus_clmm_worker as cetus_clmm_worker_usdc_cetus } from './types/sui/0xbeae77b098564b7e62be51527b71300759014085c8ce849f2726397a5fcc411d.js'
-import { cetus_clmm_worker as cetus_clmm_worker_usdc_wusdc } from './types/sui/0xe6cc53c3778e022568b546411bdd7011d3112660dae8a6f118ff2c460522866d.js'
-import { cetus_clmm_worker as cetus_clmm_worker_wusdc_usdc } from './types/sui/0xdcb271ff2e80185557d651707aeaaa21f899cb8de9be9c2fb4efef9c9500f6d9.js'
 
 import { pool } from './types/sui/0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb.js'
-import { getPriceByType, token } from "@sentio/sdk/utils"
-import { buildCoinInfo, getCoinAmountFromLiquidity, getMTokenByToken, getPoolByToken, getPoolInfoByPoolId, getShareObjectByWorkerInfo, i32BitsToNumber, sleep, tickIndexToSqrtPriceX64} from './utils/mole_utils.js'
+import { getPriceByType } from "@sentio/sdk/utils"
+import { buildCoinInfo, getCoinAmountFromLiquidity, getPoolByToken, i32BitsToNumber, sleep, tickIndexToSqrtPriceX64} from './utils/mole_utils.js'
 import * as constant from './utils/constant.js'
-import * as helper from './utils/cetus-clmm.js'
-import { ANY_TYPE, BUILTIN_TYPES } from '@sentio/sdk/move'
+import { ANY_TYPE } from '@sentio/sdk/move'
 import { string_ } from "@sentio/sdk/sui/builtin/0x1";
 import BN from 'bn.js'
 import axiosInst from './utils/moleAxios.js'
 
 
-const vaultWethConfigId  = "0x7fa4aa18fc4488947dc7528b5177c4475ec478c28014e77a31dc2318fa4f125e"
-const vaultHaSuiConfigId = "0xa069ec74c6bb6d6df53e22d9bf00625a3d65da67c4d9e2868c8e348201251dd0"
-const vaultUsdtConfigId  = "0x355915a87a910908ef1ccc1cbad290b07fa01bd0d5f3046f472a1ef81842c04b"
-const vaultwUsdcConfigId = "0xe684f8509e90bfc1fe9701266a40d641e80691f0d05dc09cfd9c56041099cc39"
-const vaultCetusConfigId = "0x4389f5425b748b9ddec06730d8a4376bafff215f326b18eccb3dd3b2c4ef7e4f"
-const vaultSuiConfigId   = "0x6ae14611cecaab94070017f4633090ce7ea83922fc8f78b3f8409a7dbffeb9a4"
-const vaultNavxConfigId  = "0x8038c996731d6ea078c39be7cb7ac8ed6eec9cfe0299aefcf480c9e286c87af6"
-const vaultScaConfigId   = "0xd7ca39d682822b26e032079b723807e1bb2e90150c40eada7a104832e9e6c47f"
-const vaultWbtcConfigId  = "0xf19fcfcd8da9837580cd0737ef626ac077a5ce33f703d25c990a3c49d888b4f6"
-const vaultBuckConfigId  = "0x73903c5c973f62ab68acdfbd53b17dad2b9be586605664e192cebcb1f3a3f1a2"
-const vaultUsdcConfigId  = "0xbcdd5cd88604d4a14f937a88e0560d906592dbbf153de9ee3417609daff864c6"
+const vaultWethConfigId    = "0x7fa4aa18fc4488947dc7528b5177c4475ec478c28014e77a31dc2318fa4f125e"
+const vaultHaSuiConfigId   = "0xa069ec74c6bb6d6df53e22d9bf00625a3d65da67c4d9e2868c8e348201251dd0"
+const vaultUsdtConfigId    = "0x355915a87a910908ef1ccc1cbad290b07fa01bd0d5f3046f472a1ef81842c04b"
+const vaultwUsdcConfigId   = "0xe684f8509e90bfc1fe9701266a40d641e80691f0d05dc09cfd9c56041099cc39"
+const vaultCetusConfigId   = "0x4389f5425b748b9ddec06730d8a4376bafff215f326b18eccb3dd3b2c4ef7e4f"
+const vaultSuiConfigId     = "0x6ae14611cecaab94070017f4633090ce7ea83922fc8f78b3f8409a7dbffeb9a4"
+const vaultNavxConfigId    = "0x8038c996731d6ea078c39be7cb7ac8ed6eec9cfe0299aefcf480c9e286c87af6"
+const vaultScaConfigId     = "0xd7ca39d682822b26e032079b723807e1bb2e90150c40eada7a104832e9e6c47f"
+const vaultWbtcConfigId    = "0xf19fcfcd8da9837580cd0737ef626ac077a5ce33f703d25c990a3c49d888b4f6"
+const vaultBuckConfigId    = "0x73903c5c973f62ab68acdfbd53b17dad2b9be586605664e192cebcb1f3a3f1a2"
+const vaultUsdcConfigId    = "0xbcdd5cd88604d4a14f937a88e0560d906592dbbf153de9ee3417609daff864c6"
+const vaultsuiUsdtConfigId = "0x8684d2479db1042d9a265295dc63d4bafe830485d80fcde8a2d65ec62a44bf9c"
 
-
-const coinAddrSUI   = "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI"
-const coinAddrUSDT  = "0xc060006111016b8a020ad5b33834984a437aaa7d3c74c18e09a95d48aceab08c::coin::COIN"
-const coinAddrwUSDC = "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN"
-const coinAddrWETH  = "0xaf8cd5edc19c4512f4259f0bee101a40d41ebed738ade5874359610ef8eeced5::coin::COIN"
-const coinAddrCETUS = "0x06864a6f921804860930db6ddbe2e16acdf8504495ea7481637a1c8b9a8fe54b::cetus::CETUS"
-const coinAddrHASUI = "0xbde4ba4c2e274a60ce15c1cfff9e5c42e41654ac8b6d906a57efa4bd3c29f47d::hasui::HASUI"
-const coinAddrNAVX  = "0xa99b8952d4f7d947ea77fe0ecdcc9e5fc0bcab2841d6e2a5aa00c3044e5544b5::navx::NAVX"
-const coinAddrSCA   = "0x7016aae72cfc67f2fadf55769c0a7dd54291a583b63051a5ed71081cce836ac6::sca::SCA"
-const coinAddrWBTC  = "0x027792d9fed7f9844eb4839566001bb6f6cb4804f66aa2da6fe1ee242d896881::coin::COIN"
-const coinAddrBUCK  = "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK"
-const coinAddrUSDC  = "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC"
+const coinAddrSUI     = "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI"
+const coinAddrUSDT    = "0xc060006111016b8a020ad5b33834984a437aaa7d3c74c18e09a95d48aceab08c::coin::COIN"
+const coinAddrwUSDC   = "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN"
+const coinAddrWETH    = "0xaf8cd5edc19c4512f4259f0bee101a40d41ebed738ade5874359610ef8eeced5::coin::COIN"
+const coinAddrCETUS   = "0x06864a6f921804860930db6ddbe2e16acdf8504495ea7481637a1c8b9a8fe54b::cetus::CETUS"
+const coinAddrHASUI   = "0xbde4ba4c2e274a60ce15c1cfff9e5c42e41654ac8b6d906a57efa4bd3c29f47d::hasui::HASUI"
+const coinAddrNAVX    = "0xa99b8952d4f7d947ea77fe0ecdcc9e5fc0bcab2841d6e2a5aa00c3044e5544b5::navx::NAVX"
+const coinAddrSCA     = "0x7016aae72cfc67f2fadf55769c0a7dd54291a583b63051a5ed71081cce836ac6::sca::SCA"
+const coinAddrWBTC    = "0x027792d9fed7f9844eb4839566001bb6f6cb4804f66aa2da6fe1ee242d896881::coin::COIN"
+const coinAddrBUCK    = "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK"
+const coinAddrUSDC    = "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC"
+const coinAddrsuiUSDT = "0x375f70cf2ae4c00bf37117d0c85a2c71545e6ee05c4a5c7d282cd66a4504b068::usdt::USDT"
 
 // sui_incentive.bind({ 
 //     address: '0xc4dc6948a7d0a58f32fadd44e45efb201f44383bfab1cb6c48b9c186a92cc762',
@@ -106,7 +114,7 @@ SuiWrappedObjectProcessor.bind({
   objectId: "0x0dcd6ff3155967823494c7d4dd3bc952e551102879562ff7c75019b290281583",
   network: SuiNetwork.MAIN_NET,
   // startCheckpoint: 11763619n
-  startCheckpoint: 22247749n
+  startCheckpoint: 102462269n
 })
   .onTimeInterval(async (dynamicFieldObjects, ctx) => {
     try {
@@ -152,6 +160,8 @@ SuiWrappedObjectProcessor.bind({
           coinType = coinAddrBUCK
         } else if (configAddr == vaultUsdcConfigId) {
           coinType = coinAddrUSDC
+        } else if (configAddr == vaultsuiUsdtConfigId) {
+          coinType = coinAddrsuiUSDT
         } else {
           console.error("CoinType not suppport!")
         }
@@ -170,8 +180,10 @@ SuiWrappedObjectProcessor.bind({
 
         let coin_symbol = coinInfo.symbol
 
-        if (coinType == coinAddrwUSDC) {
+        if (coinType.toLowerCase() == coinAddrwUSDC.toLowerCase()) {
           coin_symbol = 'wUSDC'
+        } else if (coinType.toLowerCase() == coinAddrsuiUSDT.toLowerCase()) {
+          coin_symbol = 'suiUSDT'
         }
         
         //@ts-ignore
@@ -238,13 +250,13 @@ SuiWrappedObjectProcessor.bind({
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
     }
-  }, 60, 720, undefined, { owned: true })
+  }, 480, 720, undefined, { owned: true })
 
   
 SuiObjectProcessor.bind({
   objectId: "0xcf994611fd4c48e277ce3ffd4d4364c914af2c3cbb05f7bf6facd371de688630", // random fake id because no used in here
   network: SuiNetwork.MAIN_NET,
-  startCheckpoint: 25721833n
+  startCheckpoint: 102462269n
 })
 .onTimeInterval(async (self, _, ctx) => {
   try {
@@ -283,14 +295,14 @@ SuiObjectProcessor.bind({
 catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
-  }, 60, 720, undefined, { owned: false })
+  }, 480, 720, undefined, { owned: false })
 
 
 
   SuiObjectProcessor.bind({
     objectId: "0xcf994611fd4c48e277ce3ffd4d4364c914af2c3cbb05f7bf6facd371de688630", // random fake id because no used in here
     network: SuiNetwork.MAIN_NET,
-    startCheckpoint: 26720650n
+    startCheckpoint: 102462269n
   })
   .onTimeInterval(async (self, _, ctx) => {
     try {
@@ -332,7 +344,7 @@ catch (e) {
   catch (e) {
         console.log(`${e.message} error at ${JSON.stringify(self)}`)
       }
-    }, 60, 720, undefined, { owned: false })
+    }, 480, 720, undefined, { owned: false })
   
   
 
@@ -373,13 +385,28 @@ let gCurrentSqrtPriceUsdcUsdt
 let gCurrentSqrtPriceUsdcCetus
 //@ts-ignore
 let gCurrentSqrtPriceUsdcwUsdc
+//@ts-ignore
+let gCurrentSqrtPriceUsdcBuck
+//@ts-ignore
+let gCurrentSqrtPriceBuckUsdc
+//@ts-ignore
+let gCurrentSqrtPriceBuckSui
+//@ts-ignore
+let gCurrentSqrtPriceSuiBuck
+//@ts-ignore
+let gCurrentSqrtPriceUsdcwUsdcNew
+//@ts-ignore
+let gCurrentSqrtPriceBuckwUsdcNew
+//@ts-ignore
+let gCurrentSqrtPriceUsdcsuiUsdt
+
 
 for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   SuiObjectProcessor.bind({
     objectId: constant.POOLS_MOLE_LIST[i],
     network: SuiNetwork.MAIN_NET,
     // startCheckpoint: 11763619n
-    startCheckpoint: 22247749n
+    startCheckpoint: 102462269n
   })
   .onTimeInterval(async (self, _, ctx) => {
     try {
@@ -434,6 +461,16 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
         gCurrentSqrtPriceUsdcCetus = currentSqrtPrice
       } else if ('0xc29be5c19c35be7af76c89e85e6deb076789d70019b9f8d22a80e77e720bdec0' == ctx.objectId) {
         gCurrentSqrtPriceUsdcwUsdc = currentSqrtPrice
+      } else if ('0x4c50ba9d1e60d229800293a4222851c9c3f797aa5ba8a8d32cc67ec7e79fec60' == ctx.objectId) {
+        gCurrentSqrtPriceUsdcBuck = currentSqrtPrice
+      } else if ('0x59cf0d333464ad29443d92bfd2ddfd1f794c5830141a5ee4a815d1ef3395bf6c' == ctx.objectId) {
+        gCurrentSqrtPriceBuckSui = currentSqrtPrice
+      } else if ('0x1efc96c99c9d91ac0f54f0ca78d2d9a6ba11377d29354c0a192c86f0495ddec7' == ctx.objectId) {
+        gCurrentSqrtPriceUsdcwUsdcNew = currentSqrtPrice
+      } else if ('0xd4573bdd25c629127d54c5671d72a0754ef47767e6c01758d6dc651f57951e7d' == ctx.objectId) {
+        gCurrentSqrtPriceBuckwUsdcNew = currentSqrtPrice
+      } else if ('0x7df346f8ef98ad20869ff6d2fc7c43c00403a524987509091b39ce61dde00957' == ctx.objectId) {
+        gCurrentSqrtPriceUsdcsuiUsdt = currentSqrtPrice
       } else {
         console.error("Has not object : ", ctx.objectId)
       }
@@ -443,7 +480,7 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   catch (e) {
         console.log(`${e.message} error at ${JSON.stringify(self)}`)
       }
-    }, 60, 720, undefined, { owned: false })
+    }, 480, 720, undefined, { owned: false })
 }
 
 
@@ -456,7 +493,7 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
     objectId: workerInfoAddr,
     network: SuiNetwork.MAIN_NET,
     // startCheckpoint: 11763619n
-    startCheckpoint: 22247749n
+    startCheckpoint: 102462269n
   })
   .onTimeInterval(async (self, _, ctx) => {
     // console.log("ctx.objectId:" , ctx.objectId, ", slef:",JSON.stringify(self))
@@ -527,6 +564,26 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
         res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_wusdc.WorkerInfo.type())
       } else if (workerInfoAddr == "0x9b0e6176f25aeff94388fcf2c7d98ca481997f9e08160875263c4c50b669d242") { 
         res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_usdc.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x1c0a2e9e57e51b8f3557c3a6a1163b4909d9a14516ad7ecf7dd7814e7328d6fc") { 
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_buck.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x05d0e4b408c1a66bc7ed21a591970962f7e60ebc569a35ff1c61cbb2cdbf3832") { 
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_buck_usdc.WorkerInfo.type())
+      } else if (workerInfoAddr == "0xae7c55844e42ef1296af174ae10c247d091fd6be87a718a34af2f9dffaf05fc8") { 
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_buck_sui.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x89a808d0ba894599b89e7d8010682ce937af991fafebecb11667bb11d407d8c3") { 
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_buck.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x27e235491f516aaa2b6d7a4b1fd402a518f3da93d1e208ec9e7c072b4cf32e0a") { 
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_wusdc_new.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x6759e2cb781a5a4f47b8b55684b1ab87ba46a7ff770a3e2f2c42cf94fb306d76") { 
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_usdc_new.WorkerInfo.type())
+      } else if (workerInfoAddr == "0xee0430bce1e4ba2802719000300d9f5f1f179554669ca96b594b2ffa501b92d2") { 
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_buck_wusdc_new.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x57a70d4108b54e2b8b8f1a327975ae222d16eaf006eba90f479a3fce857cb5b1") { 
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_buck_new.WorkerInfo.type())
+      } else if (workerInfoAddr == "0x090d1bbf706bfdb00dfa7f2faeba793ccff87c2845f23312ed94c3f6a5aa02fd") { 
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_suiusdt.WorkerInfo.type())
+      } else if (workerInfoAddr == "0xe9c2b3d537084d20c1cb6c61f567f4b7f38aa890db8b76a92e5ebab3625fb3d3") { 
+        res = await ctx.coder.decodedType(self, cetus_clmm_worker_suiusdt_usdc.WorkerInfo.type())
       } else {
         console.error("Not support workerInfoAddr:", workerInfoAddr)
       } 
@@ -560,8 +617,10 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
 
       let coin_symbol_a = coinInfoA.symbol
 
-      if (coinTypeA == coinAddrwUSDC) {
+      if (coinTypeA.toLowerCase() == coinAddrwUSDC.toLowerCase()) {
         coin_symbol_a = 'wUSDC'
+      } else if (coinTypeA.toLowerCase() == coinAddrsuiUSDT.toLowerCase()) {
+        coin_symbol_a = 'suiUSDT'
       }
 
       let coinInfoB = await buildCoinInfo(ctx, coinTypeB)
@@ -577,8 +636,10 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
       }
       let coin_symbol_b = coinInfoB.symbol
 
-      if (coinTypeB == coinAddrwUSDC) {
+      if (coinTypeB.toLowerCase() == coinAddrwUSDC.toLowerCase()) {
         coin_symbol_b = 'wUSDC'
+      } else if (coinTypeB.toLowerCase() == coinAddrsuiUSDT.toLowerCase()) {
+        coin_symbol_b = 'suiUSDT'
       }
 
       let currentSqrtPrice
@@ -621,7 +682,10 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
       } else if (coinTypeA == coinAddrwUSDC && coinTypeB == coinAddrWBTC) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPricewUsdcWbtc
-      } else if (coinTypeA == coinAddrBUCK && coinTypeB == coinAddrwUSDC) {
+      } else if (coinTypeA == coinAddrBUCK && coinTypeB == coinAddrwUSDC 
+        && ( workerInfoAddr == "0x1a8ad1068ab9bc5b94f2e3baa7a5eaac67e1337e2a47463fcfbc1b9ed26ef5ce" 
+          || workerInfoAddr == "0xf7fc938356331d7404226c147328750cf2d8ef8a273ed8bc1450ee4e0ff0e659"
+      )) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceBuckwUsdc
       } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrSUI) {
@@ -633,15 +697,47 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
       } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrCETUS) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceUsdcCetus
-      } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrwUSDC) {
+      } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrwUSDC 
+        && ( workerInfoAddr == "0x6b65414a6244fdbd71d0e1fc8e0a27c717f68db51faf5a7cce7256abae9a320e" 
+            || workerInfoAddr == "0x9b0e6176f25aeff94388fcf2c7d98ca481997f9e08160875263c4c50b669d242"
+      )) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceUsdcwUsdc
+      } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrBUCK) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceUsdcBuck
+      } else if (coinTypeA == coinAddrBUCK && coinTypeB == coinAddrUSDC) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceBuckUsdc
+      } else if (coinTypeA == coinAddrBUCK && coinTypeB == coinAddrSUI) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceBuckSui
+      } else if (coinTypeA == coinAddrSUI && coinTypeB == coinAddrBUCK) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceSuiBuck
+      } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrwUSDC 
+        && ( workerInfoAddr == "0x27e235491f516aaa2b6d7a4b1fd402a518f3da93d1e208ec9e7c072b4cf32e0a" 
+            || workerInfoAddr == "0x6759e2cb781a5a4f47b8b55684b1ab87ba46a7ff770a3e2f2c42cf94fb306d76"
+      )) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceUsdcwUsdcNew
+        coin_symbol_b = coin_symbol_b + '-new'
+      } else if (coinTypeA == coinAddrBUCK && coinTypeB == coinAddrwUSDC 
+        && ( workerInfoAddr == "0xee0430bce1e4ba2802719000300d9f5f1f179554669ca96b594b2ffa501b92d2" 
+          || workerInfoAddr == "0x57a70d4108b54e2b8b8f1a327975ae222d16eaf006eba90f479a3fce857cb5b1"
+      )) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceBuckwUsdcNew
+        coin_symbol_b = coin_symbol_b + '-new'
+      } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrsuiUSDT) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceUsdcsuiUsdt
       } else {
         console.error("Has not price : coin_symbol_a:", coin_symbol_a, ",coin_symbol_b:",coin_symbol_b )
       }
 
       if (!currentSqrtPrice) {
-        console.error("gCurrentSqrtPrice is undefined")
+        console.error("currentSqrtPrice is undefined, coinTypeA:", coinTypeA, ", coinTypeB:", coinTypeB)
         return
       }
        
@@ -667,18 +763,16 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
 
       const lyf_usd_farm_usd = Number(coinAamount) * priceA! / Math.pow(10, coinInfoA.decimal) + Number(coinBamount) * priceB! / Math.pow(10, coinInfoB.decimal)
 
-      // console.log("lyf_usd_farm_usd:", lyf_usd_farm_usd)
-
       const farmPairName = coin_symbol_a + '-' + coin_symbol_b
 
       ctx.meter.Gauge("lyf_usd_farm_usd").record(lyf_usd_farm_usd, {farmPairName , project: "mole-fee" })
 
-
+      console.log("lyf_usd_farm_usd:", lyf_usd_farm_usd, ", farmPairName: ", farmPairName)
     }
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
-  }, 60, 720, undefined, { owned: false })
+  }, 480, 720, undefined, { owned: false })
 }
 
 
@@ -688,7 +782,7 @@ SuiWrappedObjectProcessor.bind({
   objectId: "0x0dcd6ff3155967823494c7d4dd3bc952e551102879562ff7c75019b290281583",
   network: SuiNetwork.MAIN_NET,
   // startCheckpoint: 11763619n
-  startCheckpoint: 22247749n
+  startCheckpoint: 102462269n
 })
   .onTimeInterval(async (dynamicFieldObjects, ctx) => {
     try {
@@ -735,6 +829,8 @@ SuiWrappedObjectProcessor.bind({
           coinType = coinAddrBUCK
         } else if (configAddr == vaultUsdcConfigId) {
           coinType = coinAddrUSDC
+        } else if (configAddr == vaultsuiUsdtConfigId) {
+          coinType = coinAddrsuiUSDT
         } else {
           console.error("CoinType not suppport!")
         }
@@ -753,8 +849,10 @@ SuiWrappedObjectProcessor.bind({
 
         let coin_symbol = coinInfo.symbol
 
-        if (coinType == coinAddrwUSDC) {
+        if (coinType.toLowerCase() == coinAddrwUSDC.toLowerCase()) {
           coin_symbol = 'wUSDC'
+        } else if (coinType.toLowerCase() == coinAddrsuiUSDT.toLowerCase()) {
+          coin_symbol = 'suiUSDT'
         }
         
         //@ts-ignore
@@ -785,6 +883,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0
           } else if (configAddr == vaultUsdcConfigId) {
             accumulateFee = 0
+          } else if (configAddr == vaultsuiUsdtConfigId) {
+            accumulateFee = 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -810,6 +910,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultBuckConfigId) {
             accumulateFee = 0 + 0
           } else if (configAddr == vaultUsdcConfigId) {
+            accumulateFee = 0 + 0
+          } else if (configAddr == vaultsuiUsdtConfigId) {
             accumulateFee = 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -837,6 +939,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0
           } else if (configAddr == vaultUsdcConfigId) {
             accumulateFee = 0 + 0 + 0
+          } else if (configAddr == vaultsuiUsdtConfigId) {
+            accumulateFee = 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -862,6 +966,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultBuckConfigId) {
             accumulateFee = 0 + 0 + 0 + 0
           } else if (configAddr == vaultUsdcConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0
+          } else if (configAddr == vaultsuiUsdtConfigId) {
             accumulateFee = 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -889,6 +995,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultUsdcConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultsuiUsdtConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -914,6 +1022,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultBuckConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultUsdcConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultsuiUsdtConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -941,6 +1051,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultUsdcConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultsuiUsdtConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -967,10 +1079,12 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultUsdcConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultsuiUsdtConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
-        } else if (ctx.checkpoint >= 35481090 ) {
+        } else if (ctx.checkpoint >= 35481090 && ctx.checkpoint <= 89328791) {
           if (configAddr == vaultWethConfigId) {
             accumulateFee = 0.00315804 + 0 + 0.09845773 + 0 + 0.00000013 + 0.00002272 + 0.00000006 + 0 + 0.00187223 
           } else if (configAddr == vaultHaSuiConfigId) {
@@ -993,6 +1107,36 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0.032972178
           } else if (configAddr == vaultUsdcConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultsuiUsdtConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else {
+            console.error("CoinType not suppport!")
+          }
+        } else if (ctx.checkpoint > 89328791) {
+          if (configAddr == vaultWethConfigId) {
+            accumulateFee = 0.00315804 + 0 + 0.09845773 + 0 + 0.00000013 + 0.00002272 + 0.00000006 + 0 + 0.00187223 + 0.12178293
+          } else if (configAddr == vaultHaSuiConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0.058995068 + 0 + 0 + 0 + 0.100466176 + 0.418409173
+          } else if (configAddr == vaultUsdtConfigId) {
+            accumulateFee = 52.443544 + 158.347969 + 0 + 0.482047 + 0.247548 + 0.073082 + 0 + 0.143209 + 0.010165 + 0.148551
+          } else if (configAddr == vaultwUsdcConfigId) {
+            accumulateFee = 49.80559 + 211.449818 + 157.650286 + 31.421483 + 81.100837 + 43.951883 + 34.270039 + 34.108969 + 172.970752 + 3805.021933
+          } else if (configAddr == vaultCetusConfigId) {
+            accumulateFee = 0 + 0 + 0 + 1.122338056 + 0.264680249 + 0 + 0 + 0 + 81.334258105 + 311.820012603
+          } else if (configAddr == vaultSuiConfigId) {
+            accumulateFee = 7.915105448 + 63.85454832 + 246.552150586 + 33.885724004 + 116.901576637 + 65.050304323 + 62.596474695 + 175.976913576 + 2157.302282819 + 1605.159619797
+          } else if (configAddr == vaultNavxConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0.000429911 + 0 + 0 + 0 + 0.375408055 + 0.436247858
+          } else if (configAddr == vaultScaConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 25.646615746 + 28.350234249
+          } else if (configAddr == vaultWbtcConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0.00000187 + 0.00014818
+          } else if (configAddr == vaultBuckConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0.032972178 + 4005.622594355
+          } else if (configAddr == vaultUsdcConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 777.934996
+          } else if (configAddr == vaultsuiUsdtConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -1029,7 +1173,7 @@ SuiWrappedObjectProcessor.bind({
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
     }
-  }, 60, 720, undefined, { owned: true })
+  }, 480, 720, undefined, { owned: true })
 
 
 
@@ -1254,7 +1398,7 @@ SuiWrappedObjectProcessor.bind({
 //       catch (e) {
 //         console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
 //       }
-//     }, 60, 720, undefined, { owned: true })
+//     }, 480, 720, undefined, { owned: true })
 //   }
 
   
@@ -1542,7 +1686,7 @@ SuiWrappedObjectProcessor.bind({
 //     catch (e) {
 //       console.log(`${e.message} error at ${JSON.stringify(self)}`)
 //     }
-//   }, 60, 720, undefined, { owned: false })
+//   }, 480, 720, undefined, { owned: false })
 // }
   
 

@@ -44,7 +44,8 @@ export const POOLS_MOLE_LIST = [
     "0x1efc96c99c9d91ac0f54f0ca78d2d9a6ba11377d29354c0a192c86f0495ddec7",
     // cetus_clmm_pool_buck_wusdc: new
     "0xd4573bdd25c629127d54c5671d72a0754ef47767e6c01758d6dc651f57951e7d",
-
+    // cetus_clmm_pool_usdc_suiusdt
+    "0x7df346f8ef98ad20869ff6d2fc7c43c00403a524987509091b39ce61dde00957",
 ]
 
 
@@ -129,5 +130,9 @@ export const MOLE_WORKER_INFO_LIST = [
     "0xee0430bce1e4ba2802719000300d9f5f1f179554669ca96b594b2ffa501b92d2",
     // cetus_worker_wusdc_buck_worker_info: 
     "0x57a70d4108b54e2b8b8f1a327975ae222d16eaf006eba90f479a3fce857cb5b1",
-
+    // cetus_worker_usdc_suiusdt_worker_info: 
+    "0x090d1bbf706bfdb00dfa7f2faeba793ccff87c2845f23312ed94c3f6a5aa02fd",
+    // cetus_worker_suiusdt_usdc_worker_info: 
+    "0xe9c2b3d537084d20c1cb6c61f567f4b7f38aa890db8b76a92e5ebab3625fb3d3",
+    
 ]
