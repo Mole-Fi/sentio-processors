@@ -272,6 +272,9 @@ function tickIndexToSqrtPriceNegative(tickIndex: number) {
       return ["0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f::vault::MagicCoin<0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC>", "mUSDC"]
     } else if (tokenAddr == "0x375f70cf2ae4c00bf37117d0c85a2c71545e6ee05c4a5c7d282cd66a4504b068::usdt::USDT") {
       return ["0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f::vault::MagicCoin<0x375f70cf2ae4c00bf37117d0c85a2c71545e6ee05c4a5c7d282cd66a4504b068::usdt::USDT>", "msuiUSDT"]
+    } else if (tokenAddr == "0xf16e6b723f242ec745dfd7634ad072c42d5c1d9ac9d62a39c381303eaa57693a::fdusd::FDUSD") {
+      return ["0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f::vault::MagicCoin<0xf16e6b723f242ec745dfd7634ad072c42d5c1d9ac9d62a39c381303eaa57693a::fdusd::FDUSD>", "mFDUSD"]
+   
     } else {
       console.error("No tokens here for token:", tokenAddr)
       return ["", ""]
@@ -306,6 +309,8 @@ function tickIndexToSqrtPriceNegative(tickIndex: number) {
       return "0x0d28f718921470e88da9339b8c24fdba93757da3f036e8736f7fbe1ca6fe53eb"
     } else if (tokenAddr == "0x375f70cf2ae4c00bf37117d0c85a2c71545e6ee05c4a5c7d282cd66a4504b068::usdt::USDT") {
       return "0xc2b6eff113d09a84bfda3fd094fd9ae09bec47a04f5759bc68cfc84d83cfbc19"
+    } else if (tokenAddr == "0xf16e6b723f242ec745dfd7634ad072c42d5c1d9ac9d62a39c381303eaa57693a::fdusd::FDUSD") {
+      return "0x62bd16f6223faa02654707191b77bfdfc1f8a7fa227ec1942eb01399e6d995ce"
     } else {
       console.error("No tokens here, token: ", tokenAddr)
       return
@@ -338,6 +343,8 @@ function tickIndexToSqrtPriceNegative(tickIndex: number) {
       return ["0x0d28f718921470e88da9339b8c24fdba93757da3f036e8736f7fbe1ca6fe53eb", "USDC"]
     } else if (poolId == "11") {
       return ["0xc2b6eff113d09a84bfda3fd094fd9ae09bec47a04f5759bc68cfc84d83cfbc19", "suiUSDT"]
+    } else if (poolId == "12") {
+      return ["0x62bd16f6223faa02654707191b77bfdfc1f8a7fa227ec1942eb01399e6d995ce", "FDUSD"]
     } else {
       console.error("No pool in here , pid: ", poolId)
       return ["", ""]
@@ -430,6 +437,10 @@ function tickIndexToSqrtPriceNegative(tickIndex: number) {
       sharesObjectId = "0x6b535e5d736b803663a91b19ea9c8dc644c97f101219b0e1428e45fa1d90098f"
     } else if (workerInfoAddr == "0xe9c2b3d537084d20c1cb6c61f567f4b7f38aa890db8b76a92e5ebab3625fb3d3") {
       sharesObjectId = "0x392d1f842f815b0b89ea1fab87e6a74364e54f1acfd5d320b6e97a84d7926526"
+    } else if (workerInfoAddr == "0xa04a6445403ad44a23d9828db39057d08580689db40dc413919c5e13af94f395") {
+      sharesObjectId = "0x85e4c4d757f9faf8b4fd0911bfcee1b47500b4a8da309fd97d5adb3cdea657c6"
+    } else if (workerInfoAddr == "0x85b95d5c30f481e45e51493771140d11ccdd28ca8fdf2a9abb0431d31b7298d0") {
+      sharesObjectId = "0xeb104c387b80813f31241f779f8523fb519ec13a32bbe17608975e6ddc3e9243"
     } else {
       console.error("Not support workerInfoAddr:", workerInfoAddr)
     } 

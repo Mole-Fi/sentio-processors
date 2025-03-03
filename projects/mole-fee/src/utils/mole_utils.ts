@@ -270,6 +270,11 @@ function tickIndexToSqrtPriceNegative(tickIndex: number) {
       return ["0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f::vault::MagicCoin<0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK>", "mBUCK"]
     } else if (tokenAddr == "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC") {
       return ["0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f::vault::MagicCoin<0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC>", "mUSDC"]
+    } else if (tokenAddr == "0x375f70cf2ae4c00bf37117d0c85a2c71545e6ee05c4a5c7d282cd66a4504b068::usdt::USDT") {
+      return ["0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f::vault::MagicCoin<0x375f70cf2ae4c00bf37117d0c85a2c71545e6ee05c4a5c7d282cd66a4504b068::usdt::USDT>", "msuiUSDT"]
+    } else if (tokenAddr == "0xf16e6b723f242ec745dfd7634ad072c42d5c1d9ac9d62a39c381303eaa57693a::fdusd::FDUSD") {
+      return ["0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f::vault::MagicCoin<0xf16e6b723f242ec745dfd7634ad072c42d5c1d9ac9d62a39c381303eaa57693a::fdusd::FDUSD>", "mFDUSD"]
+   
     } else {
       console.error("No tokens here for token:", tokenAddr)
       return ["", ""]
@@ -302,6 +307,10 @@ function tickIndexToSqrtPriceNegative(tickIndex: number) {
       return "0x9aa2a2dd1511243c00c25702b38b04049a5a701d8decc71be04cc150e43cb283"
     } else if (tokenAddr == "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC") {
       return "0x0d28f718921470e88da9339b8c24fdba93757da3f036e8736f7fbe1ca6fe53eb"
+    } else if (tokenAddr == "0x375f70cf2ae4c00bf37117d0c85a2c71545e6ee05c4a5c7d282cd66a4504b068::usdt::USDT") {
+      return "0xc2b6eff113d09a84bfda3fd094fd9ae09bec47a04f5759bc68cfc84d83cfbc19"
+    } else if (tokenAddr == "0xf16e6b723f242ec745dfd7634ad072c42d5c1d9ac9d62a39c381303eaa57693a::fdusd::FDUSD") {
+      return "0x62bd16f6223faa02654707191b77bfdfc1f8a7fa227ec1942eb01399e6d995ce"
     } else {
       console.error("No tokens here, token: ", tokenAddr)
       return
@@ -332,6 +341,10 @@ function tickIndexToSqrtPriceNegative(tickIndex: number) {
       return ["0x9aa2a2dd1511243c00c25702b38b04049a5a701d8decc71be04cc150e43cb283", "BUCK"]
     } else if (poolId == "10") {
       return ["0x0d28f718921470e88da9339b8c24fdba93757da3f036e8736f7fbe1ca6fe53eb", "USDC"]
+    } else if (poolId == "11") {
+      return ["0xc2b6eff113d09a84bfda3fd094fd9ae09bec47a04f5759bc68cfc84d83cfbc19", "suiUSDT"]
+    } else if (poolId == "12") {
+      return ["0x62bd16f6223faa02654707191b77bfdfc1f8a7fa227ec1942eb01399e6d995ce", "FDUSD"]
     } else {
       console.error("No pool in here , pid: ", poolId)
       return ["", ""]
@@ -404,6 +417,30 @@ function tickIndexToSqrtPriceNegative(tickIndex: number) {
       sharesObjectId = "0xd13e93b7342e95e7a7707ee361ce609e7d2fba122d5b4cc9ee264ee70f5fe7e4"
     } else if (workerInfoAddr == "0x9b0e6176f25aeff94388fcf2c7d98ca481997f9e08160875263c4c50b669d242") {
       sharesObjectId = "0x08480d511e669fe187fe8628aac5626cad8c925f1505eab655c30cd2f943de8f"
+    } else if (workerInfoAddr == "0x1c0a2e9e57e51b8f3557c3a6a1163b4909d9a14516ad7ecf7dd7814e7328d6fc") {
+      sharesObjectId = "0xb0fe872b16f5bd9c271822cef20c6a0d58ba22da517d19d4a4f520d9b760865d"
+    } else if (workerInfoAddr == "0x05d0e4b408c1a66bc7ed21a591970962f7e60ebc569a35ff1c61cbb2cdbf3832") {
+      sharesObjectId = "0xaa9f248abba7da474e4b8401010c6eca7811c086b7e12994d0a745e41d2269fe"
+    } else if (workerInfoAddr == "0xae7c55844e42ef1296af174ae10c247d091fd6be87a718a34af2f9dffaf05fc8") {
+      sharesObjectId = "0x5d5a89a9d594cebecf3baa549755121914ad0528c715722305d079fa524c88ad"
+    } else if (workerInfoAddr == "0x89a808d0ba894599b89e7d8010682ce937af991fafebecb11667bb11d407d8c3") {
+      sharesObjectId = "0xf51c14652806637d93df5c431d6b9bbd7bcd005d67418c088ed535a43345adda"
+    } else if (workerInfoAddr == "0x27e235491f516aaa2b6d7a4b1fd402a518f3da93d1e208ec9e7c072b4cf32e0a") {
+      sharesObjectId = "0x6c458205b5c4e520471fa4bff5cd123ac824fd43d6e17ccedd54abf1f419a108"
+    } else if (workerInfoAddr == "0x6759e2cb781a5a4f47b8b55684b1ab87ba46a7ff770a3e2f2c42cf94fb306d76") {
+      sharesObjectId = "0xe3d6166ffe5e9b3a3a0dff1051a6cf6d777cd1fc2713e3ff6cd592b069eef4ea"
+    } else if (workerInfoAddr == "0xee0430bce1e4ba2802719000300d9f5f1f179554669ca96b594b2ffa501b92d2") {
+      sharesObjectId = "0xc7df886d53793eafa159d932feeb46f812ad8ffe4d1052adcf5d3ed71138db88"
+    } else if (workerInfoAddr == "0x57a70d4108b54e2b8b8f1a327975ae222d16eaf006eba90f479a3fce857cb5b1") {
+      sharesObjectId = "0xaa21e1580b5b32e885a2daff149a2f04d100ed038980c745bb8cd6f3cddd30bb"
+    } else if (workerInfoAddr == "0x090d1bbf706bfdb00dfa7f2faeba793ccff87c2845f23312ed94c3f6a5aa02fd") {
+      sharesObjectId = "0x6b535e5d736b803663a91b19ea9c8dc644c97f101219b0e1428e45fa1d90098f"
+    } else if (workerInfoAddr == "0xe9c2b3d537084d20c1cb6c61f567f4b7f38aa890db8b76a92e5ebab3625fb3d3") {
+      sharesObjectId = "0x392d1f842f815b0b89ea1fab87e6a74364e54f1acfd5d320b6e97a84d7926526"
+    } else if (workerInfoAddr == "0xa04a6445403ad44a23d9828db39057d08580689db40dc413919c5e13af94f395") {
+      sharesObjectId = "0x85e4c4d757f9faf8b4fd0911bfcee1b47500b4a8da309fd97d5adb3cdea657c6"
+    } else if (workerInfoAddr == "0x85b95d5c30f481e45e51493771140d11ccdd28ca8fdf2a9abb0431d31b7298d0") {
+      sharesObjectId = "0xeb104c387b80813f31241f779f8523fb519ec13a32bbe17608975e6ddc3e9243"
     } else {
       console.error("Not support workerInfoAddr:", workerInfoAddr)
     } 
