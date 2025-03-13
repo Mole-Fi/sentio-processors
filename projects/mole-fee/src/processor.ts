@@ -551,19 +551,9 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
       } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrsuiUSDT) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceUsdcsuiUsdt
-      } else if (coinTypeA == coinAddrFDUSD && coinTypeB == coinAddrUSDC
-        && ( workerInfoAddr == "0xa04a6445403ad44a23d9828db39057d08580689db40dc413919c5e13af94f395"
-          || workerInfoAddr == "0x85b95d5c30f481e45e51493771140d11ccdd28ca8fdf2a9abb0431d31b7298d0"
-      )) {
+      } else if (coinTypeA == coinAddrFDUSD && coinTypeB == coinAddrUSDC) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceFdusdUsdc
-        coin_symbol_b = coin_symbol_b + '-1'
-      } else if (coinTypeA == coinAddrFDUSD && coinTypeB == coinAddrUSDC
-        && workerInfoAddr == "0xf658a0a9eb06b349a5493100094066c0b3548c18545ae5b7607748d1dcb997ca"
-      ) {
-        //@ts-ignore
-        currentSqrtPrice = gCurrentSqrtPriceFdusdUsdc
-        coin_symbol_b = coin_symbol_b + '-2'
       } else {
         console.error("Has not price : coin_symbol_a:", coin_symbol_a, ",coin_symbol_b:",coin_symbol_b )
       }
