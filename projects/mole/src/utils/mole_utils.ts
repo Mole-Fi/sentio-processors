@@ -556,7 +556,7 @@ export function getCoinTypeByVaultConfigId(vaultConfigId: string) {
   return coinType
 }
 
-export async function getResponseContentByWorkerInfo(workerInfoAddr: string, ctx: SuiObjectContext) {
+export async function getResponseContentByWorkerInfo(workerInfoAddr: string, ctx: SuiObjectContext, self: any) {
   let res
   if (workerInfoAddr == "0x98f354c9e166862f079aaadd5e85940c55c440a8461e8e468513e2a86106042c") {
     res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_sui.WorkerInfo.type())

@@ -404,7 +404,7 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
     // console.log("ctx.objectId:" , ctx.objectId, ", slef:",JSON.stringify(self))
     
     try {
-      let res = await getResponseContentByWorkerInfo(workerInfoAddr, ctx)
+      let res = await getResponseContentByWorkerInfo(workerInfoAddr, ctx, self)
             
       // console.log("ctx.objectId:" , ctx.objectId, ",res : ", JSON.stringify(res))
 
