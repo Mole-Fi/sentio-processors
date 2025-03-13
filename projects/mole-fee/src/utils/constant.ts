@@ -138,6 +138,8 @@ export const MOLE_WORKER_INFO_LIST = [
     "0xe9c2b3d537084d20c1cb6c61f567f4b7f38aa890db8b76a92e5ebab3625fb3d3",
     // cetus_worker_fdusd_usdc_worker_info:
     "0xa04a6445403ad44a23d9828db39057d08580689db40dc413919c5e13af94f395",
-    // cetus_worker_usdc_fdusd_worker_info: 
+    // cetus_worker_usdc_fdusd_1_worker_info: 
     "0x85b95d5c30f481e45e51493771140d11ccdd28ca8fdf2a9abb0431d31b7298d0",
+    // cetus_worker_usdc_fdusd_2_worker_info: 
+    "0xf658a0a9eb06b349a5493100094066c0b3548c18545ae5b7607748d1dcb997ca",
 ]

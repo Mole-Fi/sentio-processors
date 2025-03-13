@@ -1,11 +1,11 @@
 {
   "cetus_clmm_strategy_add_base_coin_only": {
     "fileFormatVersion": 6,
-    "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+    "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
     "name": "cetus_clmm_strategy_add_base_coin_only",
     "friends": [
       {
-        "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+        "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
         "name": "cetus_clmm_worker"
       }
     ],
@@ -659,11 +659,11 @@
   },
   "cetus_clmm_strategy_add_two_sides_optimal": {
     "fileFormatVersion": 6,
-    "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+    "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
     "name": "cetus_clmm_strategy_add_two_sides_optimal",
     "friends": [
       {
-        "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+        "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
         "name": "cetus_clmm_worker"
       }
     ],
@@ -1705,11 +1705,11 @@
   },
   "cetus_clmm_strategy_liquidate": {
     "fileFormatVersion": 6,
-    "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+    "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
     "name": "cetus_clmm_strategy_liquidate",
     "friends": [
       {
-        "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+        "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
         "name": "cetus_clmm_worker"
       }
     ],
@@ -2363,11 +2363,11 @@
   },
   "cetus_clmm_strategy_partial_close_liquidate": {
     "fileFormatVersion": 6,
-    "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+    "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
     "name": "cetus_clmm_strategy_partial_close_liquidate",
     "friends": [
       {
-        "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+        "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
         "name": "cetus_clmm_worker"
       }
     ],
@@ -3021,11 +3021,11 @@
   },
   "cetus_clmm_strategy_partial_close_minimize_trading": {
     "fileFormatVersion": 6,
-    "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+    "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
     "name": "cetus_clmm_strategy_partial_close_minimize_trading",
     "friends": [
       {
-        "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+        "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
         "name": "cetus_clmm_worker"
       }
     ],
@@ -3679,11 +3679,11 @@
   },
   "cetus_clmm_strategy_withdraw_minimize_trading": {
     "fileFormatVersion": 6,
-    "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+    "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
     "name": "cetus_clmm_strategy_withdraw_minimize_trading",
     "friends": [
       {
-        "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+        "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
         "name": "cetus_clmm_worker"
       }
     ],
@@ -4337,7 +4337,7 @@
   },
   "cetus_clmm_worker": {
     "fileFormatVersion": 6,
-    "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+    "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
     "name": "cetus_clmm_worker",
     "friends": [],
     "structs": {
@@ -4716,7 +4716,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -4877,7 +4877,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -5023,7 +5023,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -5170,7 +5170,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -5318,7 +5318,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -5465,7 +5465,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -5611,7 +5611,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -5758,7 +5758,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -5906,7 +5906,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -6053,7 +6053,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -6215,7 +6215,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -6378,7 +6378,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -6540,7 +6540,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -6695,7 +6695,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -6851,7 +6851,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -7008,7 +7008,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -7164,7 +7164,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -7205,7 +7205,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -7246,7 +7246,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -7367,7 +7367,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -7488,7 +7488,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -7630,7 +7630,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -7805,7 +7805,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -7944,7 +7944,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -8065,7 +8065,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -8207,7 +8207,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -8382,7 +8382,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -8503,7 +8503,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -8645,7 +8645,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -8823,7 +8823,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -8995,7 +8995,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -9085,7 +9085,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -9175,7 +9175,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -9224,7 +9224,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -9264,7 +9264,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -9305,7 +9305,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -9363,7 +9363,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -9421,7 +9421,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "AdminCap",
                 "typeArguments": []
@@ -9560,7 +9560,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "AdminCap",
                 "typeArguments": []
@@ -9699,7 +9699,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -9740,7 +9740,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -9800,7 +9800,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -9897,7 +9897,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -9994,7 +9994,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -10035,7 +10035,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -10161,7 +10161,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -10288,7 +10288,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -10416,7 +10416,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -10543,7 +10543,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -10612,7 +10612,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -10684,7 +10684,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -10849,7 +10849,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -11015,7 +11015,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -11202,7 +11202,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -11383,7 +11383,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -11509,7 +11509,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -11656,7 +11656,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -11847,7 +11847,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -11985,7 +11985,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -12144,7 +12144,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -12364,7 +12364,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -12491,7 +12491,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -12674,7 +12674,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -12830,7 +12830,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -13014,7 +13014,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -13180,7 +13180,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -13367,7 +13367,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -13548,7 +13548,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -13674,7 +13674,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -13821,7 +13821,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -14012,7 +14012,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -14150,7 +14150,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -14309,7 +14309,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -14501,7 +14501,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -14667,7 +14667,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -14833,7 +14833,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -15020,7 +15020,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -15201,7 +15201,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -15327,7 +15327,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -15474,7 +15474,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -15665,7 +15665,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -15803,7 +15803,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -15962,7 +15962,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -16146,7 +16146,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -16368,7 +16368,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -16563,7 +16563,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -16741,7 +16741,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -16885,7 +16885,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -17030,7 +17030,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -17136,7 +17136,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -17252,7 +17252,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -17369,7 +17369,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -17478,7 +17478,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -17602,7 +17602,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -17726,7 +17726,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -17871,7 +17871,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -18049,7 +18049,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -18191,7 +18191,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -18315,7 +18315,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -18460,7 +18460,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -18638,7 +18638,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -18762,7 +18762,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -18907,7 +18907,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -19088,7 +19088,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -19263,7 +19263,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -19366,7 +19366,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -19469,7 +19469,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "AdminCap",
                 "typeArguments": []
@@ -19479,7 +19479,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -19518,7 +19518,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "AdminCap",
                 "typeArguments": []
@@ -19528,7 +19528,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -19570,7 +19570,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "AdminCap",
                 "typeArguments": []
@@ -19580,7 +19580,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -19619,7 +19619,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "AdminCap",
                 "typeArguments": []
@@ -19629,7 +19629,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -19668,7 +19668,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "AdminCap",
                 "typeArguments": []
@@ -19678,7 +19678,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -19718,7 +19718,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "AdminCap",
                 "typeArguments": []
@@ -19728,7 +19728,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -19770,7 +19770,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "AdminCap",
                 "typeArguments": []
@@ -19780,7 +19780,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -19822,7 +19822,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "AdminCap",
                 "typeArguments": []
@@ -19832,7 +19832,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -19872,7 +19872,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "AdminCap",
                 "typeArguments": []
@@ -19882,7 +19882,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -19921,7 +19921,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -19962,7 +19962,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "AdminCap",
                 "typeArguments": []
@@ -19972,7 +19972,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -20011,7 +20011,7 @@
           {
             "Reference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "AdminCap",
                 "typeArguments": []
@@ -20021,7 +20021,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -20072,7 +20072,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -20234,7 +20234,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -20366,7 +20366,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -20499,7 +20499,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -20633,7 +20633,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -20766,7 +20766,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -20913,7 +20913,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -21061,7 +21061,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -21210,7 +21210,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -21358,7 +21358,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -21505,7 +21505,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -21653,7 +21653,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -21802,7 +21802,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -21950,7 +21950,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -22113,7 +22113,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -22277,7 +22277,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -22440,7 +22440,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -22596,7 +22596,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -22753,7 +22753,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
@@ -22911,7 +22911,7 @@
           {
             "MutableReference": {
               "Struct": {
-                "address": "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17",
+                "address": "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc",
                 "module": "cetus_clmm_worker",
                 "name": "WorkerInfo",
                 "typeArguments": [
