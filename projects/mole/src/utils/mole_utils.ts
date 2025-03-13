@@ -47,8 +47,9 @@ import { cetus_clmm_worker as cetus_clmm_worker_buck_wusdc_new } from '../types/
 import { cetus_clmm_worker as cetus_clmm_worker_wusdc_buck_new } from '../types/sui/0x1da9b36af87eba57e751075851cb57742c7eeb8e051eaa548b583d3fff2a9778.js'
 import { cetus_clmm_worker as cetus_clmm_worker_usdc_suiusdt } from '../types/sui/0x4633d7f3b557b5ad474e89d6c0944eb53c779032304b2cf70c5c18a85f62a6bb.js'
 import { cetus_clmm_worker as cetus_clmm_worker_suiusdt_usdc } from '../types/sui/0x94d42a393f936278b43aca8b84ab6d7fafb975e1b7447cf007434bc75695bc02.js'
-import { cetus_clmm_worker as cetus_clmm_worker_fdusd_usdc } from '../types/sui/0xb798abb6b58cc8249f990efab7c4cb4ea7aac5381483bd6227a22b7c63c7049f.js'
-import { cetus_clmm_worker as cetus_clmm_worker_usdc_fdusd } from '../types/sui/0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17.js'
+import { cetus_clmm_worker as cetus_clmm_worker_fdusd_usdc_1 } from '../types/sui/0xb798abb6b58cc8249f990efab7c4cb4ea7aac5381483bd6227a22b7c63c7049f.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_fdusd_1 } from '../types/sui/0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_fdusd_2 } from '../types/sui/0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc.js'
 
 
 export const vaultWethConfigId = "0x7fa4aa18fc4488947dc7528b5177c4475ec478c28014e77a31dc2318fa4f125e"
@@ -515,6 +516,8 @@ export function getShareObjectByWorkerInfo(workerInfoAddr: string) {
     sharesObjectId = "0x85e4c4d757f9faf8b4fd0911bfcee1b47500b4a8da309fd97d5adb3cdea657c6"
   } else if (workerInfoAddr == "0x85b95d5c30f481e45e51493771140d11ccdd28ca8fdf2a9abb0431d31b7298d0") {
     sharesObjectId = "0xeb104c387b80813f31241f779f8523fb519ec13a32bbe17608975e6ddc3e9243"
+  } else if (workerInfoAddr == "0xf658a0a9eb06b349a5493100094066c0b3548c18545ae5b7607748d1dcb997ca") {
+    sharesObjectId = "0x945bd9bd4c38d026ecf80e6597d0ca99fe9609278b2223af0c7312362533bdfa"
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }
@@ -643,9 +646,11 @@ export async function getResponseContentByWorkerInfo(workerInfoAddr: string, ctx
   } else if (workerInfoAddr == "0xe9c2b3d537084d20c1cb6c61f567f4b7f38aa890db8b76a92e5ebab3625fb3d3") {
     res = await ctx.coder.decodedType(self, cetus_clmm_worker_suiusdt_usdc.WorkerInfo.type())
   } else if (workerInfoAddr == "0xa04a6445403ad44a23d9828db39057d08580689db40dc413919c5e13af94f395") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_fdusd_usdc.WorkerInfo.type())
+    res = await ctx.coder.decodedType(self, cetus_clmm_worker_fdusd_usdc_1.WorkerInfo.type())
   } else if (workerInfoAddr == "0x85b95d5c30f481e45e51493771140d11ccdd28ca8fdf2a9abb0431d31b7298d0") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_fdusd.WorkerInfo.type())
+    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_fdusd_1.WorkerInfo.type())
+  } else if (workerInfoAddr == "0xf658a0a9eb06b349a5493100094066c0b3548c18545ae5b7607748d1dcb997ca") {
+    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_fdusd_2.WorkerInfo.type())
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }
