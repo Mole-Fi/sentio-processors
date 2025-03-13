@@ -43,7 +43,7 @@ SuiWrappedObjectProcessor.bind({
   objectId: "0x0dcd6ff3155967823494c7d4dd3bc952e551102879562ff7c75019b290281583",
   network: SuiNetwork.MAIN_NET,
   // startCheckpoint: 11763619n
-  startCheckpoint: 121993458n
+  startCheckpoint: 121994000n
 })
   .onTimeInterval(async (dynamicFieldObjects, ctx) => {
     try {
@@ -158,7 +158,7 @@ SuiWrappedObjectProcessor.bind({
 SuiObjectProcessor.bind({
   objectId: "0xcf994611fd4c48e277ce3ffd4d4364c914af2c3cbb05f7bf6facd371de688630", // random fake id because no used in here
   network: SuiNetwork.MAIN_NET,
-  startCheckpoint: 121993458n
+  startCheckpoint: 121994000n
 })
 .onTimeInterval(async (self, _, ctx) => {
   try {
@@ -204,7 +204,7 @@ catch (e) {
   SuiObjectProcessor.bind({
     objectId: "0xcf994611fd4c48e277ce3ffd4d4364c914af2c3cbb05f7bf6facd371de688630", // random fake id because no used in here
     network: SuiNetwork.MAIN_NET,
-    startCheckpoint: 121993458n
+    startCheckpoint: 121994000n
   })
   .onTimeInterval(async (self, _, ctx) => {
     try {
@@ -310,7 +310,7 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
     objectId: constant.POOLS_MOLE_LIST[i],
     network: SuiNetwork.MAIN_NET,
     // startCheckpoint: 11763619n
-    startCheckpoint: 121993458n
+    startCheckpoint: 121994000n
   })
   .onTimeInterval(async (self, _, ctx) => {
     try {
@@ -399,13 +399,13 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
     objectId: workerInfoAddr,
     network: SuiNetwork.MAIN_NET,
     // startCheckpoint: 11763619n
-    startCheckpoint: 121993458n
+    startCheckpoint: 121994000n
   })
   .onTimeInterval(async (self, _, ctx) => {
     // console.log("ctx.objectId:" , ctx.objectId, ", slef:",JSON.stringify(self))
     
     try {
-      let res = await getResponseContentByWorkerInfo(workerInfoAddr, ctx)
+      let res = await getResponseContentByWorkerInfo(workerInfoAddr, ctx, self)
             
       // console.log("ctx.objectId:" , ctx.objectId, ",res : ", JSON.stringify(res))
 
@@ -614,7 +614,7 @@ SuiWrappedObjectProcessor.bind({
   objectId: "0x0dcd6ff3155967823494c7d4dd3bc952e551102879562ff7c75019b290281583",
   network: SuiNetwork.MAIN_NET,
   // startCheckpoint: 11763619n
-  startCheckpoint: 121993458n
+  startCheckpoint: 121994000n
 })
   .onTimeInterval(async (dynamicFieldObjects, ctx) => {
     try {
