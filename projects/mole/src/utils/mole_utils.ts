@@ -50,6 +50,10 @@ import { cetus_clmm_worker as cetus_clmm_worker_suiusdt_usdc } from '../types/su
 import { cetus_clmm_worker as cetus_clmm_worker_fdusd_usdc_1 } from '../types/sui/0xb798abb6b58cc8249f990efab7c4cb4ea7aac5381483bd6227a22b7c63c7049f.js'
 import { cetus_clmm_worker as cetus_clmm_worker_usdc_fdusd_1 } from '../types/sui/0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17.js'
 import { cetus_clmm_worker as cetus_clmm_worker_usdc_fdusd_2 } from '../types/sui/0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_fdusd_3 } from '../types/sui/0xff4ee0420e38a1297897fbe81641ed68d0b3269d18a1a8464e8e524708cd19f6.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_fdusd_4 } from '../types/sui/0xa74bf537fa017b0c6e3fe17caa2f9ed0ab56abd0ed07c8b468b90ebf66e0b109.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_fdusd_5 } from '../types/sui/0x4bf061b312428370109d4f423a85b94383a4c6d933212fd0ad1ea5fdcf396a3a.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_fdusd_6 } from '../types/sui/0xa94582b61c32e1e8ff5b60abb14d1d298521ea11087ab7be63f0063a59277724.js'
 
 
 export const vaultWethConfigId = "0x7fa4aa18fc4488947dc7528b5177c4475ec478c28014e77a31dc2318fa4f125e"
@@ -518,6 +522,14 @@ export function getShareObjectByWorkerInfo(workerInfoAddr: string) {
     sharesObjectId = "0xeb104c387b80813f31241f779f8523fb519ec13a32bbe17608975e6ddc3e9243"
   } else if (workerInfoAddr == "0xf658a0a9eb06b349a5493100094066c0b3548c18545ae5b7607748d1dcb997ca") {
     sharesObjectId = "0x945bd9bd4c38d026ecf80e6597d0ca99fe9609278b2223af0c7312362533bdfa"
+  } else if (workerInfoAddr == "0x2ce694787928598ad30daf85d68b26d1fb4e271385201576f76a81381281e843") {
+    sharesObjectId = "0xecfbcc9a16c41ab88ffc5bb2ade604c03fcb975e9317b311a0789061083645ce"
+  } else if (workerInfoAddr == "0x0547da166a7dbc7fa9f6c67c48e20651fbbe748f4eb4be984f4062889e3a837c") {
+    sharesObjectId = "0x0fec6462aa3a180373b859e0616b523fd64c24b5cd9752b7cffd97df5060a222"
+  } else if (workerInfoAddr == "0x0c4e2689734925f4d760d4feb91e32542d67a56a27f62896ce2f682bb72bea90") {
+    sharesObjectId = "0xaeb4ad2d5be276ce301beed0e919caa5e9e65b8269abfcbea84983e1aa91ca30"
+  } else if (workerInfoAddr == "0x8c0684fa6a81c15f2956e5d01b66a8794182935c400fad9b78414db2e0127b98") {
+    sharesObjectId = "0xa6e7d41486cd667d4fc89d75b76b72a33bf6510c71bbf6c8621757a9f119e34b"
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }
@@ -651,6 +663,14 @@ export async function getResponseContentByWorkerInfo(workerInfoAddr: string, ctx
     res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_fdusd_1.WorkerInfo.type())
   } else if (workerInfoAddr == "0xf658a0a9eb06b349a5493100094066c0b3548c18545ae5b7607748d1dcb997ca") {
     res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_fdusd_2.WorkerInfo.type())
+  } else if (workerInfoAddr == "0x2ce694787928598ad30daf85d68b26d1fb4e271385201576f76a81381281e843") {
+    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_fdusd_3.WorkerInfo.type())
+  } else if (workerInfoAddr == "0x0547da166a7dbc7fa9f6c67c48e20651fbbe748f4eb4be984f4062889e3a837c") {
+    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_fdusd_4.WorkerInfo.type())
+  } else if (workerInfoAddr == "0x0c4e2689734925f4d760d4feb91e32542d67a56a27f62896ce2f682bb72bea90") {
+    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_fdusd_5.WorkerInfo.type())
+  } else if (workerInfoAddr == "0x8c0684fa6a81c15f2956e5d01b66a8794182935c400fad9b78414db2e0127b98") {
+    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_fdusd_6.WorkerInfo.type())
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }
