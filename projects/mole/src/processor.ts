@@ -954,6 +954,36 @@ SuiWrappedObjectProcessor.bind({
           } else {
             console.error("CoinType not suppport!")
           }
+        } else if (ctx.checkpoint > 122460676) {
+          if (configAddr == vaultWethConfigId) {
+            accumulateFee = 0.00315804 + 0 + 0.09845773 + 0 + 0.00000013 + 0.00002272 + 0.00000006 + 0 + 0.00187223 + 0.12178293 + 0.00019822
+          } else if (configAddr == vaultHaSuiConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0.058995068 + 0 + 0 + 0 + 0.100466176 + 0.418409173 + 0.116969597
+          } else if (configAddr == vaultUsdtConfigId) {
+            accumulateFee = 52.443544 + 158.347969 + 0 + 0.482047 + 0.247548 + 0.073082 + 0 + 0.143209 + 0.010165 + 0.148551 + 0.25037
+          } else if (configAddr == vaultwUsdcConfigId) {
+            accumulateFee = 49.80559 + 211.449818 + 157.650286 + 31.421483 + 81.100837 + 43.951883 + 34.270039 + 34.108969 + 172.970752 + 3805.021933 + 490.584026
+          } else if (configAddr == vaultCetusConfigId) {
+            accumulateFee = 0 + 0 + 0 + 1.122338056 + 0.264680249 + 0 + 0 + 0 + 81.334258105 + 311.820012603 + 0.459281852
+          } else if (configAddr == vaultSuiConfigId) {
+            accumulateFee = 7.915105448 + 63.85454832 + 246.552150586 + 33.885724004 + 116.901576637 + 65.050304323 + 62.596474695 + 175.976913576 + 2157.302282819 + 1605.159619797 + 0.816215773
+          } else if (configAddr == vaultNavxConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0.000429911 + 0 + 0 + 0 + 0.375408055 + 0.436247858 + 0.001678484
+          } else if (configAddr == vaultScaConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 25.646615746 + 28.350234249 + 0.071171165
+          } else if (configAddr == vaultWbtcConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0.00000187 + 0.00014818 + 0.00000241
+          } else if (configAddr == vaultBuckConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0.032972178 + 4005.622594355 + 2757.828511355
+          } else if (configAddr == vaultUsdcConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 777.934996 + 9028.24653
+          } else if (configAddr == vaultsuiUsdtConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 39.383106
+          } else if (configAddr == vaultFdusdConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 2.179531
+          } else {
+            console.error("CoinType not suppport!")
+          }
         }
 
         let price = await getPriceByType(SuiNetwork.MAIN_NET, coinType!, ctx.timestamp)
