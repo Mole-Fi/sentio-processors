@@ -42,8 +42,7 @@ SuiWrappedObjectProcessor.bind({
   //object owner address of vault_usdt_vault_info/vault_sui_vault_info etc.
   objectId: "0x0dcd6ff3155967823494c7d4dd3bc952e551102879562ff7c75019b290281583",
   network: SuiNetwork.MAIN_NET,
-  // startCheckpoint: 11763619n
-  startCheckpoint: 22247749n
+  startCheckpoint: 23543749n
 })
   .onTimeInterval(async (dynamicFieldObjects, ctx) => {
     try {
@@ -152,7 +151,7 @@ SuiWrappedObjectProcessor.bind({
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
     }
-  }, 480, 720, undefined, { owned: true })
+  }, 480, 1440, undefined, { owned: true })
 
   
 SuiObjectProcessor.bind({
@@ -197,7 +196,7 @@ SuiObjectProcessor.bind({
 catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
-  }, 480, 720, undefined, { owned: false })
+  }, 480, 1440, undefined, { owned: false })
 
 
 
@@ -246,7 +245,7 @@ catch (e) {
   catch (e) {
         console.log(`${e.message} error at ${JSON.stringify(self)}`)
       }
-    }, 480, 720, undefined, { owned: false })
+    }, 480, 1440, undefined, { owned: false })
   
   
 
@@ -308,8 +307,7 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   SuiObjectProcessor.bind({
     objectId: constant.POOLS_MOLE_LIST[i],
     network: SuiNetwork.MAIN_NET,
-    // startCheckpoint: 11763619n
-    startCheckpoint: 22247749n
+    startCheckpoint: 23543749n
   })
   .onTimeInterval(async (self, _, ctx) => {
     try {
@@ -385,7 +383,7 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   catch (e) {
         console.log(`${e.message} error at ${JSON.stringify(self)}`)
       }
-    }, 480, 720, undefined, { owned: false })
+    }, 480, 1440, undefined, { owned: false })
 }
 
 
@@ -397,8 +395,7 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
   SuiObjectProcessor.bind({
     objectId: workerInfoAddr,
     network: SuiNetwork.MAIN_NET,
-    // startCheckpoint: 11763619n
-    startCheckpoint: 22247749n
+    startCheckpoint: 23543749n
   })
   .onTimeInterval(async (self, _, ctx) => {
     // console.log("ctx.objectId:" , ctx.objectId, ", slef:",JSON.stringify(self))
@@ -593,7 +590,7 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
-  }, 480, 720, undefined, { owned: false })
+  }, 480, 1440, undefined, { owned: false })
 }
 
 
@@ -602,8 +599,7 @@ SuiWrappedObjectProcessor.bind({
   //object owner address of vault_usdt_vault_info/vault_sui_vault_info etc.
   objectId: "0x0dcd6ff3155967823494c7d4dd3bc952e551102879562ff7c75019b290281583",
   network: SuiNetwork.MAIN_NET,
-  // startCheckpoint: 11763619n
-  startCheckpoint: 22247749n
+  startCheckpoint: 23543749n
 })
   .onTimeInterval(async (dynamicFieldObjects, ctx) => {
     try {
@@ -1017,7 +1013,7 @@ SuiWrappedObjectProcessor.bind({
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
     }
-  }, 480, 720, undefined, { owned: true })
+  }, 480, 1440, undefined, { owned: true })
 
 
 
@@ -1025,8 +1021,7 @@ SuiWrappedObjectProcessor.bind({
 //   // old vault address
 //   address: '0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f',
 //   network: SuiNetwork.MAIN_NET,
-//   // startCheckpoint: 4073066n
-//   startCheckpoint: 22247749n
+//   startCheckpoint: 23543749n
 // })
 //   .onEventDepositEvent(
 //     async (event, ctx) => {
@@ -1242,7 +1237,7 @@ SuiWrappedObjectProcessor.bind({
 //       catch (e) {
 //         console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
 //       }
-//     }, 480, 720, undefined, { owned: true })
+//     }, 480, 1440, undefined, { owned: true })
 //   }
 
   
@@ -1256,7 +1251,6 @@ SuiWrappedObjectProcessor.bind({
 //   SuiObjectProcessor.bind({
 //     objectId: workerInfoAddr,
 //     network: SuiNetwork.MAIN_NET,
-//     // startCheckpoint: 11763619n
 //     startCheckpoint:    34608243n
 //   })
 //   .onTimeInterval(async (self, _, ctx) => {
@@ -1530,7 +1524,7 @@ SuiWrappedObjectProcessor.bind({
 //     catch (e) {
 //       console.log(`${e.message} error at ${JSON.stringify(self)}`)
 //     }
-//   }, 480, 720, undefined, { owned: false })
+//   }, 480, 1440, undefined, { owned: false })
 // }
   
 
