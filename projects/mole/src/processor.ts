@@ -894,7 +894,7 @@ SuiWrappedObjectProcessor.bind({
           } else {
             console.error("CoinType not suppport!")
           }
-        } else if (ctx.checkpoint >= 35481090 && ctx.checkpoint <= 89328791) {
+        } else if (ctx.checkpoint >= 35481090 && ctx.checkpoint < 89328791) {
           if (configAddr == vaultWethConfigId) {
             accumulateFee = 0.00315804 + 0 + 0.09845773 + 0 + 0.00000013 + 0.00002272 + 0.00000006 + 0 + 0.00187223 
           } else if (configAddr == vaultHaSuiConfigId) {
@@ -924,7 +924,7 @@ SuiWrappedObjectProcessor.bind({
           } else {
             console.error("CoinType not suppport!")
           }
-        } else if (ctx.checkpoint > 89328791) {
+        } else if (ctx.checkpoint >= 89328791 && ctx.checkpoint < 122460676) {
           if (configAddr == vaultWethConfigId) {
             accumulateFee = 0.00315804 + 0 + 0.09845773 + 0 + 0.00000013 + 0.00002272 + 0.00000006 + 0 + 0.00187223 + 0.12178293
           } else if (configAddr == vaultHaSuiConfigId) {
@@ -954,7 +954,7 @@ SuiWrappedObjectProcessor.bind({
           } else {
             console.error("CoinType not suppport!")
           }
-        } else if (ctx.checkpoint > 122460676) {
+        } else if (ctx.checkpoint >= 122460676) {
           if (configAddr == vaultWethConfigId) {
             accumulateFee = 0.00315804 + 0 + 0.09845773 + 0 + 0.00000013 + 0.00002272 + 0.00000006 + 0 + 0.00187223 + 0.12178293 + 0.00019822
           } else if (configAddr == vaultHaSuiConfigId) {
