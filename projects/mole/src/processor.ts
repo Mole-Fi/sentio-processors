@@ -127,14 +127,14 @@ SuiWrappedObjectProcessor.bind({
         // Borrowing interest = a * utilization + b
         let a, b
         if (use_rate < 0.6) {
-          a = 0.333333333 
+          a = 0.183333333 
           b = 0
-        } else if (use_rate >= 0.6 && use_rate < 0.9) {
+        } else if (use_rate >= 0.6 && use_rate < 0.95) {
           a = 0 
-          b = 0.2
+          b = 0.11
         } else { // use_rate >= 0.9
-          a = 13
-          b = -11.5
+          a = 3
+          b = -2.74
         }
         const savings_borrowing_interest =  a * use_rate + b
         ctx.meter.Gauge("savings_borrowing_interest").record(savings_borrowing_interest, { coin_symbol, coinType, project: "mole" })
