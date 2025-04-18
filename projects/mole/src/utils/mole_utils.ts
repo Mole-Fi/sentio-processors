@@ -54,6 +54,8 @@ import { cetus_clmm_worker as cetus_clmm_worker_usdc_fdusd_3 } from '../types/su
 import { cetus_clmm_worker as cetus_clmm_worker_usdc_fdusd_4 } from '../types/sui/0xa74bf537fa017b0c6e3fe17caa2f9ed0ab56abd0ed07c8b468b90ebf66e0b109.js'
 import { cetus_clmm_worker as cetus_clmm_worker_usdc_fdusd_5 } from '../types/sui/0x4bf061b312428370109d4f423a85b94383a4c6d933212fd0ad1ea5fdcf396a3a.js'
 import { cetus_clmm_worker as cetus_clmm_worker_usdc_fdusd_6 } from '../types/sui/0xa94582b61c32e1e8ff5b60abb14d1d298521ea11087ab7be63f0063a59277724.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_usdy } from '../types/sui/0x8a98a9695f8b837b07a179bda9b799f26da64d5ba341ae46d140b63efcde0a0c.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdy_usdc } from '../types/sui/0x94774dcedb00c8c5e216c097d28de663250fbeb38ec57068d898556f5d37b21f.js'
 
 
 export const vaultWethConfigId = "0x7fa4aa18fc4488947dc7528b5177c4475ec478c28014e77a31dc2318fa4f125e"
@@ -69,7 +71,7 @@ export const vaultBuckConfigId = "0x73903c5c973f62ab68acdfbd53b17dad2b9be5866056
 export const vaultUsdcConfigId = "0xbcdd5cd88604d4a14f937a88e0560d906592dbbf153de9ee3417609daff864c6"
 export const vaultsuiUsdtConfigId = "0x8684d2479db1042d9a265295dc63d4bafe830485d80fcde8a2d65ec62a44bf9c"
 export const vaultFdusdConfigId = "0x34d62447780baa85107d348d488c330be533d06bc088e428ac6a4cf1aba4ec4a"
-
+export const vaultUsdyConfigId = "0xcbb5371c5b08d32a33736b4f87e53bc5b816d60a833cab3513c4ecde5d56e93c"
 
 export const coinAddrSUI = "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI"
 export const coinAddrUSDT = "0xc060006111016b8a020ad5b33834984a437aaa7d3c74c18e09a95d48aceab08c::coin::COIN"
@@ -84,6 +86,7 @@ export const coinAddrBUCK = "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb1
 export const coinAddrUSDC = "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC"
 export const coinAddrsuiUSDT = "0x375f70cf2ae4c00bf37117d0c85a2c71545e6ee05c4a5c7d282cd66a4504b068::usdt::USDT"
 export const coinAddrFDUSD = "0xf16e6b723f242ec745dfd7634ad072c42d5c1d9ac9d62a39c381303eaa57693a::fdusd::FDUSD"
+export const coinAddrUSDY = "0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY"
 
 
 export async function buildCoinInfo(ctx: SuiContext | SuiObjectContext, coinAddress: string): Promise<token.TokenInfo> {
@@ -353,6 +356,8 @@ export function getMTokenByToken(tokenAddr: string) {
     return ["0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f::vault::MagicCoin<0x375f70cf2ae4c00bf37117d0c85a2c71545e6ee05c4a5c7d282cd66a4504b068::usdt::USDT>", "msuiUSDT"]
   } else if (tokenAddr == "0xf16e6b723f242ec745dfd7634ad072c42d5c1d9ac9d62a39c381303eaa57693a::fdusd::FDUSD") {
     return ["0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f::vault::MagicCoin<0xf16e6b723f242ec745dfd7634ad072c42d5c1d9ac9d62a39c381303eaa57693a::fdusd::FDUSD>", "mFDUSD"]
+  } else if (tokenAddr == "0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY") {
+    return ["0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f::vault::MagicCoin<0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY>", "mUSDY"]
 
   } else {
     console.error("No tokens here for token:", tokenAddr)
@@ -390,6 +395,8 @@ export function getPoolByToken(tokenAddr: string) {
     return "0xc2b6eff113d09a84bfda3fd094fd9ae09bec47a04f5759bc68cfc84d83cfbc19"
   } else if (tokenAddr == "0xf16e6b723f242ec745dfd7634ad072c42d5c1d9ac9d62a39c381303eaa57693a::fdusd::FDUSD") {
     return "0x62bd16f6223faa02654707191b77bfdfc1f8a7fa227ec1942eb01399e6d995ce"
+  } else if (tokenAddr == "0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY") {
+    return "0x7f66bc04d50f5131bb5f62495addf7aaef58da7127007dfbe7526e818c5df639"
   } else {
     console.error("No tokens here, token: ", tokenAddr)
     return
@@ -424,6 +431,8 @@ export function getPoolInfoByPoolId(poolId: string) {
     return ["0xc2b6eff113d09a84bfda3fd094fd9ae09bec47a04f5759bc68cfc84d83cfbc19", "suiUSDT"]
   } else if (poolId == "12") {
     return ["0x62bd16f6223faa02654707191b77bfdfc1f8a7fa227ec1942eb01399e6d995ce", "FDUSD"]
+  } else if (poolId == "13") {
+    return ["0x62bd16f6223faa02654707191b77bfdfc1f8a7fa227ec1942eb01399e6d995ce", "USDY"]
   } else {
     console.error("No pool in here , pid: ", poolId)
     return ["", ""]
@@ -530,6 +539,10 @@ export function getShareObjectByWorkerInfo(workerInfoAddr: string) {
     sharesObjectId = "0xaeb4ad2d5be276ce301beed0e919caa5e9e65b8269abfcbea84983e1aa91ca30"
   } else if (workerInfoAddr == "0x8c0684fa6a81c15f2956e5d01b66a8794182935c400fad9b78414db2e0127b98") {
     sharesObjectId = "0xa6e7d41486cd667d4fc89d75b76b72a33bf6510c71bbf6c8621757a9f119e34b"
+  } else if (workerInfoAddr == "0xf823b1460defefa6f3923e4f4eb93795f421756de29afed344ddd6d6dd91be29") {
+    sharesObjectId = "0xf2d027b895766ae39017e64fc820fccd5f62c00a0c3c8b1c387f2457272c980e"
+  } else if (workerInfoAddr == "0x3ef9304468faecfaf7d2317960b9e69fb85ea2610cc089244f3c0d54abf167e7") {
+    sharesObjectId = "0x5c823dfcfa0618d15bc11829a31da2619194fad327998e1a4328c6bf1ed35af3"
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }
@@ -565,6 +578,8 @@ export function getCoinTypeByVaultConfigId(vaultConfigId: string) {
     coinType = coinAddrsuiUSDT
   } else if (vaultConfigId == vaultFdusdConfigId) {
     coinType = coinAddrFDUSD
+  } else if (vaultConfigId == vaultUsdyConfigId) {
+    coinType = coinAddrUSDY
   } else {
     console.error("CoinType not suppport!")
   }
@@ -671,6 +686,10 @@ export async function getResponseContentByWorkerInfo(workerInfoAddr: string, ctx
     res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_fdusd_5.WorkerInfo.type())
   } else if (workerInfoAddr == "0x8c0684fa6a81c15f2956e5d01b66a8794182935c400fad9b78414db2e0127b98") {
     res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_fdusd_6.WorkerInfo.type())
+  } else if (workerInfoAddr == "0xf823b1460defefa6f3923e4f4eb93795f421756de29afed344ddd6d6dd91be29") {
+    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_usdy.WorkerInfo.type())
+  } else if (workerInfoAddr == "0x3ef9304468faecfaf7d2317960b9e69fb85ea2610cc089244f3c0d54abf167e7") {
+    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdy_usdc.WorkerInfo.type())
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }
