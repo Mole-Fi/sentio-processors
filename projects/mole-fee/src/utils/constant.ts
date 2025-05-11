@@ -48,6 +48,8 @@ export const POOLS_MOLE_LIST = [
     "0x7df346f8ef98ad20869ff6d2fc7c43c00403a524987509091b39ce61dde00957",
     // cetus_clmm_pool_fdusd_usdc
     "0x43d4c9adc1d669ef85d557cf1d430f311dc4eb043a8e7b78e972c1f96ec2cd60",
+    // cetus_clmm_pool_usdc_usdy
+    "0xdcd762ad374686fa890fc4f3b9bbfe2a244e713d7bffbfbd1b9221cb290da2ed",
 ]
 
 
@@ -142,4 +144,16 @@ export const MOLE_WORKER_INFO_LIST = [
     "0x85b95d5c30f481e45e51493771140d11ccdd28ca8fdf2a9abb0431d31b7298d0",
     // cetus_worker_usdc_fdusd_2_worker_info: 
     "0xf658a0a9eb06b349a5493100094066c0b3548c18545ae5b7607748d1dcb997ca",
+    // cetus_worker_usdc_fdusd_3_worker_info: 
+    "0x2ce694787928598ad30daf85d68b26d1fb4e271385201576f76a81381281e843",
+    // cetus_worker_usdc_fdusd_4_worker_info: 
+    "0x0547da166a7dbc7fa9f6c67c48e20651fbbe748f4eb4be984f4062889e3a837c",
+    // cetus_worker_usdc_fdusd_5_worker_info: 
+    "0x0c4e2689734925f4d760d4feb91e32542d67a56a27f62896ce2f682bb72bea90",
+    // cetus_worker_usdc_fdusd_6_worker_info: 
+    "0x8c0684fa6a81c15f2956e5d01b66a8794182935c400fad9b78414db2e0127b98",
+    // cetus_worker_usdc_usdy_worker_info: 
+    "0xf823b1460defefa6f3923e4f4eb93795f421756de29afed344ddd6d6dd91be29",
+    // cetus_worker_usdy_usdc_worker_info: 
+    "0x3ef9304468faecfaf7d2317960b9e69fb85ea2610cc089244f3c0d54abf167e7",
 ]

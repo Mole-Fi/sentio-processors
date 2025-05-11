@@ -2,7 +2,7 @@ import { SuiNetwork, SuiObjectProcessor, SuiWrappedObjectProcessor} from "@senti
 import { vault } from './types/sui/0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f.js'
 import { pool } from './types/sui/0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb.js'
 import { getPriceByType } from "@sentio/sdk/utils"
-import { buildCoinInfo, coinAddrBUCK, coinAddrCETUS, coinAddrFDUSD, coinAddrHASUI, coinAddrNAVX, coinAddrSCA, coinAddrSUI, coinAddrsuiUSDT, coinAddrUSDC, coinAddrUSDT, coinAddrWBTC, coinAddrWETH, coinAddrwUSDC, getCoinAmountFromLiquidity, getCoinTypeByVaultConfigId, getPoolByToken, getResponseContentByWorkerInfo, i32BitsToNumber, sleep, tickIndexToSqrtPriceX64, vaultBuckConfigId, vaultCetusConfigId, vaultFdusdConfigId, vaultHaSuiConfigId, vaultNavxConfigId, vaultScaConfigId, vaultSuiConfigId, vaultsuiUsdtConfigId, vaultUsdcConfigId, vaultUsdtConfigId, vaultWbtcConfigId, vaultWethConfigId, vaultwUsdcConfigId} from './utils/mole_utils.js'
+import { buildCoinInfo, coinAddrBUCK, coinAddrCETUS, coinAddrFDUSD, coinAddrHASUI, coinAddrNAVX, coinAddrSCA, coinAddrSUI, coinAddrsuiUSDT, coinAddrUSDC, coinAddrUSDT, coinAddrUSDY, coinAddrWBTC, coinAddrWETH, coinAddrwUSDC, getCoinAmountFromLiquidity, getCoinTypeByVaultConfigId, getPoolByToken, getResponseContentByWorkerInfo, i32BitsToNumber, sleep, tickIndexToSqrtPriceX64, vaultBuckConfigId, vaultCetusConfigId, vaultFdusdConfigId, vaultHaSuiConfigId, vaultNavxConfigId, vaultScaConfigId, vaultSuiConfigId, vaultsuiUsdtConfigId, vaultUsdcConfigId, vaultUsdtConfigId, vaultUsdyConfigId, vaultWbtcConfigId, vaultWethConfigId, vaultwUsdcConfigId} from './utils/mole_utils.js'
 import * as constant from './utils/constant.js'
 import { ANY_TYPE } from '@sentio/sdk/move'
 import { string_ } from "@sentio/sdk/sui/builtin/0x1";
@@ -42,8 +42,7 @@ SuiWrappedObjectProcessor.bind({
   //object owner address of vault_usdt_vault_info/vault_sui_vault_info etc.
   objectId: "0x0dcd6ff3155967823494c7d4dd3bc952e551102879562ff7c75019b290281583",
   network: SuiNetwork.MAIN_NET,
-  // startCheckpoint: 11763619n
-  startCheckpoint: 121994000n
+  startCheckpoint: 143742835n
 })
   .onTimeInterval(async (dynamicFieldObjects, ctx) => {
     try {
@@ -133,7 +132,7 @@ SuiWrappedObjectProcessor.bind({
         } else if (use_rate >= 0.6 && use_rate < 0.95) {
           a = 0 
           b = 0.11
-        } else { // use_rate >= 0.9
+        } else {
           a = 3
           b = -2.74
         }
@@ -152,13 +151,13 @@ SuiWrappedObjectProcessor.bind({
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
     }
-  }, 360, 720, undefined, { owned: true })
+  }, 10, 720, undefined, { owned: true })
 
   
 SuiObjectProcessor.bind({
   objectId: "0xcf994611fd4c48e277ce3ffd4d4364c914af2c3cbb05f7bf6facd371de688630", // random fake id because no used in here
   network: SuiNetwork.MAIN_NET,
-  startCheckpoint: 121994000n
+  startCheckpoint: 143742835n
 })
 .onTimeInterval(async (self, _, ctx) => {
   try {
@@ -197,14 +196,14 @@ SuiObjectProcessor.bind({
 catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
-  }, 360, 720, undefined, { owned: false })
+  }, 10, 720, undefined, { owned: false })
 
 
 
   SuiObjectProcessor.bind({
     objectId: "0xcf994611fd4c48e277ce3ffd4d4364c914af2c3cbb05f7bf6facd371de688630", // random fake id because no used in here
     network: SuiNetwork.MAIN_NET,
-    startCheckpoint: 121994000n
+    startCheckpoint: 143742835n
   })
   .onTimeInterval(async (self, _, ctx) => {
     try {
@@ -246,7 +245,7 @@ catch (e) {
   catch (e) {
         console.log(`${e.message} error at ${JSON.stringify(self)}`)
       }
-    }, 360, 720, undefined, { owned: false })
+    }, 10, 720, undefined, { owned: false })
   
   
 
@@ -303,14 +302,15 @@ let gCurrentSqrtPriceBuckwUsdcNew
 let gCurrentSqrtPriceUsdcsuiUsdt
 //@ts-ignore
 let gCurrentSqrtPriceFdusdUsdc
+//@ts-ignore
+let gCurrentSqrtPriceUsdcUsdy
 
 
 for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   SuiObjectProcessor.bind({
     objectId: constant.POOLS_MOLE_LIST[i],
     network: SuiNetwork.MAIN_NET,
-    // startCheckpoint: 11763619n
-    startCheckpoint: 121994000n
+    startCheckpoint: 143742835n
   })
   .onTimeInterval(async (self, _, ctx) => {
     try {
@@ -377,6 +377,8 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
         gCurrentSqrtPriceUsdcsuiUsdt = currentSqrtPrice
       } else if ('0x43d4c9adc1d669ef85d557cf1d430f311dc4eb043a8e7b78e972c1f96ec2cd60' == ctx.objectId) {
         gCurrentSqrtPriceFdusdUsdc = currentSqrtPrice
+      } else if ('0xdcd762ad374686fa890fc4f3b9bbfe2a244e713d7bffbfbd1b9221cb290da2ed' == ctx.objectId) {
+        gCurrentSqrtPriceUsdcUsdy = currentSqrtPrice
       } else {
         console.error("Has not object : ", ctx.objectId)
       }
@@ -386,7 +388,7 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   catch (e) {
         console.log(`${e.message} error at ${JSON.stringify(self)}`)
       }
-    }, 360, 720, undefined, { owned: false })
+    }, 10, 720, undefined, { owned: false })
 }
 
 
@@ -398,8 +400,7 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
   SuiObjectProcessor.bind({
     objectId: workerInfoAddr,
     network: SuiNetwork.MAIN_NET,
-    // startCheckpoint: 11763619n
-    startCheckpoint: 121994000n
+    startCheckpoint: 143742835n
   })
   .onTimeInterval(async (self, _, ctx) => {
     // console.log("ctx.objectId:" , ctx.objectId, ", slef:",JSON.stringify(self))
@@ -554,6 +555,9 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
       } else if (coinTypeA == coinAddrFDUSD && coinTypeB == coinAddrUSDC) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceFdusdUsdc
+      } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrUSDY) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceUsdcUsdy
       } else {
         console.error("Has not price : coin_symbol_a:", coin_symbol_a, ",coin_symbol_b:",coin_symbol_b )
       }
@@ -594,7 +598,7 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
-  }, 360, 720, undefined, { owned: false })
+  }, 10, 720, undefined, { owned: false })
 }
 
 
@@ -603,8 +607,7 @@ SuiWrappedObjectProcessor.bind({
   //object owner address of vault_usdt_vault_info/vault_sui_vault_info etc.
   objectId: "0x0dcd6ff3155967823494c7d4dd3bc952e551102879562ff7c75019b290281583",
   network: SuiNetwork.MAIN_NET,
-  // startCheckpoint: 11763619n
-  startCheckpoint: 121994000n
+  startCheckpoint: 143742835n
 })
   .onTimeInterval(async (dynamicFieldObjects, ctx) => {
     try {
@@ -682,6 +685,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0
           } else if (configAddr == vaultFdusdConfigId) {
             accumulateFee = 0
+          } else if (configAddr == vaultUsdyConfigId) {
+            accumulateFee = 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -711,6 +716,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultsuiUsdtConfigId) {
             accumulateFee = 0 + 0
           } else if (configAddr == vaultFdusdConfigId) {
+            accumulateFee = 0 + 0
+          } else if (configAddr == vaultUsdyConfigId) {
             accumulateFee = 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -742,6 +749,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0
           } else if (configAddr == vaultFdusdConfigId) {
             accumulateFee = 0 + 0 + 0
+          } else if (configAddr == vaultUsdyConfigId) {
+            accumulateFee = 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -771,6 +780,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultsuiUsdtConfigId) {
             accumulateFee = 0 + 0 + 0 + 0
           } else if (configAddr == vaultFdusdConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0
+          } else if (configAddr == vaultUsdyConfigId) {
             accumulateFee = 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -802,6 +813,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultFdusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultUsdyConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -831,6 +844,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultsuiUsdtConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultFdusdConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultUsdyConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -862,6 +877,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultFdusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultUsdyConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -892,10 +909,12 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultFdusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultUsdyConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
-        } else if (ctx.checkpoint >= 35481090 && ctx.checkpoint <= 89328791) {
+        } else if (ctx.checkpoint >= 35481090 && ctx.checkpoint < 89328791) {
           if (configAddr == vaultWethConfigId) {
             accumulateFee = 0.00315804 + 0 + 0.09845773 + 0 + 0.00000013 + 0.00002272 + 0.00000006 + 0 + 0.00187223 
           } else if (configAddr == vaultHaSuiConfigId) {
@@ -922,10 +941,12 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultFdusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultUsdyConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
-        } else if (ctx.checkpoint > 89328791) {
+        } else if (ctx.checkpoint >= 89328791 && ctx.checkpoint < 122460676) {
           if (configAddr == vaultWethConfigId) {
             accumulateFee = 0.00315804 + 0 + 0.09845773 + 0 + 0.00000013 + 0.00002272 + 0.00000006 + 0 + 0.00187223 + 0.12178293
           } else if (configAddr == vaultHaSuiConfigId) {
@@ -952,6 +973,40 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultFdusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultUsdyConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else {
+            console.error("CoinType not suppport!")
+          }
+        } else if (ctx.checkpoint >= 122460676) {
+          if (configAddr == vaultWethConfigId) {
+            accumulateFee = 0.00315804 + 0 + 0.09845773 + 0 + 0.00000013 + 0.00002272 + 0.00000006 + 0 + 0.00187223 + 0.12178293 + 0.00019822
+          } else if (configAddr == vaultHaSuiConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0.058995068 + 0 + 0 + 0 + 0.100466176 + 0.418409173 + 0.116969597
+          } else if (configAddr == vaultUsdtConfigId) {
+            accumulateFee = 52.443544 + 158.347969 + 0 + 0.482047 + 0.247548 + 0.073082 + 0 + 0.143209 + 0.010165 + 0.148551 + 0.25037
+          } else if (configAddr == vaultwUsdcConfigId) {
+            accumulateFee = 49.80559 + 211.449818 + 157.650286 + 31.421483 + 81.100837 + 43.951883 + 34.270039 + 34.108969 + 172.970752 + 3805.021933 + 490.584026
+          } else if (configAddr == vaultCetusConfigId) {
+            accumulateFee = 0 + 0 + 0 + 1.122338056 + 0.264680249 + 0 + 0 + 0 + 81.334258105 + 311.820012603 + 0.459281852
+          } else if (configAddr == vaultSuiConfigId) {
+            accumulateFee = 7.915105448 + 63.85454832 + 246.552150586 + 33.885724004 + 116.901576637 + 65.050304323 + 62.596474695 + 175.976913576 + 2157.302282819 + 1605.159619797 + 0.816215773
+          } else if (configAddr == vaultNavxConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0.000429911 + 0 + 0 + 0 + 0.375408055 + 0.436247858 + 0.001678484
+          } else if (configAddr == vaultScaConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 25.646615746 + 28.350234249 + 0.071171165
+          } else if (configAddr == vaultWbtcConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0.00000187 + 0.00014818 + 0.00000241
+          } else if (configAddr == vaultBuckConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0.032972178 + 4005.622594355 + 2757.828511355
+          } else if (configAddr == vaultUsdcConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 777.934996 + 9028.24653
+          } else if (configAddr == vaultsuiUsdtConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 39.383106
+          } else if (configAddr == vaultFdusdConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 2.179531
+          } else if (configAddr == vaultUsdyConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -988,7 +1043,7 @@ SuiWrappedObjectProcessor.bind({
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
     }
-  }, 360, 720, undefined, { owned: true })
+  }, 10, 720, undefined, { owned: true })
 
 
 
@@ -996,8 +1051,7 @@ SuiWrappedObjectProcessor.bind({
 //   // old vault address
 //   address: '0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f',
 //   network: SuiNetwork.MAIN_NET,
-//   // startCheckpoint: 4073066n
-//   startCheckpoint: 22247749n
+//   startCheckpoint: 143742835n
 // })
 //   .onEventDepositEvent(
 //     async (event, ctx) => {
@@ -1213,7 +1267,7 @@ SuiWrappedObjectProcessor.bind({
 //       catch (e) {
 //         console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
 //       }
-//     }, 360, 720, undefined, { owned: true })
+//     }, 10, 720, undefined, { owned: true })
 //   }
 
   
@@ -1227,7 +1281,6 @@ SuiWrappedObjectProcessor.bind({
 //   SuiObjectProcessor.bind({
 //     objectId: workerInfoAddr,
 //     network: SuiNetwork.MAIN_NET,
-//     // startCheckpoint: 11763619n
 //     startCheckpoint:    34608243n
 //   })
 //   .onTimeInterval(async (self, _, ctx) => {
@@ -1501,7 +1554,7 @@ SuiWrappedObjectProcessor.bind({
 //     catch (e) {
 //       console.log(`${e.message} error at ${JSON.stringify(self)}`)
 //     }
-//   }, 360, 720, undefined, { owned: false })
+//   }, 10, 720, undefined, { owned: false })
 // }
   
 

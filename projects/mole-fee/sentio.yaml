@@ -96,3 +96,15 @@ contracts:
     address: "0x24c09811579babe09ab20b57abd05a9b4e0b1f8305a4703e9904d1febf2c6f17"
   - chain: sui_mainnet
     address: "0x51ebf6d04276789280e1e989c5b0a6fd294b14057cac6e97dea312711839accc"
+  - chain: sui_mainnet
+    address: "0xff4ee0420e38a1297897fbe81641ed68d0b3269d18a1a8464e8e524708cd19f6"
+  - chain: sui_mainnet
+    address: "0xa74bf537fa017b0c6e3fe17caa2f9ed0ab56abd0ed07c8b468b90ebf66e0b109"
+  - chain: sui_mainnet
+    address: "0x4bf061b312428370109d4f423a85b94383a4c6d933212fd0ad1ea5fdcf396a3a"
+  - chain: sui_mainnet
+    address: "0xa94582b61c32e1e8ff5b60abb14d1d298521ea11087ab7be63f0063a59277724"
+  - chain: sui_mainnet
+    address: "0x8a98a9695f8b837b07a179bda9b799f26da64d5ba341ae46d140b63efcde0a0c"
+  - chain: sui_mainnet
+    address: "0x94774dcedb00c8c5e216c097d28de663250fbeb38ec57068d898556f5d37b21f"
