@@ -152,7 +152,7 @@ SuiWrappedObjectProcessor.bind({
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
     }
-  }, 10, 1440, undefined, { owned: true })
+  }, 480, 1440, undefined, { owned: true })
 
   
 SuiObjectProcessor.bind({
@@ -197,7 +197,7 @@ SuiObjectProcessor.bind({
 catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
-  }, 10, 1440, undefined, { owned: false })
+  }, 480, 1440, undefined, { owned: false })
 
 
 
@@ -246,7 +246,7 @@ catch (e) {
   catch (e) {
         console.log(`${e.message} error at ${JSON.stringify(self)}`)
       }
-    }, 10, 1440, undefined, { owned: false })
+    }, 480, 1440, undefined, { owned: false })
   
   
 
@@ -388,7 +388,7 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   catch (e) {
         console.log(`${e.message} error at ${JSON.stringify(self)}`)
       }
-    }, 10, 1440, undefined, { owned: false })
+    }, 480, 1440, undefined, { owned: false })
 }
 
 
@@ -615,7 +615,7 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
-  }, 10, 1440, undefined, { owned: false })
+  }, 480, 1440, undefined, { owned: false })
 }
 
 
@@ -1060,7 +1060,7 @@ SuiWrappedObjectProcessor.bind({
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
     }
-  }, 10, 1440, undefined, { owned: true })
+  }, 480, 1440, undefined, { owned: true })
 
 
 
@@ -1284,7 +1284,7 @@ SuiWrappedObjectProcessor.bind({
 //       catch (e) {
 //         console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
 //       }
-//     }, 10, 1440, undefined, { owned: true })
+//     }, 480, 1440, undefined, { owned: true })
 //   }
 
   
@@ -1571,7 +1571,7 @@ SuiWrappedObjectProcessor.bind({
 //     catch (e) {
 //       console.log(`${e.message} error at ${JSON.stringify(self)}`)
 //     }
-//   }, 10, 1440, undefined, { owned: false })
+//   }, 480, 1440, undefined, { owned: false })
 // }
   
 
