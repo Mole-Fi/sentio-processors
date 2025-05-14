@@ -1,4 +1,5 @@
 export const CLMM_MAINNET = "0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb"
+export const STABLE_FARM_MAINNET = "0x11ea791d82b5742cc8cab0bf7946035c97d9001d7c3803a93f119753da66f526"
 export const INTEGRATE_MAINNET = "0x2eeaab737b37137b94bfa8f841f92e36a153641119da3456dec1926b9960d9be"
 export const LAUNCHPAD_MAINNET = "0x80d114c5d474eabc2eb2fcd1a0903f1eb5b5096a8dc4184d72453f7a9be728e4"
 
@@ -51,7 +52,6 @@ export const POOLS_MOLE_LIST = [
     // cetus_clmm_pool_usdc_usdy
     "0xdcd762ad374686fa890fc4f3b9bbfe2a244e713d7bffbfbd1b9221cb290da2ed",
 ]
-
 
 export const MOLE_WORKER_INFO_LIST = [
     // cetus_worker_wusdc_sui_worker_info: 
@@ -156,4 +156,8 @@ export const MOLE_WORKER_INFO_LIST = [
     "0xf823b1460defefa6f3923e4f4eb93795f421756de29afed344ddd6d6dd91be29",
     // cetus_worker_usdy_usdc_worker_info: 
     "0x3ef9304468faecfaf7d2317960b9e69fb85ea2610cc089244f3c0d54abf167e7",
+    // cetus_worker_stablefarm_hasui_sui_worker_info: 
+    "0x4e0f84b2d00700102553482e46ec08bd65b29e0d4fc9af8b39b0b25e299fcf1f",
+    // cetus_worker_stablefarm_sui_hasui_worker_info: 
+    "0x9af96eeb7ca6c1d17cad76607cd04b4ee712908345b64d66e9d3df9f053c5b82",
 ]
