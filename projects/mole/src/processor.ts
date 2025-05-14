@@ -1,8 +1,9 @@
 import { SuiNetwork, SuiObjectProcessor, SuiWrappedObjectProcessor} from "@sentio/sdk/sui"
 import { vault } from './types/sui/0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f.js'
-import { pool } from './types/sui/0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb.js'
+import { pool as clmmPool } from './types/sui/0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb.js'
+import { pool as stableFarmPool } from './types/sui/0x11ea791d82b5742cc8cab0bf7946035c97d9001d7c3803a93f119753da66f526.js'
 import { getPriceByType } from "@sentio/sdk/utils"
-import { buildCoinInfo, coinAddrBUCK, coinAddrCETUS, coinAddrFDUSD, coinAddrHASUI, coinAddrNAVX, coinAddrSCA, coinAddrSUI, coinAddrsuiUSDT, coinAddrUSDC, coinAddrUSDT, coinAddrUSDY, coinAddrWBTC, coinAddrWETH, coinAddrwUSDC, getCoinAmountFromLiquidity, getCoinTypeByVaultConfigId, getPoolByToken, getResponseContentByWorkerInfo, i32BitsToNumber, sleep, tickIndexToSqrtPriceX64, vaultBuckConfigId, vaultCetusConfigId, vaultFdusdConfigId, vaultHaSuiConfigId, vaultNavxConfigId, vaultScaConfigId, vaultSuiConfigId, vaultsuiUsdtConfigId, vaultUsdcConfigId, vaultUsdtConfigId, vaultUsdyConfigId, vaultWbtcConfigId, vaultWethConfigId, vaultwUsdcConfigId} from './utils/mole_utils.js'
+import { buildCoinInfo, coinAddrBUCK, coinAddrCETUS, coinAddrFDUSD, coinAddrHASUI, coinAddrNAVX, coinAddrSCA, coinAddrSUI, coinAddrsuiUSDT, coinAddrUSDC, coinAddrUSDT, coinAddrUSDY, coinAddrWBTC, coinAddrWETH, coinAddrwUSDC, getCoinAmountFromLiquidity, getCoinTypeByVaultConfigId, getPoolByToken, getResponseContentByWorkerInfo, i32BitsToNumber, isStableFarmByPoolId, isStableFarmByWorkerInfo, sleep, tickIndexToSqrtPriceX64, vaultBuckConfigId, vaultCetusConfigId, vaultFdusdConfigId, vaultHaSuiConfigId, vaultNavxConfigId, vaultScaConfigId, vaultSuiConfigId, vaultsuiUsdtConfigId, vaultUsdcConfigId, vaultUsdtConfigId, vaultUsdyConfigId, vaultWbtcConfigId, vaultWethConfigId, vaultwUsdcConfigId} from './utils/mole_utils.js'
 import * as constant from './utils/constant.js'
 import { ANY_TYPE } from '@sentio/sdk/move'
 import { string_ } from "@sentio/sdk/sui/builtin/0x1";
@@ -151,7 +152,7 @@ SuiWrappedObjectProcessor.bind({
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
     }
-  }, 480, 1440, undefined, { owned: true })
+  }, 10, 1440, undefined, { owned: true })
 
   
 SuiObjectProcessor.bind({
@@ -196,7 +197,7 @@ SuiObjectProcessor.bind({
 catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
-  }, 480, 1440, undefined, { owned: false })
+  }, 10, 1440, undefined, { owned: false })
 
 
 
@@ -245,7 +246,7 @@ catch (e) {
   catch (e) {
         console.log(`${e.message} error at ${JSON.stringify(self)}`)
       }
-    }, 480, 1440, undefined, { owned: false })
+    }, 10, 1440, undefined, { owned: false })
   
   
 
@@ -313,11 +314,11 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   })
   .onTimeInterval(async (self, _, ctx) => {
     try {
-      let res = await ctx.coder.decodedType(self, pool.Pool.type())
+      let res = await ctx.coder.decodedType(self, clmmPool.Pool.type())
       let retry = 0
       while (!res && retry < 300) {
         await sleep(300);
-        res = await ctx.coder.decodedType(self, pool.Pool.type())
+        res = await ctx.coder.decodedType(self, clmmPool.Pool.type())
         retry++
 
         if (retry == 299) {
@@ -387,7 +388,7 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   catch (e) {
         console.log(`${e.message} error at ${JSON.stringify(self)}`)
       }
-    }, 480, 1440, undefined, { owned: false })
+    }, 10, 1440, undefined, { owned: false })
 }
 
 
@@ -408,19 +409,36 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
       let res = await getResponseContentByWorkerInfo(workerInfoAddr, ctx, self)
             
       // console.log("ctx.objectId:" , ctx.objectId, ",res : ", JSON.stringify(res))
+      
+      let liquidity, tickLowerIndex, tickUpperIndex, poolId, coinTypeA, coinTypeB
+      if (isStableFarmByWorkerInfo(workerInfoAddr)) {
+        //@ts-ignore
+        liquidity = Number(res!.stable_farming_position_nft.clmm_postion.liquidity)
+        //@ts-ignore
+        tickLowerIndex = i32BitsToNumber((res!.stable_farming_position_nft.clmm_postion.tick_lower_index.bits).toString())
+        //@ts-ignore
+        tickUpperIndex = i32BitsToNumber((res!.stable_farming_position_nft.clmm_postion.tick_upper_index.bits).toString())
+        //@ts-ignore
+        poolId = res!.stable_farming_position_nft.clmm_postion.pool
+        //@ts-ignore
+        coinTypeA = '0x' + res!.stable_farming_position_nft.clmm_postion.coin_type_a.name
+        //@ts-ignore
+        coinTypeB = '0x' + res!.stable_farming_position_nft.clmm_postion.coin_type_b.name
 
-      //@ts-ignore
-      const liquidity = Number(res!.position_nft.liquidity)
-      //@ts-ignore
-      const tickLowerIndex = i32BitsToNumber((res!.position_nft.tick_lower_index.bits).toString())
-      //@ts-ignore
-      const tickUpperIndex = i32BitsToNumber((res!.position_nft.tick_upper_index.bits).toString())
-      //@ts-ignore
-      const poolId = res!.position_nft.pool
-      //@ts-ignore
-      const coinTypeA = '0x' + res!.position_nft.coin_type_a.name
-      //@ts-ignore
-      const coinTypeB = '0x' + res!.position_nft.coin_type_b.name
+      } else {
+        //@ts-ignore
+        liquidity = Number(res!.position_nft.liquidity)
+        //@ts-ignore
+        tickLowerIndex = i32BitsToNumber((res!.position_nft.tick_lower_index.bits).toString())
+        //@ts-ignore
+        tickUpperIndex = i32BitsToNumber((res!.position_nft.tick_upper_index.bits).toString())
+        //@ts-ignore
+        poolId = res!.position_nft.pool
+        //@ts-ignore
+        coinTypeA = '0x' + res!.position_nft.coin_type_a.name
+        //@ts-ignore
+        coinTypeB = '0x' + res!.position_nft.coin_type_b.name
+      }
 
       let coinInfoA = await buildCoinInfo(ctx, coinTypeA)
       let retry = 0
@@ -597,7 +615,7 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
-  }, 480, 1440, undefined, { owned: false })
+  }, 10, 1440, undefined, { owned: false })
 }
 
 
@@ -1042,7 +1060,7 @@ SuiWrappedObjectProcessor.bind({
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
     }
-  }, 480, 1440, undefined, { owned: true })
+  }, 10, 1440, undefined, { owned: true })
 
 
 
@@ -1266,7 +1284,7 @@ SuiWrappedObjectProcessor.bind({
 //       catch (e) {
 //         console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
 //       }
-//     }, 480, 1440, undefined, { owned: true })
+//     }, 10, 1440, undefined, { owned: true })
 //   }
 
   
@@ -1553,7 +1571,7 @@ SuiWrappedObjectProcessor.bind({
 //     catch (e) {
 //       console.log(`${e.message} error at ${JSON.stringify(self)}`)
 //     }
-//   }, 480, 1440, undefined, { owned: false })
+//   }, 10, 1440, undefined, { owned: false })
 // }
   
 
