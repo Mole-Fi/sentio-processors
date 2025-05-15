@@ -58,6 +58,8 @@ import { cetus_clmm_worker as cetus_clmm_worker_usdc_usdy } from '../types/sui/0
 import { cetus_clmm_worker as cetus_clmm_worker_usdy_usdc } from '../types/sui/0x94774dcedb00c8c5e216c097d28de663250fbeb38ec57068d898556f5d37b21f.js'
 import { stable_farming_worker as stable_farm_worker_hasui_sui } from '../types/sui/0xea6eb8e27a67480e644ead355839448b016a40c0c10865e1e26af5d981257875.js'
 import { stable_farming_worker as stable_farm_worker_sui_hasui } from '../types/sui/0x8f5ad71b20e3a435ef92828c782e459a0428ed125e932ddbb8b6842eaea354ee.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_suiusdt_2 } from '../types/sui/0x36fd94fb0f54d5407d6fed7706bbc53250bb3b1046f2de7ac610253cc9154b27.js'
+import { cetus_clmm_worker as cetus_clmm_worker_suiusdt_usdc_2 } from '../types/sui/0x4c63cd45650ddd17468b1e7ab9d29f8ef86b777ed04809224ca4e7f05f947de3.js'
 
 
 export const vaultWethConfigId = "0x7fa4aa18fc4488947dc7528b5177c4475ec478c28014e77a31dc2318fa4f125e"
@@ -549,6 +551,10 @@ export function getShareObjectByWorkerInfo(workerInfoAddr: string) {
     sharesObjectId = "0xa965af510dc0d4094ba9148916cb8e43115f1570b1e65b04eb2dfa3b8774d3a7"
   } else if (workerInfoAddr == "0x9af96eeb7ca6c1d17cad76607cd04b4ee712908345b64d66e9d3df9f053c5b82") {
     sharesObjectId = "0x0981c14c9771f5025d35ced3aa90b839ad02b0b680bbb107f0af0c74ef83241f"
+  } else if (workerInfoAddr == "0xc602fd3f71b40e8ba3c7e01f8e42987cfb660e282fc645952d03ae59a075aea2") {
+    sharesObjectId = "0x051e39f5d42df0a592c61dcf32e2dc9fdb8412d99d88bc90dd39313b2f097622"
+  } else if (workerInfoAddr == "0x01faaad863c448800d2b7223609436c2cdf001c4c397d66eb59bb89a82828b6d") {
+    sharesObjectId = "0xda009f3ece5562adf294fd8fca36ec861a464d86e183e4b16e521b972de41fe2"
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }
@@ -700,6 +706,10 @@ export async function getResponseContentByWorkerInfo(workerInfoAddr: string, ctx
     res = await ctx.coder.decodedType(self, stable_farm_worker_hasui_sui.WorkerInfo.type())
   } else if (workerInfoAddr == "0x9af96eeb7ca6c1d17cad76607cd04b4ee712908345b64d66e9d3df9f053c5b82") {
     res = await ctx.coder.decodedType(self, stable_farm_worker_sui_hasui.WorkerInfo.type())
+  } else if (workerInfoAddr == "0xc602fd3f71b40e8ba3c7e01f8e42987cfb660e282fc645952d03ae59a075aea2") {
+    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_suiusdt_2.WorkerInfo.type())
+  } else if (workerInfoAddr == "0x01faaad863c448800d2b7223609436c2cdf001c4c397d66eb59bb89a82828b6d") {
+    res = await ctx.coder.decodedType(self, cetus_clmm_worker_suiusdt_usdc_2.WorkerInfo.type())   
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }

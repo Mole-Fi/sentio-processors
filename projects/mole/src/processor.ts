@@ -304,7 +304,8 @@ let gCurrentSqrtPriceUsdcsuiUsdt
 let gCurrentSqrtPriceFdusdUsdc
 //@ts-ignore
 let gCurrentSqrtPriceUsdcUsdy
-
+//@ts-ignore
+let gCurrentSqrtPriceUsdcsuiUsdt2
 
 for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   SuiObjectProcessor.bind({
@@ -379,6 +380,8 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
         gCurrentSqrtPriceFdusdUsdc = currentSqrtPrice
       } else if ('0xdcd762ad374686fa890fc4f3b9bbfe2a244e713d7bffbfbd1b9221cb290da2ed' == ctx.objectId) {
         gCurrentSqrtPriceUsdcUsdy = currentSqrtPrice
+      } else if ('0xb8a67c149fd1bc7f9aca1541c61e51ba13bdded64c273c278e50850ae3bff073' == ctx.objectId) {  
+        gCurrentSqrtPriceUsdcsuiUsdt2 = currentSqrtPrice
       } else {
         console.error("Has not object : ", ctx.objectId)
       }
