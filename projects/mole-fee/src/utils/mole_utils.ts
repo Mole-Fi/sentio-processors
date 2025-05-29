@@ -58,6 +58,8 @@ import { cetus_clmm_worker as cetus_clmm_worker_usdc_usdy } from '../types/sui/0
 import { cetus_clmm_worker as cetus_clmm_worker_usdy_usdc } from '../types/sui/0x94774dcedb00c8c5e216c097d28de663250fbeb38ec57068d898556f5d37b21f.js'
 import { stable_farming_worker as stable_farm_worker_hasui_sui } from '../types/sui/0xea6eb8e27a67480e644ead355839448b016a40c0c10865e1e26af5d981257875.js'
 import { stable_farming_worker as stable_farm_worker_sui_hasui } from '../types/sui/0x8f5ad71b20e3a435ef92828c782e459a0428ed125e932ddbb8b6842eaea354ee.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_suiusdt_2 } from '../types/sui/0x36fd94fb0f54d5407d6fed7706bbc53250bb3b1046f2de7ac610253cc9154b27.js'
+import { cetus_clmm_worker as cetus_clmm_worker_suiusdt_usdc_2 } from '../types/sui/0x4c63cd45650ddd17468b1e7ab9d29f8ef86b777ed04809224ca4e7f05f947de3.js'
 
 
 export const vaultWethConfigId = "0x7fa4aa18fc4488947dc7528b5177c4475ec478c28014e77a31dc2318fa4f125e"
@@ -549,6 +551,10 @@ export function getShareObjectByWorkerInfo(workerInfoAddr: string) {
     sharesObjectId = "0xa965af510dc0d4094ba9148916cb8e43115f1570b1e65b04eb2dfa3b8774d3a7"
   } else if (workerInfoAddr == "0x9af96eeb7ca6c1d17cad76607cd04b4ee712908345b64d66e9d3df9f053c5b82") {
     sharesObjectId = "0x0981c14c9771f5025d35ced3aa90b839ad02b0b680bbb107f0af0c74ef83241f"
+  } else if (workerInfoAddr == "0xc602fd3f71b40e8ba3c7e01f8e42987cfb660e282fc645952d03ae59a075aea2") {
+    sharesObjectId = "0x051e39f5d42df0a592c61dcf32e2dc9fdb8412d99d88bc90dd39313b2f097622"
+  } else if (workerInfoAddr == "0x01faaad863c448800d2b7223609436c2cdf001c4c397d66eb59bb89a82828b6d") {
+    sharesObjectId = "0xda009f3ece5562adf294fd8fca36ec861a464d86e183e4b16e521b972de41fe2"
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }
@@ -595,111 +601,115 @@ export function getCoinTypeByVaultConfigId(vaultConfigId: string) {
 export async function getResponseContentByWorkerInfo(workerInfoAddr: string, ctx: SuiObjectContext, self: any) {
   let res
   if (workerInfoAddr == "0x98f354c9e166862f079aaadd5e85940c55c440a8461e8e468513e2a86106042c") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_sui.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_sui.WorkerInfo.type())
   } else if (workerInfoAddr == "0x3d946af3a3c0bec5f232541accf2108b97326734e626f704dda1dfb7450deb4c") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_wusdc.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_wusdc.WorkerInfo.type())
   } else if (workerInfoAddr == "0x3f99d841487141e46602424b1b4125751a2df29a23b65f6c56786f3679f2c2c1") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdt_wusdc.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdt_wusdc.WorkerInfo.type())
   } else if (workerInfoAddr == "0xc28878cfc99628743b13eebca9bdff703daeccb285f8c6ea48120b06f4079926") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_usdt.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_usdt.WorkerInfo.type())
   } else if (workerInfoAddr == "0xbeb69ca36f0ab6cb87247a366f50aab851180332216730e63e983ca0e617f326") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_weth_wusdc.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_weth_wusdc.WorkerInfo.type())
   } else if (workerInfoAddr == "0x1774ca4f9e37f37c6b0df9c7f9526adc67113532eb4eaa07f36942092c8e5f51") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_weth.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_weth.WorkerInfo.type())
   } else if (workerInfoAddr == "0x9a510e18c37df3d9ddfe0b2d6673582f702bf281116a4ee334f7ef3edfa2b9ab") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdt_sui.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdt_sui.WorkerInfo.type())
   } else if (workerInfoAddr == "0xcd00ff33e9a71ea807f41641d515449263a905a850a4fd9c4ce03203c0f954b5") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_usdt.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_usdt.WorkerInfo.type())
   } else if (workerInfoAddr == "0x83d7639b08ffc1408f4383352a2070b2f58328caa7fbbdfa42ec5f3cf4694a5d") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_cetus.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_cetus.WorkerInfo.type())
   } else if (workerInfoAddr == "0xb690a7107f198c538fac2d40418d1708e08b886c8dfbe86c585412bea18cadcb") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_cetus_sui.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_cetus_sui.WorkerInfo.type())
   } else if (workerInfoAddr == "0x88af306756ce514c6a70b378336489f8773ed48f8880d3171a60c2ecb8e7a5ec") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_cetus_wusdc.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_cetus_wusdc.WorkerInfo.type())
   } else if (workerInfoAddr == "0xd093219b4b2be6c44461f1bb32a70b81c496bc14655e7e81d2687f3d77d085da") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_cetus.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_cetus.WorkerInfo.type())
   } else if (workerInfoAddr == "0xed1bc37595a30e98c984a1e2c4860babf3420bffd9f4333ffc6fa22f2f9099b8") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_hasui_sui.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_hasui_sui.WorkerInfo.type())
   } else if (workerInfoAddr == "0xc792fa9679b2f73d8debad2963b4cdf629cf78edcab78e2b8c3661b91d7f6a45") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_hasui.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_hasui.WorkerInfo.type())
   } else if (workerInfoAddr == "0x262272883f08b1979d27a76f699f1e5020146c1a30213548bf89ccef62d583e1") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_navx_sui.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_navx_sui.WorkerInfo.type())
   } else if (workerInfoAddr == "0xbc8b30dd02b349ebf6ee6b5454430c8f2c41206e2067aab251578155c7c7dc7e") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_navx.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_navx.WorkerInfo.type())
   } else if (workerInfoAddr == "0x1f8890445e538586657b721ff94b80435296d98bb5a3b984e07d5d326d6dfb3d") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_navx_cetus.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_navx_cetus.WorkerInfo.type())
   } else if (workerInfoAddr == "0x8eeaa512683fff54710fd3e2297b72ef0f6d0f2c52c63720eac791b74f1a47c6") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_cetus_navx.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_cetus_navx.WorkerInfo.type())
   } else if (workerInfoAddr == "0x9f3086aaa1f3790b06bb01c0077d0a709cdb234fbae13c70fa5fdeafacb119aa") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_sca_sui.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_sca_sui.WorkerInfo.type())
   } else if (workerInfoAddr == "0x7a41fbf19809f80fd1a7282b218ec8326dfaadc2ad20604d052c12d5076596b4") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_sca.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_sca.WorkerInfo.type())
   } else if (workerInfoAddr == "0xb0259f15a3c6e40883e85c559b09172c546dc439717347b936d9e1f1559ad53a") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_wbtc.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_wbtc.WorkerInfo.type())
   } else if (workerInfoAddr == "0x99d6a5dad2b4b840d28ea88cc8fb599f4eb54a897bd3573957c8fbefa8e252ac") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_wbtc_wusdc.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_wbtc_wusdc.WorkerInfo.type())
   } else if (workerInfoAddr == "0x1a8ad1068ab9bc5b94f2e3baa7a5eaac67e1337e2a47463fcfbc1b9ed26ef5ce") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_buck_wusdc.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_buck_wusdc.WorkerInfo.type())
   } else if (workerInfoAddr == "0xf7fc938356331d7404226c147328750cf2d8ef8a273ed8bc1450ee4e0ff0e659") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_buck.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_buck.WorkerInfo.type())
   } else if (workerInfoAddr == "0x44bff32bda79532beafeb35ce80f5673b03bc3411229b6bb55d368827271ea9f") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_sui.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_sui.WorkerInfo.type())
   } else if (workerInfoAddr == "0x18d1556fddf2eaacfe922b3ce3a3c339d19363d190b3e0c22b6291ab1cf57d6c") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_usdc.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_usdc.WorkerInfo.type())
   } else if (workerInfoAddr == "0xc3f471085526079f294d8395cc078393a7e7f8f750d6d7871679c58bfab38ac8") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_usdt.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_usdt.WorkerInfo.type())
   } else if (workerInfoAddr == "0x354808fb8a29a59e35e2d9bf06892eb913d750796b71b5f72efa6cd9d5dbbc27") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdt_usdc.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdt_usdc.WorkerInfo.type())
   } else if (workerInfoAddr == "0x7b62b4ea193bb6abf99380b3ad341db84ee28c289bf624c16fb6e7eed21ae988") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_cetus_usdc.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_cetus_usdc.WorkerInfo.type())
   } else if (workerInfoAddr == "0x5dfdcaaa330e31605b8444f0d65d3e46fd2d0f4addf44d2284d05b1225ab2dca") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_cetus.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_cetus.WorkerInfo.type())
   } else if (workerInfoAddr == "0x6b65414a6244fdbd71d0e1fc8e0a27c717f68db51faf5a7cce7256abae9a320e") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_wusdc.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_wusdc.WorkerInfo.type())
   } else if (workerInfoAddr == "0x9b0e6176f25aeff94388fcf2c7d98ca481997f9e08160875263c4c50b669d242") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_usdc.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_usdc.WorkerInfo.type())
   } else if (workerInfoAddr == "0x1c0a2e9e57e51b8f3557c3a6a1163b4909d9a14516ad7ecf7dd7814e7328d6fc") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_buck.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_buck.WorkerInfo.type())
   } else if (workerInfoAddr == "0x05d0e4b408c1a66bc7ed21a591970962f7e60ebc569a35ff1c61cbb2cdbf3832") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_buck_usdc.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_buck_usdc.WorkerInfo.type())
   } else if (workerInfoAddr == "0xae7c55844e42ef1296af174ae10c247d091fd6be87a718a34af2f9dffaf05fc8") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_buck_sui.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_buck_sui.WorkerInfo.type())
   } else if (workerInfoAddr == "0x89a808d0ba894599b89e7d8010682ce937af991fafebecb11667bb11d407d8c3") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_buck.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_buck.WorkerInfo.type())
   } else if (workerInfoAddr == "0x27e235491f516aaa2b6d7a4b1fd402a518f3da93d1e208ec9e7c072b4cf32e0a") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_wusdc_new.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_wusdc_new.WorkerInfo.type())
   } else if (workerInfoAddr == "0x6759e2cb781a5a4f47b8b55684b1ab87ba46a7ff770a3e2f2c42cf94fb306d76") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_usdc_new.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_usdc_new.WorkerInfo.type())
   } else if (workerInfoAddr == "0xee0430bce1e4ba2802719000300d9f5f1f179554669ca96b594b2ffa501b92d2") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_buck_wusdc_new.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_buck_wusdc_new.WorkerInfo.type())
   } else if (workerInfoAddr == "0x57a70d4108b54e2b8b8f1a327975ae222d16eaf006eba90f479a3fce857cb5b1") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_buck_new.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_buck_new.WorkerInfo.type())
   } else if (workerInfoAddr == "0x090d1bbf706bfdb00dfa7f2faeba793ccff87c2845f23312ed94c3f6a5aa02fd") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_suiusdt.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_suiusdt.WorkerInfo.type())
   } else if (workerInfoAddr == "0xe9c2b3d537084d20c1cb6c61f567f4b7f38aa890db8b76a92e5ebab3625fb3d3") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_suiusdt_usdc.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_suiusdt_usdc.WorkerInfo.type())
   } else if (workerInfoAddr == "0xa04a6445403ad44a23d9828db39057d08580689db40dc413919c5e13af94f395") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_fdusd_usdc_1.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_fdusd_usdc_1.WorkerInfo.type())
   } else if (workerInfoAddr == "0x85b95d5c30f481e45e51493771140d11ccdd28ca8fdf2a9abb0431d31b7298d0") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_fdusd_1.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_fdusd_1.WorkerInfo.type())
   } else if (workerInfoAddr == "0xf658a0a9eb06b349a5493100094066c0b3548c18545ae5b7607748d1dcb997ca") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_fdusd_2.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_fdusd_2.WorkerInfo.type())
   } else if (workerInfoAddr == "0x2ce694787928598ad30daf85d68b26d1fb4e271385201576f76a81381281e843") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_fdusd_3.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_fdusd_3.WorkerInfo.type())
   } else if (workerInfoAddr == "0x0547da166a7dbc7fa9f6c67c48e20651fbbe748f4eb4be984f4062889e3a837c") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_fdusd_4.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_fdusd_4.WorkerInfo.type())
   } else if (workerInfoAddr == "0x0c4e2689734925f4d760d4feb91e32542d67a56a27f62896ce2f682bb72bea90") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_fdusd_5.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_fdusd_5.WorkerInfo.type())
   } else if (workerInfoAddr == "0x8c0684fa6a81c15f2956e5d01b66a8794182935c400fad9b78414db2e0127b98") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_fdusd_6.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_fdusd_6.WorkerInfo.type())
   } else if (workerInfoAddr == "0xf823b1460defefa6f3923e4f4eb93795f421756de29afed344ddd6d6dd91be29") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_usdy.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_usdy.WorkerInfo.type())
   } else if (workerInfoAddr == "0x3ef9304468faecfaf7d2317960b9e69fb85ea2610cc089244f3c0d54abf167e7") {
-    res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdy_usdc.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdy_usdc.WorkerInfo.type())
   } else if (workerInfoAddr == "0x4e0f84b2d00700102553482e46ec08bd65b29e0d4fc9af8b39b0b25e299fcf1f") {
-    res = await ctx.coder.decodedType(self, stable_farm_worker_hasui_sui.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, stable_farm_worker_hasui_sui.WorkerInfo.type())
   } else if (workerInfoAddr == "0x9af96eeb7ca6c1d17cad76607cd04b4ee712908345b64d66e9d3df9f053c5b82") {
-    res = await ctx.coder.decodedType(self, stable_farm_worker_sui_hasui.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, stable_farm_worker_sui_hasui.WorkerInfo.type())
+  } else if (workerInfoAddr == "0xc602fd3f71b40e8ba3c7e01f8e42987cfb660e282fc645952d03ae59a075aea2") {
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_suiusdt_2.WorkerInfo.type())
+  } else if (workerInfoAddr == "0x01faaad863c448800d2b7223609436c2cdf001c4c397d66eb59bb89a82828b6d") {
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_suiusdt_usdc_2.WorkerInfo.type())   
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }
