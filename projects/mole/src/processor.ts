@@ -1,12 +1,11 @@
 import { SuiNetwork, SuiObjectProcessor, SuiWrappedObjectProcessor} from "@sentio/sdk/sui"
 import { vault } from './types/sui/0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f.js'
 import { pool as clmmPool } from './types/sui/0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb.js'
-import { pool as stableFarmPool } from './types/sui/0x11ea791d82b5742cc8cab0bf7946035c97d9001d7c3803a93f119753da66f526.js'
 import { getPriceByType } from "@sentio/sdk/utils"
-import { buildCoinInfo, coinAddrBUCK, coinAddrCETUS, coinAddrFDUSD, coinAddrHASUI, coinAddrNAVX, coinAddrSCA, coinAddrSUI, coinAddrsuiUSDT, coinAddrUSDC, coinAddrUSDT, coinAddrUSDY, coinAddrWBTC, coinAddrWETH, coinAddrwUSDC, getCoinAmountFromLiquidity, getCoinTypeByVaultConfigId, getPoolByToken, getResponseContentByWorkerInfo, i32BitsToNumber, isStableFarmByPoolId, isStableFarmByWorkerInfo, sleep, tickIndexToSqrtPriceX64, vaultBuckConfigId, vaultCetusConfigId, vaultFdusdConfigId, vaultHaSuiConfigId, vaultNavxConfigId, vaultScaConfigId, vaultSuiConfigId, vaultsuiUsdtConfigId, vaultUsdcConfigId, vaultUsdtConfigId, vaultUsdyConfigId, vaultWbtcConfigId, vaultWethConfigId, vaultwUsdcConfigId} from './utils/mole_utils.js'
+import { buildCoinInfo, coinAddrAUSD, coinAddrBUCK, coinAddrCETUS, coinAddrFDUSD, coinAddrHASUI, coinAddrNAVX, coinAddrSCA, coinAddrSUI, coinAddrsuiUSDT, coinAddrUSDC, coinAddrUSDT, coinAddrUSDY, coinAddrWBTC, coinAddrWETH, coinAddrwUSDC, getCoinAmountFromLiquidity, getCoinTypeByVaultConfigId, getPoolByToken, getResponseContentByWorkerInfo, i32BitsToNumber, isStableFarmByPoolId, isStableFarmByWorkerInfo, sleep, tickIndexToSqrtPriceX64, vaultAusdConfigId, vaultBuckConfigId, vaultCetusConfigId, vaultFdusdConfigId, vaultHaSuiConfigId, vaultNavxConfigId, vaultScaConfigId, vaultSuiConfigId, vaultsuiUsdtConfigId, vaultUsdcConfigId, vaultUsdtConfigId, vaultUsdyConfigId, vaultWbtcConfigId, vaultWethConfigId, vaultwUsdcConfigId} from './utils/mole_utils.js'
 import * as constant from './utils/constant.js'
 import { ANY_TYPE } from '@sentio/sdk/move'
-import { string_ } from "@sentio/sdk/sui/builtin/0x1";
+import { string$ } from "@sentio/sdk/sui/builtin/0x1";
 import BN from 'bn.js'
 import axiosInst from './utils/moleAxios.js'
 
@@ -50,11 +49,11 @@ SuiWrappedObjectProcessor.bind({
 
       const objectType = vault.VaultInfo.type(ANY_TYPE)
 
-      let fields = await ctx.coder.getDynamicFields(dynamicFieldObjects, string_.String.type(),  objectType)
+      let fields = await ctx.coder.getDynamicFields(dynamicFieldObjects, string$.String.type(),  objectType)
       let retry = 0
       while (!fields && retry < 300) {
         await sleep(300);
-        fields = await ctx.coder.getDynamicFields(dynamicFieldObjects, string_.String.type(),  objectType)
+        fields = await ctx.coder.getDynamicFields(dynamicFieldObjects, string$.String.type(),  objectType)
         retry++     
         
         if (retry == 299) {
@@ -306,6 +305,9 @@ let gCurrentSqrtPriceFdusdUsdc
 let gCurrentSqrtPriceUsdcUsdy
 //@ts-ignore
 let gCurrentSqrtPriceUsdcsuiUsdt2
+//@ts-ignore
+let gCurrentSqrtPriceUsdcAusd
+
 
 for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   SuiObjectProcessor.bind({
@@ -315,15 +317,15 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   })
   .onTimeInterval(async (self, _, ctx) => {
     try {
-      let res = await ctx.coder.decodedType(self, clmmPool.Pool.type())
+      let res = await ctx.coder.decodeType(self, clmmPool.Pool.type())
       let retry = 0
       while (!res && retry < 300) {
         await sleep(300);
-        res = await ctx.coder.decodedType(self, clmmPool.Pool.type())
+        res = await ctx.coder.decodeType(self, clmmPool.Pool.type())
         retry++
 
         if (retry == 299) {
-          throw new Error("decodedType")
+          throw new Error("decodeType")
         }
       }
       
@@ -382,6 +384,8 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
         gCurrentSqrtPriceUsdcUsdy = currentSqrtPrice
       } else if ('0xb8a67c149fd1bc7f9aca1541c61e51ba13bdded64c273c278e50850ae3bff073' == ctx.objectId) {  
         gCurrentSqrtPriceUsdcsuiUsdt2 = currentSqrtPrice
+      } else if ('0x0fea99ed9c65068638963a81587c3b8cafb71dc38c545319f008f7e9feb2b5f8' == ctx.objectId) {
+        gCurrentSqrtPriceUsdcAusd = currentSqrtPrice
       } else {
         console.error("Has not object : ", ctx.objectId)
       }
@@ -578,6 +582,9 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
       } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrUSDY) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceUsdcUsdy
+      } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrAUSD) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceUsdcAusd
       } else {
         console.error("Has not price : coin_symbol_a:", coin_symbol_a, ",coin_symbol_b:",coin_symbol_b )
       }
@@ -634,11 +641,11 @@ SuiWrappedObjectProcessor.bind({
 
       const objectType = vault.VaultInfo.type(ANY_TYPE)
 
-      let fields = await ctx.coder.getDynamicFields(dynamicFieldObjects, string_.String.type(),  objectType)
+      let fields = await ctx.coder.getDynamicFields(dynamicFieldObjects, string$.String.type(),  objectType)
       let retry = 0
       while (!fields && retry < 300) {
         await sleep(300);
-        fields = await ctx.coder.getDynamicFields(dynamicFieldObjects, string_.String.type(),  objectType)
+        fields = await ctx.coder.getDynamicFields(dynamicFieldObjects, string$.String.type(),  objectType)
         retry++     
         
         if (retry == 299) {
@@ -707,6 +714,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0
           } else if (configAddr == vaultUsdyConfigId) {
             accumulateFee = 0
+          } else if (configAddr == vaultAusdConfigId) {
+            accumulateFee = 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -738,6 +747,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultFdusdConfigId) {
             accumulateFee = 0 + 0
           } else if (configAddr == vaultUsdyConfigId) {
+            accumulateFee = 0 + 0
+          } else if (configAddr == vaultAusdConfigId) {
             accumulateFee = 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -771,6 +782,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0
           } else if (configAddr == vaultUsdyConfigId) {
             accumulateFee = 0 + 0 + 0
+          } else if (configAddr == vaultAusdConfigId) {
+            accumulateFee = 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -802,6 +815,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultFdusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0
           } else if (configAddr == vaultUsdyConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0
+          } else if (configAddr == vaultAusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -835,6 +850,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultUsdyConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultAusdConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -866,6 +883,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultFdusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultUsdyConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultAusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -899,6 +918,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultUsdyConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultAusdConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -930,6 +951,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultFdusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultUsdyConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultAusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -963,6 +986,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultUsdyConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultAusdConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -995,6 +1020,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultUsdyConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultAusdConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -1026,6 +1053,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultFdusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 2.179531
           } else if (configAddr == vaultUsdyConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultAusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -1310,100 +1339,100 @@ SuiWrappedObjectProcessor.bind({
 //     try {
 //       let res, workerAddr
 //       if (workerInfoAddr == "0x98f354c9e166862f079aaadd5e85940c55c440a8461e8e468513e2a86106042c") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_sui.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_sui.WorkerInfo.type())
 //         workerAddr = "0x334bed7f6426c1a3710ef7f4d66b1225df74146372b40a64e9d0cbfc76d76e67"
 //       } else if (workerInfoAddr == "0x3d946af3a3c0bec5f232541accf2108b97326734e626f704dda1dfb7450deb4c") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_wusdc.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_wusdc.WorkerInfo.type())
 //         workerAddr = "0x1454bd0be3db3c4be862104bde964913182de6d380aea24b88320505baba5e46"
 //       } else if (workerInfoAddr == "0x3f99d841487141e46602424b1b4125751a2df29a23b65f6c56786f3679f2c2c1") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdt_wusdc.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdt_wusdc.WorkerInfo.type())
 //         workerAddr = "0x9cb48aa1b41a1183ecdabde578e640e05a08170f8ca165b743ffded0b1256391"
 //       } else if (workerInfoAddr == "0xc28878cfc99628743b13eebca9bdff703daeccb285f8c6ea48120b06f4079926") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_usdt.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_usdt.WorkerInfo.type())
 //         workerAddr = "0x960ab11d560f05f0ec260c7ac87074b569334713594aa02580642e029fd9dd86"
 //       } else if (workerInfoAddr == "0xbeb69ca36f0ab6cb87247a366f50aab851180332216730e63e983ca0e617f326") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_weth_wusdc.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_weth_wusdc.WorkerInfo.type())
 //         workerAddr = "0xb7a0d251a9f307b80b1595c87622118e401dc613591b3435786bb7c147599dae"
 //       } else if (workerInfoAddr == "0x1774ca4f9e37f37c6b0df9c7f9526adc67113532eb4eaa07f36942092c8e5f51") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_weth.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_weth.WorkerInfo.type())
 //         workerAddr = "0xd49d0a3331bd41005dd1a5e295e07bf4cec1359e201ba71fc5a1e541787328d9"
 //       } else if (workerInfoAddr == "0x9a510e18c37df3d9ddfe0b2d6673582f702bf281116a4ee334f7ef3edfa2b9ab") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdt_sui.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdt_sui.WorkerInfo.type())
 //         workerAddr = "0xab01c0cb01a3e50171b898eb2509f53ba2ba83ed844628f3d843b20e99783b58"
 //       } else if (workerInfoAddr == "0xcd00ff33e9a71ea807f41641d515449263a905a850a4fd9c4ce03203c0f954b5") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_usdt.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_usdt.WorkerInfo.type())
 //         workerAddr = "0x8cc36eb225997a7e35661382b5ddfda35f91a7d732e04e22d203151a9e321d66"
 //       } else if (workerInfoAddr == "0x83d7639b08ffc1408f4383352a2070b2f58328caa7fbbdfa42ec5f3cf4694a5d") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_cetus.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_cetus.WorkerInfo.type())
 //         workerAddr = "0x7f24e8b7935db7588bfd7035b4aa503c1f29ed71ce2b1dbd425b8ad1096b7463"
 //       } else if (workerInfoAddr == "0xb690a7107f198c538fac2d40418d1708e08b886c8dfbe86c585412bea18cadcb") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_cetus_sui.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_cetus_sui.WorkerInfo.type())
 //         workerAddr = "0x57563b5040ac32ff1897a3c40fe9a0e987f40791289fce31ff7388805255076d"
 //       } else if (workerInfoAddr == "0x88af306756ce514c6a70b378336489f8773ed48f8880d3171a60c2ecb8e7a5ec") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_cetus_wusdc.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_cetus_wusdc.WorkerInfo.type())
 //         workerAddr = "0xf538241fc4783dbf0eca4cf516fbc7ad5b910517e25d8e4ec7fb754eb9b0280c"
 //       } else if (workerInfoAddr == "0xd093219b4b2be6c44461f1bb32a70b81c496bc14655e7e81d2687f3d77d085da") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_cetus.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_cetus.WorkerInfo.type())
 //         workerAddr = "0xd8528e2825b7354f5e4fd3bf89e3998e59f4cf92160d65bf491885677229def0"
 //       } else if (workerInfoAddr == "0xed1bc37595a30e98c984a1e2c4860babf3420bffd9f4333ffc6fa22f2f9099b8") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_hasui_sui.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_hasui_sui.WorkerInfo.type())
 //         workerAddr = "0x50be9b81baf7204130eea06bb1845d4a0beccbee98c03b5ec0b17a48302351bf"
 //       } else if (workerInfoAddr == "0xc792fa9679b2f73d8debad2963b4cdf629cf78edcab78e2b8c3661b91d7f6a45") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_hasui.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_hasui.WorkerInfo.type())
 //         workerAddr = "0xd5f6540d3d3fc7fd8ed64e862a21785932e84ee669fb2e7bbe5bd23fd6552827"
 //       } else if (workerInfoAddr == "0x262272883f08b1979d27a76f699f1e5020146c1a30213548bf89ccef62d583e1") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_navx_sui.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_navx_sui.WorkerInfo.type())
 //         workerAddr = "0x53e47bac30d4f17fcb0d800de9fc7f0cc96f520531bb8fd7670e9c08f060ec61"
 //       } else if (workerInfoAddr == "0xbc8b30dd02b349ebf6ee6b5454430c8f2c41206e2067aab251578155c7c7dc7e") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_navx.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_navx.WorkerInfo.type())
 //         workerAddr = "0xd5b04240f6536c7b5276e96b057460a58ac8b1b66b2db03038f3d44bf1ea7cde"
 //       } else if (workerInfoAddr == "0x1f8890445e538586657b721ff94b80435296d98bb5a3b984e07d5d326d6dfb3d") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_navx_cetus.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_navx_cetus.WorkerInfo.type())
 //         workerAddr = "0x6665ad06bb0c47a00e3ce6da9c796f8061b9f8178095e421ce36e3f73345f24a"
 //       } else if (workerInfoAddr == "0x8eeaa512683fff54710fd3e2297b72ef0f6d0f2c52c63720eac791b74f1a47c6") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_cetus_navx.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_cetus_navx.WorkerInfo.type())
 //         workerAddr = "0xf8670497cc6403831fad47f8471cce467661c3e01833953d62fe86527bbe4474"
 //       } else if (workerInfoAddr == "0x9f3086aaa1f3790b06bb01c0077d0a709cdb234fbae13c70fa5fdeafacb119aa") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_sca_sui.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_sca_sui.WorkerInfo.type())
 //         workerAddr = "0x0efca73a17c179aee1a5243c66c3f90101f61e9dd974e71b356ecdf0316ca626"
 //       } else if (workerInfoAddr == "0x7a41fbf19809f80fd1a7282b218ec8326dfaadc2ad20604d052c12d5076596b4") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_sca.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_sca.WorkerInfo.type())
 //         workerAddr = "0x9a0355aa800e975678ce812d4ee044f3faa8b48c70d877f90d3ba8d35566e6aa"
 //       } else if (workerInfoAddr == "0xb0259f15a3c6e40883e85c559b09172c546dc439717347b936d9e1f1559ad53a") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_wbtc.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_wbtc.WorkerInfo.type())
 //         workerAddr = "0xff377a83375d63b9c8429362b5c2791bc69f0da861d3d963970ffeac2654d9d5"
 //       } else if (workerInfoAddr == "0x99d6a5dad2b4b840d28ea88cc8fb599f4eb54a897bd3573957c8fbefa8e252ac") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_wbtc_wusdc.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_wbtc_wusdc.WorkerInfo.type())
 //         workerAddr = "0x15fbfe8c27c920baaa1e4bd8bfe05c4408311612baf6493ed3285c6bd95a6939"
 //       } else if (workerInfoAddr == "0x1a8ad1068ab9bc5b94f2e3baa7a5eaac67e1337e2a47463fcfbc1b9ed26ef5ce") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_buck_wusdc.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_buck_wusdc.WorkerInfo.type())
 //         workerAddr = "0xcac7d10d73c3c32f6d40031c8639dfde168e6e1c0e4a86f8d23f21db60f97c94"
 //       } else if (workerInfoAddr == "0xf7fc938356331d7404226c147328750cf2d8ef8a273ed8bc1450ee4e0ff0e659") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_buck.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_buck.WorkerInfo.type())
 //         workerAddr = "0xe6ba97715edd0cfe6a8e40654b37c6f46a8a8af5b7fe2eefa3fd713243857993"
 //       } else if (workerInfoAddr == "0x44bff32bda79532beafeb35ce80f5673b03bc3411229b6bb55d368827271ea9f") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_sui.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_sui.WorkerInfo.type())
 //         workerAddr = "0x1d25aa479630953f1313749759a476aa620ce65a3f2eab7a2e52a3a5e1e6e797"
 //       } else if (workerInfoAddr == "0x18d1556fddf2eaacfe922b3ce3a3c339d19363d190b3e0c22b6291ab1cf57d6c") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_sui_usdc.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_usdc.WorkerInfo.type())
 //         workerAddr = "0x6e30dd0792fc4232e40cbbff861ece3c0a029d431cc3a62c5c46031524c2c91a"
 //       } else if (workerInfoAddr == "0xc3f471085526079f294d8395cc078393a7e7f8f750d6d7871679c58bfab38ac8") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_usdt.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_usdt.WorkerInfo.type())
 //         workerAddr = "0xf74d70ad742dcbb0f75dc75312b3e7f2a5dd0b9f01634565289cbb6a6eb812c0"
 //       } else if (workerInfoAddr == "0x354808fb8a29a59e35e2d9bf06892eb913d750796b71b5f72efa6cd9d5dbbc27") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdt_usdc.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdt_usdc.WorkerInfo.type())
 //         workerAddr = "0x76e6fd74c625e04879d0aefdd8bbae10a836504ef0d41e6124b0e965dcec8683"
 //       } else if (workerInfoAddr == "0x7b62b4ea193bb6abf99380b3ad341db84ee28c289bf624c16fb6e7eed21ae988") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_cetus_usdc.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_cetus_usdc.WorkerInfo.type())
 //         workerAddr = "0xe77bf63a6b95ce64a04c156a27c69e3ae4f823773fa9dc441c854d106ae21fda"
 //       } else if (workerInfoAddr == "0x5dfdcaaa330e31605b8444f0d65d3e46fd2d0f4addf44d2284d05b1225ab2dca") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_cetus.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_cetus.WorkerInfo.type())
 //         workerAddr = "0xbeae77b098564b7e62be51527b71300759014085c8ce849f2726397a5fcc411d"
 //       } else if (workerInfoAddr == "0x6b65414a6244fdbd71d0e1fc8e0a27c717f68db51faf5a7cce7256abae9a320e") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_usdc_wusdc.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_wusdc.WorkerInfo.type())
 //         workerAddr = "0xe6cc53c3778e022568b546411bdd7011d3112660dae8a6f118ff2c460522866d"
 //       } else if (workerInfoAddr == "0x9b0e6176f25aeff94388fcf2c7d98ca481997f9e08160875263c4c50b669d242") {
-//         res = await ctx.coder.decodedType(self, cetus_clmm_worker_wusdc_usdc.WorkerInfo.type())
+//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_usdc.WorkerInfo.type())
 //         workerAddr = "0xdcb271ff2e80185557d651707aeaaa21f899cb8de9be9c2fb4efef9c9500f6d9"
 //       } else {
 //         console.error("Not support workerInfoAddr:", workerInfoAddr)
