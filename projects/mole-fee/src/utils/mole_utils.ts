@@ -60,6 +60,8 @@ import { stable_farming_worker as stable_farm_worker_hasui_sui } from '../types/
 import { stable_farming_worker as stable_farm_worker_sui_hasui } from '../types/sui/0x8f5ad71b20e3a435ef92828c782e459a0428ed125e932ddbb8b6842eaea354ee.js'
 import { cetus_clmm_worker as cetus_clmm_worker_usdc_suiusdt_2 } from '../types/sui/0x36fd94fb0f54d5407d6fed7706bbc53250bb3b1046f2de7ac610253cc9154b27.js'
 import { cetus_clmm_worker as cetus_clmm_worker_suiusdt_usdc_2 } from '../types/sui/0x4c63cd45650ddd17468b1e7ab9d29f8ef86b777ed04809224ca4e7f05f947de3.js'
+import { cetus_clmm_worker as cetus_clmm_worker_usdc_ausd } from '../types/sui/0x3a930f2f5c38bbc06a7d4fcd2b2f99d7ccfdd991e71da7657c958a1609ef2e7d.js'
+import { cetus_clmm_worker as cetus_clmm_worker_ausd_usdc } from '../types/sui/0x4fbc6de90da76533a7b9a6dcd681ef9deab239e74fc07c4189d3b7665592bed0.js'
 
 
 export const vaultWethConfigId = "0x7fa4aa18fc4488947dc7528b5177c4475ec478c28014e77a31dc2318fa4f125e"
@@ -76,6 +78,7 @@ export const vaultUsdcConfigId = "0xbcdd5cd88604d4a14f937a88e0560d906592dbbf153d
 export const vaultsuiUsdtConfigId = "0x8684d2479db1042d9a265295dc63d4bafe830485d80fcde8a2d65ec62a44bf9c"
 export const vaultFdusdConfigId = "0x34d62447780baa85107d348d488c330be533d06bc088e428ac6a4cf1aba4ec4a"
 export const vaultUsdyConfigId = "0xcbb5371c5b08d32a33736b4f87e53bc5b816d60a833cab3513c4ecde5d56e93c"
+export const vaultAusdConfigId = "0x7175652178d7a652c8d459f19605e2b2a1ed76d1f9c867770eb10dbcf61b6865"
 
 export const coinAddrSUI = "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI"
 export const coinAddrUSDT = "0xc060006111016b8a020ad5b33834984a437aaa7d3c74c18e09a95d48aceab08c::coin::COIN"
@@ -91,7 +94,7 @@ export const coinAddrUSDC = "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9
 export const coinAddrsuiUSDT = "0x375f70cf2ae4c00bf37117d0c85a2c71545e6ee05c4a5c7d282cd66a4504b068::usdt::USDT"
 export const coinAddrFDUSD = "0xf16e6b723f242ec745dfd7634ad072c42d5c1d9ac9d62a39c381303eaa57693a::fdusd::FDUSD"
 export const coinAddrUSDY = "0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY"
-
+export const coinAddrAUSD = "0x2053d08c1e2bd02791056171aab0fd12bd7cd7efad2ab8f6b9c8902f14df2ff2::ausd::AUSD"
 
 export async function buildCoinInfo(ctx: SuiContext | SuiObjectContext, coinAddress: string): Promise<token.TokenInfo> {
   let [symbol, name, decimal] = ["unk", "unk", 0]
@@ -362,6 +365,8 @@ export function getMTokenByToken(tokenAddr: string) {
     return ["0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f::vault::MagicCoin<0xf16e6b723f242ec745dfd7634ad072c42d5c1d9ac9d62a39c381303eaa57693a::fdusd::FDUSD>", "mFDUSD"]
   } else if (tokenAddr == "0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY") {
     return ["0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f::vault::MagicCoin<0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY>", "mUSDY"]
+  } else if (tokenAddr == "0x2053d08c1e2bd02791056171aab0fd12bd7cd7efad2ab8f6b9c8902f14df2ff2::ausd::AUSD") {
+    return ["0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f::vault::MagicCoin<0x2053d08c1e2bd02791056171aab0fd12bd7cd7efad2ab8f6b9c8902f14df2ff2::ausd::AUSD>", "mAUSD"]
 
   } else {
     console.error("No tokens here for token:", tokenAddr)
@@ -401,6 +406,9 @@ export function getPoolByToken(tokenAddr: string) {
     return "0x62bd16f6223faa02654707191b77bfdfc1f8a7fa227ec1942eb01399e6d995ce"
   } else if (tokenAddr == "0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY") {
     return "0x7f66bc04d50f5131bb5f62495addf7aaef58da7127007dfbe7526e818c5df639"
+  } else if (tokenAddr == "0x2053d08c1e2bd02791056171aab0fd12bd7cd7efad2ab8f6b9c8902f14df2ff2::ausd::AUSD") {
+    return "0x7396194c82d912112feb548a092c92e385aa955a0af55ddf85f9e0df5a1553ab"
+
   } else {
     console.error("No tokens here, token: ", tokenAddr)
     return
@@ -436,7 +444,9 @@ export function getPoolInfoByPoolId(poolId: string) {
   } else if (poolId == "12") {
     return ["0x62bd16f6223faa02654707191b77bfdfc1f8a7fa227ec1942eb01399e6d995ce", "FDUSD"]
   } else if (poolId == "13") {
-    return ["0x62bd16f6223faa02654707191b77bfdfc1f8a7fa227ec1942eb01399e6d995ce", "USDY"]
+    return ["0x7f66bc04d50f5131bb5f62495addf7aaef58da7127007dfbe7526e818c5df639", "USDY"]
+  } else if (poolId == "14") {
+    return ["0x7396194c82d912112feb548a092c92e385aa955a0af55ddf85f9e0df5a1553ab", "AUSD"]
   } else {
     console.error("No pool in here , pid: ", poolId)
     return ["", ""]
@@ -555,6 +565,10 @@ export function getShareObjectByWorkerInfo(workerInfoAddr: string) {
     sharesObjectId = "0x051e39f5d42df0a592c61dcf32e2dc9fdb8412d99d88bc90dd39313b2f097622"
   } else if (workerInfoAddr == "0x01faaad863c448800d2b7223609436c2cdf001c4c397d66eb59bb89a82828b6d") {
     sharesObjectId = "0xda009f3ece5562adf294fd8fca36ec861a464d86e183e4b16e521b972de41fe2"
+  } else if (workerInfoAddr == "0xceba2697cb06fd3f1b5647bc192f30a96749ee43262ff4bd7ea9d5a2d00cee40") {
+    sharesObjectId = "0xd18e084659df6262ad5d5a7f939c9e5ea3c1f1138f21338d7a551c39a6fda565"
+  } else if (workerInfoAddr == "0x989baaba20b51b6aec07bd0c235ee9a2ee3e709071d34c547abf84841b4a5d5b") {
+    sharesObjectId = "0xa8140937fca599c2ea00d5e363ec0d9178715723e10fc4e07e79318a33ed1c05"
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }
@@ -592,6 +606,8 @@ export function getCoinTypeByVaultConfigId(vaultConfigId: string) {
     coinType = coinAddrFDUSD
   } else if (vaultConfigId == vaultUsdyConfigId) {
     coinType = coinAddrUSDY
+  } else if (vaultConfigId == vaultAusdConfigId) {
+    coinType = coinAddrAUSD
   } else {
     console.error("CoinType not suppport!")
   }
@@ -709,7 +725,11 @@ export async function getResponseContentByWorkerInfo(workerInfoAddr: string, ctx
   } else if (workerInfoAddr == "0xc602fd3f71b40e8ba3c7e01f8e42987cfb660e282fc645952d03ae59a075aea2") {
     res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_suiusdt_2.WorkerInfo.type())
   } else if (workerInfoAddr == "0x01faaad863c448800d2b7223609436c2cdf001c4c397d66eb59bb89a82828b6d") {
-    res = await ctx.coder.decodeType(self, cetus_clmm_worker_suiusdt_usdc_2.WorkerInfo.type())   
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_suiusdt_usdc_2.WorkerInfo.type())
+  } else if (workerInfoAddr == "0xceba2697cb06fd3f1b5647bc192f30a96749ee43262ff4bd7ea9d5a2d00cee40") {
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_ausd.WorkerInfo.type())   
+  } else if (workerInfoAddr == "0x989baaba20b51b6aec07bd0c235ee9a2ee3e709071d34c547abf84841b4a5d5b") {
+    res = await ctx.coder.decodeType(self, cetus_clmm_worker_ausd_usdc.WorkerInfo.type())   
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }

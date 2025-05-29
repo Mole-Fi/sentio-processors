@@ -1,9 +1,8 @@
 import { SuiNetwork, SuiObjectProcessor, SuiWrappedObjectProcessor} from "@sentio/sdk/sui"
 import { vault } from './types/sui/0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f.js'
 import { pool as clmmPool } from './types/sui/0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb.js'
-import { pool as stableFarmPool } from './types/sui/0x11ea791d82b5742cc8cab0bf7946035c97d9001d7c3803a93f119753da66f526.js'
 import { getPriceByType } from "@sentio/sdk/utils"
-import { buildCoinInfo, coinAddrBUCK, coinAddrCETUS, coinAddrFDUSD, coinAddrHASUI, coinAddrNAVX, coinAddrSCA, coinAddrSUI, coinAddrsuiUSDT, coinAddrUSDC, coinAddrUSDT, coinAddrUSDY, coinAddrWBTC, coinAddrWETH, coinAddrwUSDC, getCoinAmountFromLiquidity, getCoinTypeByVaultConfigId, getPoolByToken, getResponseContentByWorkerInfo, i32BitsToNumber, isStableFarmByPoolId, isStableFarmByWorkerInfo, sleep, tickIndexToSqrtPriceX64, vaultBuckConfigId, vaultCetusConfigId, vaultFdusdConfigId, vaultHaSuiConfigId, vaultNavxConfigId, vaultScaConfigId, vaultSuiConfigId, vaultsuiUsdtConfigId, vaultUsdcConfigId, vaultUsdtConfigId, vaultUsdyConfigId, vaultWbtcConfigId, vaultWethConfigId, vaultwUsdcConfigId} from './utils/mole_utils.js'
+import { buildCoinInfo, coinAddrAUSD, coinAddrBUCK, coinAddrCETUS, coinAddrFDUSD, coinAddrHASUI, coinAddrNAVX, coinAddrSCA, coinAddrSUI, coinAddrsuiUSDT, coinAddrUSDC, coinAddrUSDT, coinAddrUSDY, coinAddrWBTC, coinAddrWETH, coinAddrwUSDC, getCoinAmountFromLiquidity, getCoinTypeByVaultConfigId, getPoolByToken, getResponseContentByWorkerInfo, i32BitsToNumber, isStableFarmByPoolId, isStableFarmByWorkerInfo, sleep, tickIndexToSqrtPriceX64, vaultAusdConfigId, vaultBuckConfigId, vaultCetusConfigId, vaultFdusdConfigId, vaultHaSuiConfigId, vaultNavxConfigId, vaultScaConfigId, vaultSuiConfigId, vaultsuiUsdtConfigId, vaultUsdcConfigId, vaultUsdtConfigId, vaultUsdyConfigId, vaultWbtcConfigId, vaultWethConfigId, vaultwUsdcConfigId} from './utils/mole_utils.js'
 import * as constant from './utils/constant.js'
 import { ANY_TYPE } from '@sentio/sdk/move'
 import { string$ } from "@sentio/sdk/sui/builtin/0x1";
@@ -152,7 +151,7 @@ SuiWrappedObjectProcessor.bind({
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
     }
-  }, 10, 720, undefined, { owned: true })
+  }, 60, 720, undefined, { owned: true })
 
   
 SuiObjectProcessor.bind({
@@ -197,7 +196,7 @@ SuiObjectProcessor.bind({
 catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
-  }, 10, 720, undefined, { owned: false })
+  }, 60, 720, undefined, { owned: false })
 
 
 
@@ -246,7 +245,7 @@ catch (e) {
   catch (e) {
         console.log(`${e.message} error at ${JSON.stringify(self)}`)
       }
-    }, 10, 720, undefined, { owned: false })
+    }, 60, 720, undefined, { owned: false })
   
   
 
@@ -307,6 +306,9 @@ let gCurrentSqrtPriceFdusdUsdc
 let gCurrentSqrtPriceUsdcUsdy
 //@ts-ignore
 let gCurrentSqrtPriceUsdcsuiUsdt2
+//@ts-ignore
+let gCurrentSqrtPriceUsdcAusd
+
 
 for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   SuiObjectProcessor.bind({
@@ -383,6 +385,8 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
         gCurrentSqrtPriceUsdcUsdy = currentSqrtPrice
       } else if ('0xb8a67c149fd1bc7f9aca1541c61e51ba13bdded64c273c278e50850ae3bff073' == ctx.objectId) {  
         gCurrentSqrtPriceUsdcsuiUsdt2 = currentSqrtPrice
+      } else if ('0x0fea99ed9c65068638963a81587c3b8cafb71dc38c545319f008f7e9feb2b5f8' == ctx.objectId) {
+        gCurrentSqrtPriceUsdcAusd = currentSqrtPrice
       } else {
         console.error("Has not object : ", ctx.objectId)
       }
@@ -392,7 +396,7 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   catch (e) {
         console.log(`${e.message} error at ${JSON.stringify(self)}`)
       }
-    }, 10, 720, undefined, { owned: false })
+    }, 60, 720, undefined, { owned: false })
 }
 
 
@@ -579,6 +583,9 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
       } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrUSDY) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceUsdcUsdy
+      } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrAUSD) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceUsdcAusd
       } else {
         console.error("Has not price : coin_symbol_a:", coin_symbol_a, ",coin_symbol_b:",coin_symbol_b )
       }
@@ -619,7 +626,7 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
-  }, 10, 720, undefined, { owned: false })
+  }, 60, 720, undefined, { owned: false })
 }
 
 
@@ -708,6 +715,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0
           } else if (configAddr == vaultUsdyConfigId) {
             accumulateFee = 0
+          } else if (configAddr == vaultAusdConfigId) {
+            accumulateFee = 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -739,6 +748,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultFdusdConfigId) {
             accumulateFee = 0 + 0
           } else if (configAddr == vaultUsdyConfigId) {
+            accumulateFee = 0 + 0
+          } else if (configAddr == vaultAusdConfigId) {
             accumulateFee = 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -772,6 +783,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0
           } else if (configAddr == vaultUsdyConfigId) {
             accumulateFee = 0 + 0 + 0
+          } else if (configAddr == vaultAusdConfigId) {
+            accumulateFee = 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -803,6 +816,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultFdusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0
           } else if (configAddr == vaultUsdyConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0
+          } else if (configAddr == vaultAusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -836,6 +851,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultUsdyConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultAusdConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -867,6 +884,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultFdusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultUsdyConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultAusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -900,6 +919,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultUsdyConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultAusdConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -931,6 +952,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultFdusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultUsdyConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultAusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -964,6 +987,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultUsdyConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultAusdConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -996,6 +1021,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultUsdyConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultAusdConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -1027,6 +1054,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultFdusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 2.179531
           } else if (configAddr == vaultUsdyConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultAusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -1064,7 +1093,7 @@ SuiWrappedObjectProcessor.bind({
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
     }
-  }, 10, 720, undefined, { owned: true })
+  }, 60, 720, undefined, { owned: true })
 
 
 
@@ -1288,7 +1317,7 @@ SuiWrappedObjectProcessor.bind({
 //       catch (e) {
 //         console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
 //       }
-//     }, 10, 720, undefined, { owned: true })
+//     }, 60, 720, undefined, { owned: true })
 //   }
 
   
@@ -1575,7 +1604,7 @@ SuiWrappedObjectProcessor.bind({
 //     catch (e) {
 //       console.log(`${e.message} error at ${JSON.stringify(self)}`)
 //     }
-//   }, 10, 720, undefined, { owned: false })
+//   }, 60, 720, undefined, { owned: false })
 // }
   
 
