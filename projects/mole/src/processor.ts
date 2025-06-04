@@ -1025,7 +1025,7 @@ SuiWrappedObjectProcessor.bind({
           } else {
             console.error("CoinType not suppport!")
           }
-        } else if (ctx.checkpoint >= 122460676) {
+        } else if (ctx.checkpoint >= 122460676 && ctx.checkpoint < 152567410) {
           if (configAddr == vaultWethConfigId) {
             accumulateFee = 0.00315804 + 0 + 0.09845773 + 0 + 0.00000013 + 0.00002272 + 0.00000006 + 0 + 0.00187223 + 0.12178293 + 0.00019822
           } else if (configAddr == vaultHaSuiConfigId) {
