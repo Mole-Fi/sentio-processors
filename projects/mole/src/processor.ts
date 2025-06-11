@@ -2,41 +2,12 @@ import { SuiNetwork, SuiObjectProcessor, SuiWrappedObjectProcessor} from "@senti
 import { vault } from './types/sui/0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f.js'
 import { pool as clmmPool } from './types/sui/0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb.js'
 import { getPriceByType } from "@sentio/sdk/utils"
-import { buildCoinInfo, coinAddrAUSD, coinAddrBUCK, coinAddrCETUS, coinAddrFDUSD, coinAddrHASUI, coinAddrNAVX, coinAddrSCA, coinAddrSUI, coinAddrsuiUSDT, coinAddrUSDC, coinAddrUSDT, coinAddrUSDY, coinAddrWBTC, coinAddrWETH, coinAddrwUSDC, getCoinAmountFromLiquidity, getCoinTypeByVaultConfigId, getPoolByToken, getResponseContentByWorkerInfo, i32BitsToNumber, isStableFarmByPoolId, isStableFarmByWorkerInfo, sleep, tickIndexToSqrtPriceX64, vaultAusdConfigId, vaultBuckConfigId, vaultCetusConfigId, vaultFdusdConfigId, vaultHaSuiConfigId, vaultNavxConfigId, vaultScaConfigId, vaultSuiConfigId, vaultsuiUsdtConfigId, vaultUsdcConfigId, vaultUsdtConfigId, vaultUsdyConfigId, vaultWbtcConfigId, vaultWethConfigId, vaultwUsdcConfigId} from './utils/mole_utils.js'
+import { buildCoinInfo, coinAddrAUSD, coinAddrBUCK, coinAddrCETUS, coinAddrFDUSD, coinAddrHASUI, coinAddrNAVX, coinAddrSCA, coinAddrSUI, coinAddrsuiUSDT, coinAddrUSDC, coinAddrUSDT, coinAddrUSDY, coinAddrWBTC, coinAddrWETH, coinAddrwUSDC, getCoinAmountFromLiquidity, getCoinTypeByVaultConfigId, getPoolByToken, getResponseContentByWorkerInfo, i32BitsToNumber, isReverseWorkerInfo, isStableFarmByPoolId, isStableFarmByWorkerInfo, sleep, tickIndexToSqrtPriceX64, vaultAusdConfigId, vaultBuckConfigId, vaultCetusConfigId, vaultFdusdConfigId, vaultHaSuiConfigId, vaultNavxConfigId, vaultScaConfigId, vaultSuiConfigId, vaultsuiUsdtConfigId, vaultUsdcConfigId, vaultUsdtConfigId, vaultUsdyConfigId, vaultWbtcConfigId, vaultWethConfigId, vaultwUsdcConfigId} from './utils/mole_utils.js'
 import * as constant from './utils/constant.js'
 import { ANY_TYPE } from '@sentio/sdk/move'
 import { string$ } from "@sentio/sdk/sui/builtin/0x1";
 import BN from 'bn.js'
 import axiosInst from './utils/moleAxios.js'
-
-// sui_incentive.bind({ 
-//     address: '0xc4dc6948a7d0a58f32fadd44e45efb201f44383bfab1cb6c48b9c186a92cc762',
-//     network: SuiNetwork.MAIN_NET,
-//     startCheckpoint: 32697300n
-//   })
-//     .onEventHarvestEvent(
-//       async (event, ctx) => {
-//         const user = event.data_decoded.user
-//         const pid = String(event.data_decoded.pid)
-//         const amount = Number(event.data_decoded.amount) / Math.pow(10, 9)
-//         const action_type = String(event.data_decoded.action_type)
-//         const poolInfo = getPoolInfoByPoolId(pid)
-
-//         ctx.meter.Gauge("harvest_pid").record(amount, { action_type, pid, pool_address: poolInfo![0], underlying_token_address: poolInfo![1], project: "mole" })
-
-  
-//         ctx.eventLogger.emit("HarvestEvent", {
-//           distinctId: user,
-//           pid: pid,
-//           pool_address: poolInfo![0],
-//           underlying_token_address: poolInfo![1],
-//           amount: amount,
-//           action_type: action_type,
-//           project: "mole"
-//         })
-//       },
-//     )
-
 
 SuiWrappedObjectProcessor.bind({
   //object owner address of vault_usdt_vault_info/vault_sui_vault_info etc.
@@ -629,7 +600,7 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
 }
 
 
-
+// caculate savings fee
 SuiWrappedObjectProcessor.bind({
   //object owner address of vault_usdt_vault_info/vault_sui_vault_info etc.
   objectId: "0x0dcd6ff3155967823494c7d4dd3bc952e551102879562ff7c75019b290281583",
@@ -1130,516 +1101,636 @@ SuiWrappedObjectProcessor.bind({
 
 
 
-// vault.bind({ 
-//   // old vault address
-//   address: '0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f',
-//   network: SuiNetwork.MAIN_NET,
-//   startCheckpoint: 23543749n
-// })
-//   .onEventDepositEvent(
-//     async (event, ctx) => {
-//       // if newer than this , should use upgraded address
-//       if (ctx.checkpoint > 34608243) {
-//         return
-//       }
+// Calculate Farming Fee    
+for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
+  const workerInfoAddr = constant.MOLE_WORKER_INFO_LIST[i]
 
-//       const coinType = event.type_arguments[0]
+  if (
+    // cetus_worker_navx_sui_worker_info: 
+    workerInfoAddr == "0x262272883f08b1979d27a76f699f1e5020146c1a30213548bf89ccef62d583e1"
+    // cetus_worker_sui_navx_worker_info: 
+    || workerInfoAddr == "0xbc8b30dd02b349ebf6ee6b5454430c8f2c41206e2067aab251578155c7c7dc7e"
+    // cetus_worker_navx_cetus_worker_info: 
+    || workerInfoAddr == "0x1f8890445e538586657b721ff94b80435296d98bb5a3b984e07d5d326d6dfb3d"
+    // cetus_worker_cetus_navx_worker_info:
+    || workerInfoAddr == "0x8eeaa512683fff54710fd3e2297b72ef0f6d0f2c52c63720eac791b74f1a47c6"
+    // cetus_worker_wusdc_wbtc_worker_info: 
+    || workerInfoAddr == "0xb0259f15a3c6e40883e85c559b09172c546dc439717347b936d9e1f1559ad53a"
+    // cetus_worker_wbtc_wusdc_worker_info: 
+    || workerInfoAddr == "0x99d6a5dad2b4b840d28ea88cc8fb599f4eb54a897bd3573957c8fbefa8e252ac"
+    // cetus_worker_buck_wusdc_worker_info: 
+    || workerInfoAddr == "0x1a8ad1068ab9bc5b94f2e3baa7a5eaac67e1337e2a47463fcfbc1b9ed26ef5ce"
+    // cetus_worker_wusdc_buck_worker_info: 
+    || workerInfoAddr == "0xf7fc938356331d7404226c147328750cf2d8ef8a273ed8bc1450ee4e0ff0e659"
+    // cetus_worker_buck_wusdc_worker_info:
+    || workerInfoAddr == "0xee0430bce1e4ba2802719000300d9f5f1f179554669ca96b594b2ffa501b92d2"
+    // cetus_worker_wusdc_buck_worker_info: 
+    || workerInfoAddr ==  "0x57a70d4108b54e2b8b8f1a327975ae222d16eaf006eba90f479a3fce857cb5b1"
+    // cetus_worker_sui_cetus_worker_info:
+    || workerInfoAddr == "0x83d7639b08ffc1408f4383352a2070b2f58328caa7fbbdfa42ec5f3cf4694a5d"
+    // cetus_worker_cetus_sui_worker_info:
+    || workerInfoAddr == "0xb690a7107f198c538fac2d40418d1708e08b886c8dfbe86c585412bea18cadcb"
+  ) {
+    continue
+  }
 
-//       const coinInfo = await buildCoinInfo(ctx, coinType)
-//       const coin_symbol = coinInfo.symbol
-
-//       const amount = Number(event.data_decoded.amount) / Math.pow(10, coinInfo.decimal)
-//       const share = Number(event.data_decoded.share) / Math.pow(10, coinInfo.decimal)
-      
-//       const price = await getPriceByType(SuiNetwork.MAIN_NET, coinType, ctx.timestamp)
-//       const amount_usd = amount * price!
-
-//       const pool = getPoolByToken(coinType)!
-//       const mTokenInfo = getMTokenByToken(coinType)!
-
-//       ctx.meter.Counter("supplied_amount").add(amount_usd, { pool_address: pool, underlying_token_address: coinType, underlying_token_symbol: coin_symbol, 
-//         supplier_address: event.sender, collateral_amount: "NA", collateral_amount_usd: "NA", project: "mole" })
-
-//       ctx.meter.Counter("supplied_usd").add(amount, {pool_address: pool, underlying_token_address: coinType, underlying_token_symbol: coin_symbol, 
-//         supplier_address: event.sender, collateral_amount: "NA", collateral_amount_usd: "NA", project: "mole" })
-
-//       ctx.eventLogger.emit("Lending_List_of_Suppliers_Deposit", {
-//         pool_address: pool,
-//         underlying_token_address: coinType,
-//         underlying_token_symbol: coin_symbol,
-//         supplier_address: event.sender,
-//         supplied_amount: amount,
-//         supplied_usd: amount_usd,
-//         collateral_amount: "NA",
-//         collateral_amount_usd: "NA",
-//         project: "mole"
-//       })
-
-//       ctx.eventLogger.emit("Lending_List_of_Pool", {
-//         underlying_token_address: coinType,
-//         underlying_token_symbol: coin_symbol,
-//         receipt_token_address: mTokenInfo[0],
-//         receipt_token_symbol: mTokenInfo[1],
-//         pool_address: pool,
-//         pool_type: "MoleSavingsPool",
-//         project: "mole"
-//       })
-
-
-//     },
-//   )
-
-//   .onEventWithdrawEvent(
-//     async (event, ctx) => {
-//       // if newer than this , should use upgraded address
-//       if (ctx.checkpoint > 34608243n) {
-//         return
-//       }
-
-//       const coinType = event.type_arguments[0]
-
-//       const coinInfo = await buildCoinInfo(ctx, coinType)
-//       const coin_symbol = coinInfo.symbol
-
-//       const amount = Number(event.data_decoded.amount) / Math.pow(10, coinInfo.decimal)
-//       const share = Number(event.data_decoded.share) / Math.pow(10, coinInfo.decimal)
-      
-//       const price = await getPriceByType(SuiNetwork.MAIN_NET, coinType, ctx.timestamp)
-//       const amount_usd = amount * price!
-
-//       const pool = getPoolByToken(coinType)!
-
-//       ctx.meter.Counter("supplied_amount").sub(amount_usd, {pool_address: pool, underlying_token_address: coinType, underlying_token_symbol: coin_symbol, 
-//         supplier_address: event.sender, collateral_amount: "NA", collateral_amount_usd: "NA", project: "mole" })
-
-//       ctx.meter.Counter("supplied_usd").sub(amount, {pool_address: pool, underlying_token_address: coinType, underlying_token_symbol: coin_symbol, 
-//         supplier_address: event.sender, collateral_amount: "NA", collateral_amount_usd: "NA", project: "mole" })
-
-//       ctx.eventLogger.emit("Lending_List_of_Suppliers_Withdraw", {
-//         pool_address: pool,
-//         underlying_token_address: coinType,
-//         underlying_token_symbol: coin_symbol,
-//         supplier_address: event.sender,
-//         supplied_amount: amount,
-//         supplied_usd: amount_usd,
-//         collateral_amount: "NA",
-//         collateral_amount_usd: "NA",
-//         project: "mole"
-//       })
-//     },
-//   )
-
-  
-
-
-//   vault.bind({ 
-//     // upgraded vault address
-//     address: '0x78bf4657eba8b390474715d51dcee7513593cb9db349071653d1f0a6d2c3b294',
-//     network: SuiNetwork.MAIN_NET,
-//     startCheckpoint: 34608243n
-//   })
-//   .onEventDepositEvent(
-//     async (event, ctx) => {
-//       const coinType = event.type_arguments[0]
-
-//       const coinInfo = await buildCoinInfo(ctx, coinType)
-//       const coin_symbol = coinInfo.symbol
-
-//       const amount = Number(event.data_decoded.amount) / Math.pow(10, coinInfo.decimal)
-//       const share = Number(event.data_decoded.share) / Math.pow(10, coinInfo.decimal)
-      
-//       const price = await getPriceByType(SuiNetwork.MAIN_NET, coinType, ctx.timestamp)
-//       const amount_usd = amount * price!
-
-//       const pool = getPoolByToken(coinType)!
-
-//       ctx.meter.Counter("supplied_amount").add(amount_usd, { pool_address: pool, underlying_token_address: coinType, underlying_token_symbol: coin_symbol, 
-//         supplier_address: event.sender, collateral_amount: "NA", collateral_amount_usd: "NA", project: "mole" })
-
-//       ctx.meter.Counter("supplied_usd").add(amount, {pool_address: pool, underlying_token_address: coinType, underlying_token_symbol: coin_symbol, 
-//         supplier_address: event.sender, collateral_amount: "NA", collateral_amount_usd: "NA", project: "mole" })
-
-//       ctx.eventLogger.emit("Lending_List_of_Suppliers_Deposit", {
-//         pool_address: pool,
-//         underlying_token_address: coinType,
-//         underlying_token_symbol: coin_symbol,
-//         supplier_address: event.sender,
-//         supplied_amount: amount,
-//         supplied_usd: amount_usd,
-//         collateral_amount: "NA",
-//         collateral_amount_usd: "NA",
-//         project: "mole"
-//       })
-//     },
-//   )
-
-//   .onEventWithdrawEvent(
-//     async (event, ctx) => {
-//       const coinType = event.type_arguments[0]
-
-//       const coinInfo = await buildCoinInfo(ctx, coinType)
-//       const coin_symbol = coinInfo.symbol
-
-//       const amount = Number(event.data_decoded.amount) / Math.pow(10, coinInfo.decimal)
-//       const share = Number(event.data_decoded.share) / Math.pow(10, coinInfo.decimal)
-      
-//       const price = await getPriceByType(SuiNetwork.MAIN_NET, coinType, ctx.timestamp)
-//       const amount_usd = amount * price!
-
-//       const pool = getPoolByToken(coinType)!
-
-//       ctx.meter.Counter("supplied_amount").sub(amount_usd, {pool_address: pool, underlying_token_address: coinType, underlying_token_symbol: coin_symbol, 
-//         supplier_address: event.sender, collateral_amount: "NA", collateral_amount_usd: "NA", project: "mole" })
-
-//       ctx.meter.Counter("supplied_usd").sub(amount, {pool_address: pool, underlying_token_address: coinType, underlying_token_symbol: coin_symbol, 
-//         supplier_address: event.sender, collateral_amount: "NA", collateral_amount_usd: "NA", project: "mole" })
-
-//       ctx.eventLogger.emit("Lending_List_of_Suppliers_Withdraw", {
-//         pool_address: pool,
-//         underlying_token_address: coinType,
-//         underlying_token_symbol: coin_symbol,
-//         supplier_address: event.sender,
-//         supplied_amount: amount,
-//         supplied_usd: amount_usd,
-//         collateral_amount: "NA",
-//         collateral_amount_usd: "NA",
-//         project: "mole"
-//       })
-//     },
-//   )
-
-
-
-
-
-// // key: workerInfoAddr,  value: sharesMap
-// let workerInfoSharesMap = new Map<string, Map<string, string>>()
-
-   
-// for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
-//   let sharesMap = new Map()
-//   const workerInfoAddr = constant.MOLE_WORKER_INFO_LIST[i]
-//   let sharesObjectId = getShareObjectByWorkerInfo(workerInfoAddr)
-
-//   SuiWrappedObjectProcessor.bind({
-//     objectId: String(sharesObjectId),
-//     network: SuiNetwork.MAIN_NET,
-//     startCheckpoint: 34608243n
-//   })
-//     .onTimeInterval(async (dynamicFieldObjects, ctx) => {
-//       try {
-//         for (let i = 0; i < dynamicFieldObjects.length; i++){
-//           const fields = dynamicFieldObjects[i].fields
-
-//           //@ts-ignore
-//           sharesMap.set(fields.name, fields.value)
-         
-//           //@ts-ignore
-//           console.log(`Set sharesMap key: ${fields.name}, value: ${JSON.stringify(fields.value)}`)
-//         }
-        
-//         for (let [key, value] of sharesMap) {
-//           console.log(`sharesMap key: ${key}, value: ${value}`)
-//         }
-
-//         workerInfoSharesMap.set(workerInfoAddr, sharesMap)
-              
-//         console.log(`Set workerInfoSharesMap key: ${workerInfoAddr}, value: ${JSON.stringify(sharesMap)}`)
-
-//       }
-//       catch (e) {
-//         console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
-//       }
-//     }, 480, 1440, undefined, { owned: true })
-//   }
-
-  
-
-
-  
-// // Worker info    
-// for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
-//   const workerInfoAddr = constant.MOLE_WORKER_INFO_LIST[i]
-
-//   SuiObjectProcessor.bind({
-//     objectId: workerInfoAddr,
-//     network: SuiNetwork.MAIN_NET,
-//     startCheckpoint:    34608243n
-//   })
-//   .onTimeInterval(async (self, _, ctx) => {
-//     // console.log("ctx.objectId:" , ctx.objectId, ", slef:",JSON.stringify(self))
-
+  SuiObjectProcessor.bind({
+    objectId: workerInfoAddr,
+    network: SuiNetwork.MAIN_NET,
+    startCheckpoint: 23543749n
+  })
+  .onTimeInterval(async (self, _, ctx) => {
+    // console.log("ctx.objectId:" , ctx.objectId, ", slef:",JSON.stringify(self))
     
-//     try {
-//       let res, workerAddr
-//       if (workerInfoAddr == "0x98f354c9e166862f079aaadd5e85940c55c440a8461e8e468513e2a86106042c") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_sui.WorkerInfo.type())
-//         workerAddr = "0x334bed7f6426c1a3710ef7f4d66b1225df74146372b40a64e9d0cbfc76d76e67"
-//       } else if (workerInfoAddr == "0x3d946af3a3c0bec5f232541accf2108b97326734e626f704dda1dfb7450deb4c") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_wusdc.WorkerInfo.type())
-//         workerAddr = "0x1454bd0be3db3c4be862104bde964913182de6d380aea24b88320505baba5e46"
-//       } else if (workerInfoAddr == "0x3f99d841487141e46602424b1b4125751a2df29a23b65f6c56786f3679f2c2c1") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdt_wusdc.WorkerInfo.type())
-//         workerAddr = "0x9cb48aa1b41a1183ecdabde578e640e05a08170f8ca165b743ffded0b1256391"
-//       } else if (workerInfoAddr == "0xc28878cfc99628743b13eebca9bdff703daeccb285f8c6ea48120b06f4079926") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_usdt.WorkerInfo.type())
-//         workerAddr = "0x960ab11d560f05f0ec260c7ac87074b569334713594aa02580642e029fd9dd86"
-//       } else if (workerInfoAddr == "0xbeb69ca36f0ab6cb87247a366f50aab851180332216730e63e983ca0e617f326") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_weth_wusdc.WorkerInfo.type())
-//         workerAddr = "0xb7a0d251a9f307b80b1595c87622118e401dc613591b3435786bb7c147599dae"
-//       } else if (workerInfoAddr == "0x1774ca4f9e37f37c6b0df9c7f9526adc67113532eb4eaa07f36942092c8e5f51") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_weth.WorkerInfo.type())
-//         workerAddr = "0xd49d0a3331bd41005dd1a5e295e07bf4cec1359e201ba71fc5a1e541787328d9"
-//       } else if (workerInfoAddr == "0x9a510e18c37df3d9ddfe0b2d6673582f702bf281116a4ee334f7ef3edfa2b9ab") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdt_sui.WorkerInfo.type())
-//         workerAddr = "0xab01c0cb01a3e50171b898eb2509f53ba2ba83ed844628f3d843b20e99783b58"
-//       } else if (workerInfoAddr == "0xcd00ff33e9a71ea807f41641d515449263a905a850a4fd9c4ce03203c0f954b5") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_usdt.WorkerInfo.type())
-//         workerAddr = "0x8cc36eb225997a7e35661382b5ddfda35f91a7d732e04e22d203151a9e321d66"
-//       } else if (workerInfoAddr == "0x83d7639b08ffc1408f4383352a2070b2f58328caa7fbbdfa42ec5f3cf4694a5d") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_cetus.WorkerInfo.type())
-//         workerAddr = "0x7f24e8b7935db7588bfd7035b4aa503c1f29ed71ce2b1dbd425b8ad1096b7463"
-//       } else if (workerInfoAddr == "0xb690a7107f198c538fac2d40418d1708e08b886c8dfbe86c585412bea18cadcb") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_cetus_sui.WorkerInfo.type())
-//         workerAddr = "0x57563b5040ac32ff1897a3c40fe9a0e987f40791289fce31ff7388805255076d"
-//       } else if (workerInfoAddr == "0x88af306756ce514c6a70b378336489f8773ed48f8880d3171a60c2ecb8e7a5ec") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_cetus_wusdc.WorkerInfo.type())
-//         workerAddr = "0xf538241fc4783dbf0eca4cf516fbc7ad5b910517e25d8e4ec7fb754eb9b0280c"
-//       } else if (workerInfoAddr == "0xd093219b4b2be6c44461f1bb32a70b81c496bc14655e7e81d2687f3d77d085da") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_cetus.WorkerInfo.type())
-//         workerAddr = "0xd8528e2825b7354f5e4fd3bf89e3998e59f4cf92160d65bf491885677229def0"
-//       } else if (workerInfoAddr == "0xed1bc37595a30e98c984a1e2c4860babf3420bffd9f4333ffc6fa22f2f9099b8") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_hasui_sui.WorkerInfo.type())
-//         workerAddr = "0x50be9b81baf7204130eea06bb1845d4a0beccbee98c03b5ec0b17a48302351bf"
-//       } else if (workerInfoAddr == "0xc792fa9679b2f73d8debad2963b4cdf629cf78edcab78e2b8c3661b91d7f6a45") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_hasui.WorkerInfo.type())
-//         workerAddr = "0xd5f6540d3d3fc7fd8ed64e862a21785932e84ee669fb2e7bbe5bd23fd6552827"
-//       } else if (workerInfoAddr == "0x262272883f08b1979d27a76f699f1e5020146c1a30213548bf89ccef62d583e1") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_navx_sui.WorkerInfo.type())
-//         workerAddr = "0x53e47bac30d4f17fcb0d800de9fc7f0cc96f520531bb8fd7670e9c08f060ec61"
-//       } else if (workerInfoAddr == "0xbc8b30dd02b349ebf6ee6b5454430c8f2c41206e2067aab251578155c7c7dc7e") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_navx.WorkerInfo.type())
-//         workerAddr = "0xd5b04240f6536c7b5276e96b057460a58ac8b1b66b2db03038f3d44bf1ea7cde"
-//       } else if (workerInfoAddr == "0x1f8890445e538586657b721ff94b80435296d98bb5a3b984e07d5d326d6dfb3d") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_navx_cetus.WorkerInfo.type())
-//         workerAddr = "0x6665ad06bb0c47a00e3ce6da9c796f8061b9f8178095e421ce36e3f73345f24a"
-//       } else if (workerInfoAddr == "0x8eeaa512683fff54710fd3e2297b72ef0f6d0f2c52c63720eac791b74f1a47c6") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_cetus_navx.WorkerInfo.type())
-//         workerAddr = "0xf8670497cc6403831fad47f8471cce467661c3e01833953d62fe86527bbe4474"
-//       } else if (workerInfoAddr == "0x9f3086aaa1f3790b06bb01c0077d0a709cdb234fbae13c70fa5fdeafacb119aa") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_sca_sui.WorkerInfo.type())
-//         workerAddr = "0x0efca73a17c179aee1a5243c66c3f90101f61e9dd974e71b356ecdf0316ca626"
-//       } else if (workerInfoAddr == "0x7a41fbf19809f80fd1a7282b218ec8326dfaadc2ad20604d052c12d5076596b4") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_sca.WorkerInfo.type())
-//         workerAddr = "0x9a0355aa800e975678ce812d4ee044f3faa8b48c70d877f90d3ba8d35566e6aa"
-//       } else if (workerInfoAddr == "0xb0259f15a3c6e40883e85c559b09172c546dc439717347b936d9e1f1559ad53a") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_wbtc.WorkerInfo.type())
-//         workerAddr = "0xff377a83375d63b9c8429362b5c2791bc69f0da861d3d963970ffeac2654d9d5"
-//       } else if (workerInfoAddr == "0x99d6a5dad2b4b840d28ea88cc8fb599f4eb54a897bd3573957c8fbefa8e252ac") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_wbtc_wusdc.WorkerInfo.type())
-//         workerAddr = "0x15fbfe8c27c920baaa1e4bd8bfe05c4408311612baf6493ed3285c6bd95a6939"
-//       } else if (workerInfoAddr == "0x1a8ad1068ab9bc5b94f2e3baa7a5eaac67e1337e2a47463fcfbc1b9ed26ef5ce") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_buck_wusdc.WorkerInfo.type())
-//         workerAddr = "0xcac7d10d73c3c32f6d40031c8639dfde168e6e1c0e4a86f8d23f21db60f97c94"
-//       } else if (workerInfoAddr == "0xf7fc938356331d7404226c147328750cf2d8ef8a273ed8bc1450ee4e0ff0e659") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_buck.WorkerInfo.type())
-//         workerAddr = "0xe6ba97715edd0cfe6a8e40654b37c6f46a8a8af5b7fe2eefa3fd713243857993"
-//       } else if (workerInfoAddr == "0x44bff32bda79532beafeb35ce80f5673b03bc3411229b6bb55d368827271ea9f") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_sui.WorkerInfo.type())
-//         workerAddr = "0x1d25aa479630953f1313749759a476aa620ce65a3f2eab7a2e52a3a5e1e6e797"
-//       } else if (workerInfoAddr == "0x18d1556fddf2eaacfe922b3ce3a3c339d19363d190b3e0c22b6291ab1cf57d6c") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_sui_usdc.WorkerInfo.type())
-//         workerAddr = "0x6e30dd0792fc4232e40cbbff861ece3c0a029d431cc3a62c5c46031524c2c91a"
-//       } else if (workerInfoAddr == "0xc3f471085526079f294d8395cc078393a7e7f8f750d6d7871679c58bfab38ac8") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_usdt.WorkerInfo.type())
-//         workerAddr = "0xf74d70ad742dcbb0f75dc75312b3e7f2a5dd0b9f01634565289cbb6a6eb812c0"
-//       } else if (workerInfoAddr == "0x354808fb8a29a59e35e2d9bf06892eb913d750796b71b5f72efa6cd9d5dbbc27") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdt_usdc.WorkerInfo.type())
-//         workerAddr = "0x76e6fd74c625e04879d0aefdd8bbae10a836504ef0d41e6124b0e965dcec8683"
-//       } else if (workerInfoAddr == "0x7b62b4ea193bb6abf99380b3ad341db84ee28c289bf624c16fb6e7eed21ae988") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_cetus_usdc.WorkerInfo.type())
-//         workerAddr = "0xe77bf63a6b95ce64a04c156a27c69e3ae4f823773fa9dc441c854d106ae21fda"
-//       } else if (workerInfoAddr == "0x5dfdcaaa330e31605b8444f0d65d3e46fd2d0f4addf44d2284d05b1225ab2dca") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_cetus.WorkerInfo.type())
-//         workerAddr = "0xbeae77b098564b7e62be51527b71300759014085c8ce849f2726397a5fcc411d"
-//       } else if (workerInfoAddr == "0x6b65414a6244fdbd71d0e1fc8e0a27c717f68db51faf5a7cce7256abae9a320e") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_usdc_wusdc.WorkerInfo.type())
-//         workerAddr = "0xe6cc53c3778e022568b546411bdd7011d3112660dae8a6f118ff2c460522866d"
-//       } else if (workerInfoAddr == "0x9b0e6176f25aeff94388fcf2c7d98ca481997f9e08160875263c4c50b669d242") {
-//         res = await ctx.coder.decodeType(self, cetus_clmm_worker_wusdc_usdc.WorkerInfo.type())
-//         workerAddr = "0xdcb271ff2e80185557d651707aeaaa21f899cb8de9be9c2fb4efef9c9500f6d9"
-//       } else {
-//         console.error("Not support workerInfoAddr:", workerInfoAddr)
-//       } 
+    try {
+      let res = await getResponseContentByWorkerInfo(workerInfoAddr, ctx, self)
+            
+      console.log("ctx.objectId:" , ctx.objectId, ",res : ", JSON.stringify(res))
       
-//       // console.log("ctx.objectId:" , ctx.objectId, ",res : ", JSON.stringify(res))
+      let baseBounty, farmingBounty, coinTypeA, coinTypeB, coinBaseDecimal, coinFarmingDecimal
+      if (isStableFarmByWorkerInfo(workerInfoAddr)) {
+        //@ts-ignore
+        baseBounty = Number(res!.tiny_coin_base_bounty)
+        //@ts-ignore
+        farmingBounty = Number(res!.tiny_coin_farming_bounty)
+        //@ts-ignore
+        coinBaseDecimal = Number(res!.coin_base_decimals)
+        //@ts-ignore
+        coinFarmingDecimal = Number(res!.coin_farming_decimals)
+        //@ts-ignore
+        coinTypeA = '0x' + res!.stable_farming_position_nft.clmm_postion.coin_type_a.name
+        //@ts-ignore
+        coinTypeB = '0x' + res!.stable_farming_position_nft.clmm_postion.coin_type_b.name
 
-//       //@ts-ignore
-//       const totalLiquidity = Number(res!.position_nft.liquidity)
-//       //@ts-ignore
-//       const tickLowerIndex = i32BitsToNumber((res!.position_nft.tick_lower_index.bits).toString())
-//       //@ts-ignore
-//       const tickUpperIndex = i32BitsToNumber((res!.position_nft.tick_upper_index.bits).toString())
-//       //@ts-ignore
-//       const poolId = res!.position_nft.pool
-//       //@ts-ignore
-//       const coinTypeA = '0x' + res!.position_nft.coin_type_a.name
-//       //@ts-ignore
-//       const coinTypeB = '0x' + res!.position_nft.coin_type_b.name
-     
-//       let coinInfoA = await buildCoinInfo(ctx, coinTypeA)
-//       let retry = 0
-//       while ((!coinInfoA || coinInfoA.symbol == "unk") && retry < 300) {
-//         await sleep(300);
-//         coinInfoA = await buildCoinInfo(ctx, coinTypeA)
-//         retry++
+      } else {
+         //@ts-ignore
+        baseBounty = Number(res!.tiny_coin_base_bounty)
+        //@ts-ignore
+        farmingBounty = Number(res!.tiny_coin_farming_bounty)
+        //@ts-ignore
+        coinBaseDecimal = Number(res!.coin_base_decimals)
+        //@ts-ignore
+        coinFarmingDecimal = Number(res!.coin_farming_decimals)
+        //@ts-ignore
+        coinTypeA = '0x' + res!.position_nft.coin_type_a.name
+        //@ts-ignore
+        coinTypeB = '0x' + res!.position_nft.coin_type_b.name
+      }
 
-//         if (retry == 299) {
-//           throw new Error("buildCoinInfo coinInfoA")
-//         }
-//       }
+      let coinInfoA = await buildCoinInfo(ctx, coinTypeA)
+      let retry = 0
+      while ((!coinInfoA || coinInfoA.symbol == "unk") && retry < 300) {
+        await sleep(300);
+        coinInfoA = await buildCoinInfo(ctx, coinTypeA)
+        retry++
 
-//       const coin_symbol_a = coinInfoA.symbol
+        if (retry == 299) {
+          throw new Error("buildCoinInfo coinInfoA")
+        }
+      }
 
-//       let coinInfoB = await buildCoinInfo(ctx, coinTypeB)
-//       retry = 0
-//       while ((!coinInfoB || coinInfoB.symbol == "unk") && retry < 300) {
-//         await sleep(300);
-//         coinInfoB = await buildCoinInfo(ctx, coinTypeB)
-//         retry++
+      let coin_symbol_a = coinInfoA.symbol
 
-//         if (retry == 299) {
-//           throw new Error("buildCoinInfo coinInfoB")
-//         }
-//       }
-//       const coin_symbol_b = coinInfoB.symbol
+      if (coinTypeA.toLowerCase() == coinAddrwUSDC.toLowerCase()) {
+        coin_symbol_a = 'wUSDC'
+      } else if (coinTypeA.toLowerCase() == coinAddrsuiUSDT.toLowerCase()) {
+        coin_symbol_a = 'suiUSDT'
+      }
 
-//       let currentSqrtPrice
-//       if (coinTypeA == coinAddrwUSDC && coinTypeB == coinAddrSUI) {
-//         //@ts-ignore
-//         currentSqrtPrice = gCurrentSqrtPricewUsdcSui
-//       } else if (coinTypeA == coinAddrUSDT && coinTypeB == coinAddrwUSDC) {
-//         //@ts-ignore
-//         currentSqrtPrice = gCurrentSqrtPriceUsdtwUsdc
-//       } else if (coinTypeA == coinAddrWETH && coinTypeB == coinAddrwUSDC) {
-//         //@ts-ignore
-//         currentSqrtPrice = gCurrentSqrtPriceWethwUsdc
-//       } else if (coinTypeA == coinAddrUSDT && coinTypeB == coinAddrSUI) {
-//         //@ts-ignore
-//         currentSqrtPrice = gCurrentSqrtPriceUsdtSui
-//       } else if (coinTypeA == coinAddrHASUI && coinTypeB == coinAddrSUI) {
-//         //@ts-ignore
-//         currentSqrtPrice = gCurrentSqrtPriceHasuiSui
-//       } else if (coinTypeA == coinAddrwUSDC && coinTypeB == coinAddrCETUS) {
-//         //@ts-ignore
-//         currentSqrtPrice = gCurrentSqrtPricewUsdcCetus
-//       } else if (coinTypeA == coinAddrCETUS && coinTypeB == coinAddrSUI) {
-//         //@ts-ignore
-//         currentSqrtPrice = gCurrentSqrtPriceCetusSui
-//       } else if (coinTypeA == coinAddrNAVX && coinTypeB == coinAddrSUI) {
-//         //@ts-ignore
-//         currentSqrtPrice = gCurrentSqrtPriceNavxSui
-//       } else if (coinTypeA == coinAddrNAVX && coinTypeB == coinAddrCETUS) {
-//         //@ts-ignore
-//         currentSqrtPrice = gCurrentSqrtPriceNavxCetus
-//       } else if (coinTypeA == coinAddrSCA && coinTypeB == coinAddrSUI) {
-//         //@ts-ignore
-//         currentSqrtPrice = gCurrentSqrtPriceScaSui
-//       } else if (coinTypeA == coinAddrWETH && coinTypeB == coinAddrCETUS) {
-//         //@ts-ignore
-//         currentSqrtPrice = gCurrentSqrtPriceWethCetus
-//       } else if (coinTypeA == coinAddrUSDT && coinTypeB == coinAddrCETUS) {
-//         //@ts-ignore
-//         currentSqrtPrice = gCurrentSqrtPriceUsdtCetus
-//       } else if (coinTypeA == coinAddrwUSDC && coinTypeB == coinAddrWBTC) {
-//         //@ts-ignore
-//         currentSqrtPrice = gCurrentSqrtPricewUsdcWbtc
-//       } else if (coinTypeA == coinAddrBUCK && coinTypeB == coinAddrwUSDC) {
-//         //@ts-ignore
-//         currentSqrtPrice = gCurrentSqrtPriceBuckwUsdc
-//       } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrSUI) {
-//         //@ts-ignore
-//         currentSqrtPrice = gCurrentSqrtPriceUsdcSui
-//       } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrUSDT) {
-//         //@ts-ignore
-//         currentSqrtPrice = gCurrentSqrtPriceUsdcUsdt
-//       } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrCETUS) {
-//         //@ts-ignore
-//         currentSqrtPrice = gCurrentSqrtPriceUsdcCetus
-//       } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrwUSDC) {
-//         //@ts-ignore
-//         currentSqrtPrice = gCurrentSqrtPriceUsdcwUsdc
-//       } else {
-//         console.error("Has not price : coin_symbol_a:", coin_symbol_a, ",coin_symbol_b:",coin_symbol_b )
-//       }
+      let coinInfoB = await buildCoinInfo(ctx, coinTypeB)
+      retry = 0
+      while ((!coinInfoB || coinInfoB.symbol == "unk") && retry < 300) {
+        await sleep(300);
+        coinInfoB = await buildCoinInfo(ctx, coinTypeB)
+        retry++
 
-//       if (!currentSqrtPrice) {
-//         console.error("gCurrentSqrtPrice is undefined")
-//         return
-//       }
-      
-//       // console.log("liquidity:", liquidity, ",tickLowerIndex:", tickLowerIndex, ",tickUpperIndex:", tickUpperIndex, ",poolId:", poolId, ",coinTypeA:", coinTypeA,
-//       //  ",coinTypeB:", coinTypeB, ",currentSqrtPrice:", currentSqrtPrice)
+        if (retry == 299) {
+          throw new Error("buildCoinInfo coinInfoB")
+        }
+      }
+      let coin_symbol_b = coinInfoB.symbol
 
-//       const lowerSqrtPriceX64 = tickIndexToSqrtPriceX64(tickLowerIndex)
+      if (coinTypeB.toLowerCase() == coinAddrwUSDC.toLowerCase()) {
+        coin_symbol_b = 'wUSDC'
+      } else if (coinTypeB.toLowerCase() == coinAddrsuiUSDT.toLowerCase()) {
+        coin_symbol_b = 'suiUSDT'
+      }
 
-//       // console.log("lowerSqrtPriceX64:", lowerSqrtPriceX64.toString())
+      const priceA = await getPriceByType(SuiNetwork.MAIN_NET, coinTypeA, ctx.timestamp)
+      const priceB = await getPriceByType(SuiNetwork.MAIN_NET, coinTypeB, ctx.timestamp)
 
-//       const upperSqrtPriceX64 = tickIndexToSqrtPriceX64(tickUpperIndex)
-//       // console.log("upperSqrtPriceX64:", upperSqrtPriceX64.toString())
+      let lyf_bounty_amount_base = Number(baseBounty) / Math.pow(10, coinBaseDecimal)
+      let lyf_bounty_amount_farming = Number(farmingBounty) / Math.pow(10, coinFarmingDecimal)
 
+      let lyf_bounty_usd
+      if (ctx.checkpoint >= 4063111 && ctx.checkpoint < 12234863) {
+        if (workerInfoAddr == "0x3d946af3a3c0bec5f232541accf2108b97326734e626f704dda1dfb7450deb4c") { // cetus_worker_sui_wusdc_worker_info
+          lyf_bounty_amount_base += 234.05498811
+        } else if (workerInfoAddr == "0xc28878cfc99628743b13eebca9bdff703daeccb285f8c6ea48120b06f4079926") { // cetus_worker_wusdc_usdt_worker_info
+          lyf_bounty_amount_base += 24.559492
+        } else if (workerInfoAddr ==  "0x1774ca4f9e37f37c6b0df9c7f9526adc67113532eb4eaa07f36942092c8e5f51") { // cetus_worker_wusdc_weth_worker_info
+          lyf_bounty_amount_base += 0.018202 
+        } else if (workerInfoAddr == "0x98f354c9e166862f079aaadd5e85940c55c440a8461e8e468513e2a86106042c") { // cetus_worker_wusdc_sui_worker_info
+          lyf_bounty_amount_base += 14.913658 
+          lyf_bounty_amount_farming += 9.903149248
+        } else if (workerInfoAddr == "0x3f99d841487141e46602424b1b4125751a2df29a23b65f6c56786f3679f2c2c1") { // cetus_worker_usdt_wusdc_worker_info
+          lyf_bounty_amount_base += 20.772669
+        } else if (workerInfoAddr == "0xbeb69ca36f0ab6cb87247a366f50aab851180332216730e63e983ca0e617f326") { // cetus_worker_weth_wusdc_worker_info
+          lyf_bounty_amount_base += 0.02010501
+        } 
+      } else if (ctx.checkpoint >= 12234863 && ctx.checkpoint < 27846412) {
+        if (workerInfoAddr == "0x3d946af3a3c0bec5f232541accf2108b97326734e626f704dda1dfb7450deb4c") { // cetus_worker_sui_wusdc_worker_info
+          lyf_bounty_amount_base += 234.05498811 + 617.654678904 
+        } else if (workerInfoAddr == "0xc28878cfc99628743b13eebca9bdff703daeccb285f8c6ea48120b06f4079926") { // cetus_worker_wusdc_usdt_worker_info
+          lyf_bounty_amount_base += 24.559492
+        } else if (workerInfoAddr ==  "0x1774ca4f9e37f37c6b0df9c7f9526adc67113532eb4eaa07f36942092c8e5f51") { // cetus_worker_wusdc_weth_worker_info
+          lyf_bounty_amount_base += 0.018202 
+        } else if (workerInfoAddr == "0x98f354c9e166862f079aaadd5e85940c55c440a8461e8e468513e2a86106042c") { // cetus_worker_wusdc_sui_worker_info
+          lyf_bounty_amount_base += 14.913658 
+          lyf_bounty_amount_farming += 9.903149248
+        } else if (workerInfoAddr == "0x3f99d841487141e46602424b1b4125751a2df29a23b65f6c56786f3679f2c2c1") { // cetus_worker_usdt_wusdc_worker_info
+          lyf_bounty_amount_base += 20.772669
+        } else if (workerInfoAddr == "0xbeb69ca36f0ab6cb87247a366f50aab851180332216730e63e983ca0e617f326") { // cetus_worker_weth_wusdc_worker_info
+          lyf_bounty_amount_base += 0.02010501
+        } else if (workerInfoAddr == "0x83d7639b08ffc1408f4383352a2070b2f58328caa7fbbdfa42ec5f3cf4694a5d") { // cetus_worker_sui_cetus_worker_info
+          lyf_bounty_amount_base += 0.865561636  
+          lyf_bounty_amount_farming += 15.752826815 
+        } 
+      } else if (ctx.checkpoint >= 27846412 && ctx.checkpoint < 27955915) {
+        if (workerInfoAddr == "0x3d946af3a3c0bec5f232541accf2108b97326734e626f704dda1dfb7450deb4c") { // cetus_worker_sui_wusdc_worker_info
+          lyf_bounty_amount_base += 234.05498811 + 617.654678904 + 373.471966116
+        } else if (workerInfoAddr == "0xc28878cfc99628743b13eebca9bdff703daeccb285f8c6ea48120b06f4079926") { // cetus_worker_wusdc_usdt_worker_info
+          lyf_bounty_amount_base += 24.559492
+        } else if (workerInfoAddr ==  "0x1774ca4f9e37f37c6b0df9c7f9526adc67113532eb4eaa07f36942092c8e5f51") { // cetus_worker_wusdc_weth_worker_info
+          lyf_bounty_amount_base += 0.018202 
+        } else if (workerInfoAddr == "0x98f354c9e166862f079aaadd5e85940c55c440a8461e8e468513e2a86106042c") { // cetus_worker_wusdc_sui_worker_info
+          lyf_bounty_amount_base += 14.913658 
+          lyf_bounty_amount_farming += 9.903149248
+        } else if (workerInfoAddr == "0x3f99d841487141e46602424b1b4125751a2df29a23b65f6c56786f3679f2c2c1") { // cetus_worker_usdt_wusdc_worker_info
+          lyf_bounty_amount_base += 20.772669
+        } else if (workerInfoAddr == "0xbeb69ca36f0ab6cb87247a366f50aab851180332216730e63e983ca0e617f326") { // cetus_worker_weth_wusdc_worker_info
+          lyf_bounty_amount_base += 0.02010501
+        } else if (workerInfoAddr == "0x83d7639b08ffc1408f4383352a2070b2f58328caa7fbbdfa42ec5f3cf4694a5d") { // cetus_worker_sui_cetus_worker_info
+          lyf_bounty_amount_base += 0.865561636  
+          lyf_bounty_amount_farming += 15.752826815 
+        } 
+      } else if (ctx.checkpoint >= 27955915 && ctx.checkpoint < 28277822) {
+        if (workerInfoAddr == "0x3d946af3a3c0bec5f232541accf2108b97326734e626f704dda1dfb7450deb4c") { // cetus_worker_sui_wusdc_worker_info
+          lyf_bounty_amount_base += 234.05498811 + 617.654678904 + 373.471966116 + 149.788466622 
+        } else if (workerInfoAddr == "0xc28878cfc99628743b13eebca9bdff703daeccb285f8c6ea48120b06f4079926") { // cetus_worker_wusdc_usdt_worker_info
+          lyf_bounty_amount_base += 24.559492
+        } else if (workerInfoAddr ==  "0x1774ca4f9e37f37c6b0df9c7f9526adc67113532eb4eaa07f36942092c8e5f51") { // cetus_worker_wusdc_weth_worker_info
+          lyf_bounty_amount_base += 0.018202 + 0.093351
+        } else if (workerInfoAddr == "0x98f354c9e166862f079aaadd5e85940c55c440a8461e8e468513e2a86106042c") { // cetus_worker_wusdc_sui_worker_info
+          lyf_bounty_amount_base += 14.913658 + 104.807058 
+          lyf_bounty_amount_farming += 9.903149248 + 399.640630603 
+        } else if (workerInfoAddr == "0x3f99d841487141e46602424b1b4125751a2df29a23b65f6c56786f3679f2c2c1") { // cetus_worker_usdt_wusdc_worker_info
+          lyf_bounty_amount_base += 20.772669 + 0.233152 
+        } else if (workerInfoAddr == "0xbeb69ca36f0ab6cb87247a366f50aab851180332216730e63e983ca0e617f326") { // cetus_worker_weth_wusdc_worker_info
+          lyf_bounty_amount_base += 0.02010501 + 0.06229361 
+        } else if (workerInfoAddr == "0x83d7639b08ffc1408f4383352a2070b2f58328caa7fbbdfa42ec5f3cf4694a5d") { // cetus_worker_sui_cetus_worker_info
+          lyf_bounty_amount_base += 0.865561636 + 1.078166473 
+          lyf_bounty_amount_farming += 15.752826815 + 8.546183514 
+        } else if (workerInfoAddr == "0xc792fa9679b2f73d8debad2963b4cdf629cf78edcab78e2b8c3661b91d7f6a45") { // cetus_worker_sui_hasui_worker_info
+          lyf_bounty_amount_base += 0.012178072 
+        } else if (workerInfoAddr ==  "0x88af306756ce514c6a70b378336489f8773ed48f8880d3171a60c2ecb8e7a5ec") { // cetus_worker_cetus_wusdc_worker_info
+          lyf_bounty_amount_base += 0.286531 
+        } else if (workerInfoAddr == "0xd093219b4b2be6c44461f1bb32a70b81c496bc14655e7e81d2687f3d77d085da") { // cetus_worker_wusdc_cetus_worker_info
+          lyf_bounty_amount_farming += 2.588900667 
+        } else if (workerInfoAddr == "0xed1bc37595a30e98c984a1e2c4860babf3420bffd9f4333ffc6fa22f2f9099b8") { // cetus_worker_hasui_sui_worker_info
+          lyf_bounty_amount_farming += 0.0028575 
+        }
+      } else if (ctx.checkpoint >= 28277822 && ctx.checkpoint < 28466966) {
+        if (workerInfoAddr == "0x3d946af3a3c0bec5f232541accf2108b97326734e626f704dda1dfb7450deb4c") { // cetus_worker_sui_wusdc_worker_info
+          lyf_bounty_amount_base += 234.05498811 + 617.654678904 + 373.471966116 + 149.788466622 + 337.608564779 
+        } else if (workerInfoAddr == "0xc28878cfc99628743b13eebca9bdff703daeccb285f8c6ea48120b06f4079926") { // cetus_worker_wusdc_usdt_worker_info
+          lyf_bounty_amount_base += 24.559492
+        } else if (workerInfoAddr ==  "0x1774ca4f9e37f37c6b0df9c7f9526adc67113532eb4eaa07f36942092c8e5f51") { // cetus_worker_wusdc_weth_worker_info
+          lyf_bounty_amount_base += 0.018202 + 0.093351
+        } else if (workerInfoAddr == "0x98f354c9e166862f079aaadd5e85940c55c440a8461e8e468513e2a86106042c") { // cetus_worker_wusdc_sui_worker_info
+          lyf_bounty_amount_base += 14.913658 + 104.807058 + 28.427997 
+          lyf_bounty_amount_farming += 9.903149248 + 399.640630603 + 124.410474194 
+        } else if (workerInfoAddr == "0x3f99d841487141e46602424b1b4125751a2df29a23b65f6c56786f3679f2c2c1") { // cetus_worker_usdt_wusdc_worker_info
+          lyf_bounty_amount_base += 20.772669 + 0.233152 
+        } else if (workerInfoAddr == "0xbeb69ca36f0ab6cb87247a366f50aab851180332216730e63e983ca0e617f326") { // cetus_worker_weth_wusdc_worker_info
+          lyf_bounty_amount_base += 0.02010501 + 0.06229361 
+        } else if (workerInfoAddr == "0x83d7639b08ffc1408f4383352a2070b2f58328caa7fbbdfa42ec5f3cf4694a5d") { // cetus_worker_sui_cetus_worker_info
+          lyf_bounty_amount_base += 0.865561636 + 1.078166473 
+          lyf_bounty_amount_farming += 15.752826815 + 8.546183514 
+        } else if (workerInfoAddr == "0xc792fa9679b2f73d8debad2963b4cdf629cf78edcab78e2b8c3661b91d7f6a45") { // cetus_worker_sui_hasui_worker_info
+          lyf_bounty_amount_base += 0.012178072 
+        } else if (workerInfoAddr ==  "0x88af306756ce514c6a70b378336489f8773ed48f8880d3171a60c2ecb8e7a5ec") { // cetus_worker_cetus_wusdc_worker_info
+          lyf_bounty_amount_base += 0.286531 
+        } else if (workerInfoAddr == "0xd093219b4b2be6c44461f1bb32a70b81c496bc14655e7e81d2687f3d77d085da") { // cetus_worker_wusdc_cetus_worker_info
+          lyf_bounty_amount_farming += 2.588900667 
+        } else if (workerInfoAddr == "0xed1bc37595a30e98c984a1e2c4860babf3420bffd9f4333ffc6fa22f2f9099b8") { // cetus_worker_hasui_sui_worker_info
+          lyf_bounty_amount_farming += 0.0028575 
+        }
+      } else if (ctx.checkpoint >= 28466966 && ctx.checkpoint < 28828283) {
+        if (workerInfoAddr == "0x3d946af3a3c0bec5f232541accf2108b97326734e626f704dda1dfb7450deb4c") { // cetus_worker_sui_wusdc_worker_info
+          lyf_bounty_amount_base += 234.05498811 + 617.654678904 + 373.471966116 + 149.788466622 + 337.608564779 + 190.727072161 
+        } else if (workerInfoAddr == "0xc28878cfc99628743b13eebca9bdff703daeccb285f8c6ea48120b06f4079926") { // cetus_worker_wusdc_usdt_worker_info
+          lyf_bounty_amount_base += 24.559492
+        } else if (workerInfoAddr ==  "0x1774ca4f9e37f37c6b0df9c7f9526adc67113532eb4eaa07f36942092c8e5f51") { // cetus_worker_wusdc_weth_worker_info
+          lyf_bounty_amount_base += 0.018202 + 0.093351
+        } else if (workerInfoAddr == "0x98f354c9e166862f079aaadd5e85940c55c440a8461e8e468513e2a86106042c") { // cetus_worker_wusdc_sui_worker_info
+          lyf_bounty_amount_base += 14.913658 + 104.807058 + 28.427997 + 33.093834 
+          lyf_bounty_amount_farming += 9.903149248 + 399.640630603 + 124.410474194 + 211.686159186  
+        } else if (workerInfoAddr == "0x3f99d841487141e46602424b1b4125751a2df29a23b65f6c56786f3679f2c2c1") { // cetus_worker_usdt_wusdc_worker_info
+          lyf_bounty_amount_base += 20.772669 + 0.233152 
+        } else if (workerInfoAddr == "0xbeb69ca36f0ab6cb87247a366f50aab851180332216730e63e983ca0e617f326") { // cetus_worker_weth_wusdc_worker_info
+          lyf_bounty_amount_base += 0.02010501 + 0.06229361 
+        } else if (workerInfoAddr == "0x83d7639b08ffc1408f4383352a2070b2f58328caa7fbbdfa42ec5f3cf4694a5d") { // cetus_worker_sui_cetus_worker_info
+          lyf_bounty_amount_base += 0.865561636 + 1.078166473 
+          lyf_bounty_amount_farming += 15.752826815 + 8.546183514 
+        } else if (workerInfoAddr == "0xc792fa9679b2f73d8debad2963b4cdf629cf78edcab78e2b8c3661b91d7f6a45") { // cetus_worker_sui_hasui_worker_info
+          lyf_bounty_amount_base += 0.012178072 
+        } else if (workerInfoAddr ==  "0x88af306756ce514c6a70b378336489f8773ed48f8880d3171a60c2ecb8e7a5ec") { // cetus_worker_cetus_wusdc_worker_info
+          lyf_bounty_amount_base += 0.286531 
+        } else if (workerInfoAddr == "0xd093219b4b2be6c44461f1bb32a70b81c496bc14655e7e81d2687f3d77d085da") { // cetus_worker_wusdc_cetus_worker_info
+          lyf_bounty_amount_farming += 2.588900667 
+        } else if (workerInfoAddr == "0xed1bc37595a30e98c984a1e2c4860babf3420bffd9f4333ffc6fa22f2f9099b8") { // cetus_worker_hasui_sui_worker_info
+          lyf_bounty_amount_farming += 0.0028575 
+        }
+      } else if (ctx.checkpoint >= 28828283 && ctx.checkpoint < 29622823) {
+        if (workerInfoAddr == "0x3d946af3a3c0bec5f232541accf2108b97326734e626f704dda1dfb7450deb4c") { // cetus_worker_sui_wusdc_worker_info
+          lyf_bounty_amount_base += 234.05498811 + 617.654678904 + 373.471966116 + 149.788466622 + 337.608564779 + 190.727072161 + 497.246800172 
+        } else if (workerInfoAddr == "0xc28878cfc99628743b13eebca9bdff703daeccb285f8c6ea48120b06f4079926") { // cetus_worker_wusdc_usdt_worker_info
+          lyf_bounty_amount_base += 24.559492
+        } else if (workerInfoAddr ==  "0x1774ca4f9e37f37c6b0df9c7f9526adc67113532eb4eaa07f36942092c8e5f51") { // cetus_worker_wusdc_weth_worker_info
+          lyf_bounty_amount_base += 0.018202 + 0.093351
+        } else if (workerInfoAddr == "0x98f354c9e166862f079aaadd5e85940c55c440a8461e8e468513e2a86106042c") { // cetus_worker_wusdc_sui_worker_info
+          lyf_bounty_amount_base += 14.913658 + 104.807058 + 28.427997 + 33.093834 
+          lyf_bounty_amount_farming += 9.903149248 + 399.640630603 + 124.410474194 + 211.686159186  
+        } else if (workerInfoAddr == "0x3f99d841487141e46602424b1b4125751a2df29a23b65f6c56786f3679f2c2c1") { // cetus_worker_usdt_wusdc_worker_info
+          lyf_bounty_amount_base += 20.772669 + 0.233152 
+        } else if (workerInfoAddr == "0xbeb69ca36f0ab6cb87247a366f50aab851180332216730e63e983ca0e617f326") { // cetus_worker_weth_wusdc_worker_info
+          lyf_bounty_amount_base += 0.02010501 + 0.06229361 
+        } else if (workerInfoAddr == "0x83d7639b08ffc1408f4383352a2070b2f58328caa7fbbdfa42ec5f3cf4694a5d") { // cetus_worker_sui_cetus_worker_info
+          lyf_bounty_amount_base += 0.865561636 + 1.078166473 
+          lyf_bounty_amount_farming += 15.752826815 + 8.546183514 
+        } else if (workerInfoAddr == "0xc792fa9679b2f73d8debad2963b4cdf629cf78edcab78e2b8c3661b91d7f6a45") { // cetus_worker_sui_hasui_worker_info
+          lyf_bounty_amount_base += 0.012178072 
+        } else if (workerInfoAddr ==  "0x88af306756ce514c6a70b378336489f8773ed48f8880d3171a60c2ecb8e7a5ec") { // cetus_worker_cetus_wusdc_worker_info
+          lyf_bounty_amount_base += 0.286531 
+        } else if (workerInfoAddr == "0xd093219b4b2be6c44461f1bb32a70b81c496bc14655e7e81d2687f3d77d085da") { // cetus_worker_wusdc_cetus_worker_info
+          lyf_bounty_amount_farming += 2.588900667 
+        } else if (workerInfoAddr == "0xed1bc37595a30e98c984a1e2c4860babf3420bffd9f4333ffc6fa22f2f9099b8") { // cetus_worker_hasui_sui_worker_info
+          lyf_bounty_amount_farming += 0.0028575 
+        }
+      } else if (ctx.checkpoint >= 29622823 && ctx.checkpoint < 89328791) {
+        if (workerInfoAddr == "0x3d946af3a3c0bec5f232541accf2108b97326734e626f704dda1dfb7450deb4c") { // cetus_worker_sui_wusdc_worker_info
+          lyf_bounty_amount_base += 234.05498811 + 617.654678904 + 373.471966116 + 149.788466622 + 337.608564779 + 190.727072161 + 497.246800172 + 1621.432414741 
+        } else if (workerInfoAddr == "0xc28878cfc99628743b13eebca9bdff703daeccb285f8c6ea48120b06f4079926") { // cetus_worker_wusdc_usdt_worker_info
+          lyf_bounty_amount_base += 24.559492
+        } else if (workerInfoAddr ==  "0x1774ca4f9e37f37c6b0df9c7f9526adc67113532eb4eaa07f36942092c8e5f51") { // cetus_worker_wusdc_weth_worker_info
+          lyf_bounty_amount_base += 0.018202 + 0.093351
+        } else if (workerInfoAddr == "0x98f354c9e166862f079aaadd5e85940c55c440a8461e8e468513e2a86106042c") { // cetus_worker_wusdc_sui_worker_info
+          lyf_bounty_amount_base += 14.913658 + 104.807058 + 28.427997 + 33.093834 + 35.35516 
+          lyf_bounty_amount_farming += 9.903149248 + 399.640630603 + 124.410474194 + 211.686159186 + 290.965774938 
+        } else if (workerInfoAddr == "0x3f99d841487141e46602424b1b4125751a2df29a23b65f6c56786f3679f2c2c1") { // cetus_worker_usdt_wusdc_worker_info
+          lyf_bounty_amount_base += 20.772669 + 0.233152 
+        } else if (workerInfoAddr == "0xbeb69ca36f0ab6cb87247a366f50aab851180332216730e63e983ca0e617f326") { // cetus_worker_weth_wusdc_worker_info
+          lyf_bounty_amount_base += 0.02010501 + 0.06229361 
+        } else if (workerInfoAddr == "0x83d7639b08ffc1408f4383352a2070b2f58328caa7fbbdfa42ec5f3cf4694a5d") { // cetus_worker_sui_cetus_worker_info
+          lyf_bounty_amount_base += 0.865561636 + 1.078166473 
+          lyf_bounty_amount_farming += 15.752826815 + 8.546183514 
+        } else if (workerInfoAddr == "0xc792fa9679b2f73d8debad2963b4cdf629cf78edcab78e2b8c3661b91d7f6a45") { // cetus_worker_sui_hasui_worker_info
+          lyf_bounty_amount_base += 0.012178072 
+        } else if (workerInfoAddr ==  "0x88af306756ce514c6a70b378336489f8773ed48f8880d3171a60c2ecb8e7a5ec") { // cetus_worker_cetus_wusdc_worker_info
+          lyf_bounty_amount_base += 0.286531 
+        } else if (workerInfoAddr == "0xd093219b4b2be6c44461f1bb32a70b81c496bc14655e7e81d2687f3d77d085da") { // cetus_worker_wusdc_cetus_worker_info
+          lyf_bounty_amount_farming += 2.588900667 
+        } else if (workerInfoAddr == "0xed1bc37595a30e98c984a1e2c4860babf3420bffd9f4333ffc6fa22f2f9099b8") { // cetus_worker_hasui_sui_worker_info
+          lyf_bounty_amount_farming += 0.0028575 
+        } else if (workerInfoAddr == "0x7a41fbf19809f80fd1a7282b218ec8326dfaadc2ad20604d052c12d5076596b4") { // cetus_worker_sui_sca_worker_info
+          lyf_bounty_amount_base += 30.242805993 
+          lyf_bounty_amount_farming += 11.198748955
+        }
+      } else if (ctx.checkpoint >= 89328791 && ctx.checkpoint < 122460676) {
+        if (workerInfoAddr == "0x3d946af3a3c0bec5f232541accf2108b97326734e626f704dda1dfb7450deb4c") { // cetus_worker_sui_wusdc_worker_info
+          lyf_bounty_amount_base += 234.05498811 + 617.654678904 + 373.471966116 + 149.788466622 + 337.608564779 + 190.727072161 + 497.246800172 + 1621.432414741
+                                    + 1629.644628357 
+          lyf_bounty_amount_farming += 4.816902 
+        } else if (workerInfoAddr == "0xc28878cfc99628743b13eebca9bdff703daeccb285f8c6ea48120b06f4079926") { // cetus_worker_wusdc_usdt_worker_info
+          lyf_bounty_amount_base += 24.559492 + 1209.94069 
+          lyf_bounty_amount_farming += 0.03312 
+        } else if (workerInfoAddr ==  "0x1774ca4f9e37f37c6b0df9c7f9526adc67113532eb4eaa07f36942092c8e5f51") { // cetus_worker_wusdc_weth_worker_info
+          lyf_bounty_amount_base += 0.018202 + 0.093351 + 51.541006 
+          lyf_bounty_amount_farming += 0.00051611 
+        } else if (workerInfoAddr == "0x98f354c9e166862f079aaadd5e85940c55c440a8461e8e468513e2a86106042c") { // cetus_worker_wusdc_sui_worker_info
+          lyf_bounty_amount_base += 14.913658 + 104.807058 + 28.427997 + 33.093834 + 35.35516 + 128.304062 
+          lyf_bounty_amount_farming += 9.903149248 + 399.640630603 + 124.410474194 + 211.686159186 + 290.965774938 + 449.207588479 
+        } else if (workerInfoAddr == "0x3f99d841487141e46602424b1b4125751a2df29a23b65f6c56786f3679f2c2c1") { // cetus_worker_usdt_wusdc_worker_info
+          lyf_bounty_amount_base += 20.772669 + 0.233152 
+          lyf_bounty_amount_farming += 0.145496 
+        } else if (workerInfoAddr == "0xbeb69ca36f0ab6cb87247a366f50aab851180332216730e63e983ca0e617f326") { // cetus_worker_weth_wusdc_worker_info
+          lyf_bounty_amount_base += 0.02010501 + 0.06229361 + 0.00008385 
+          lyf_bounty_amount_farming += 238.066171 
+        } else if (workerInfoAddr == "0x83d7639b08ffc1408f4383352a2070b2f58328caa7fbbdfa42ec5f3cf4694a5d") { // cetus_worker_sui_cetus_worker_info
+          lyf_bounty_amount_base += 0.865561636 + 1.078166473 
+          lyf_bounty_amount_farming += 15.752826815 + 8.546183514 
+        } else if (workerInfoAddr == "0xc792fa9679b2f73d8debad2963b4cdf629cf78edcab78e2b8c3661b91d7f6a45") { // cetus_worker_sui_hasui_worker_info
+          lyf_bounty_amount_base += 0.012178072 
+        } else if (workerInfoAddr ==  "0x88af306756ce514c6a70b378336489f8773ed48f8880d3171a60c2ecb8e7a5ec") { // cetus_worker_cetus_wusdc_worker_info
+          lyf_bounty_amount_base += 0.286531 + 788.737622021 
+          lyf_bounty_amount_farming += 0.012975   
+        } else if (workerInfoAddr == "0xd093219b4b2be6c44461f1bb32a70b81c496bc14655e7e81d2687f3d77d085da") { // cetus_worker_wusdc_cetus_worker_info
+          lyf_bounty_amount_farming += 2.588900667 + 392.667336261 
+        } else if (workerInfoAddr == "0xed1bc37595a30e98c984a1e2c4860babf3420bffd9f4333ffc6fa22f2f9099b8") { // cetus_worker_hasui_sui_worker_info
+          lyf_bounty_amount_farming += 0.0028575 
+        } else if (workerInfoAddr == "0x7a41fbf19809f80fd1a7282b218ec8326dfaadc2ad20604d052c12d5076596b4") { // cetus_worker_sui_sca_worker_info
+          lyf_bounty_amount_base += 30.242805993 + 8.853680676 
+          lyf_bounty_amount_farming += 11.198748955 + 530.849823783 
+        } else if (workerInfoAddr == "0x18d1556fddf2eaacfe922b3ce3a3c339d19363d190b3e0c22b6291ab1cf57d6c") { // cetus_worker_sui_usdc_worker_info
+          lyf_bounty_amount_base += 55.337232931 
+          lyf_bounty_amount_farming += 9.918433 
+        } else if (workerInfoAddr == "0x89a808d0ba894599b89e7d8010682ce937af991fafebecb11667bb11d407d8c3") { // cetus_worker_sui_buck_worker_info
+          lyf_bounty_amount_base += 4.591460438  
+          lyf_bounty_amount_farming += 0.21568191
+        } else if (workerInfoAddr == "0x9b0e6176f25aeff94388fcf2c7d98ca481997f9e08160875263c4c50b669d242") { // cetus_worker_wusdc_usdc_worker_info
+          lyf_bounty_amount_farming += 493.935603  
+        } else if (workerInfoAddr == "0x6759e2cb781a5a4f47b8b55684b1ab87ba46a7ff770a3e2f2c42cf94fb306d76") { // cetus_worker_wusdc_usdc_worker_info
+          lyf_bounty_amount_base += 4.849358 
+          lyf_bounty_amount_farming += 4.935888  
+        } else if (workerInfoAddr ==  "0x7b62b4ea193bb6abf99380b3ad341db84ee28c289bf624c16fb6e7eed21ae988") { // cetus_worker_cetus_usdc_worker_info
+          lyf_bounty_amount_base += 21.132569472 
+        } else if (workerInfoAddr ==  "0x9f3086aaa1f3790b06bb01c0077d0a709cdb234fbae13c70fa5fdeafacb119aa") { // cetus_worker_sca_sui_worker_info
+          lyf_bounty_amount_base += 204.28811979 
+          lyf_bounty_amount_farming += 3.288753614 
+        } else if (workerInfoAddr ==  "0x05d0e4b408c1a66bc7ed21a591970962f7e60ebc569a35ff1c61cbb2cdbf3832") { // cetus_worker_buck_usdc_worker_info
+          lyf_bounty_amount_base += 8.314615007  
+          lyf_bounty_amount_farming += 879.057951  
+        } else if (workerInfoAddr ==  "0xae7c55844e42ef1296af174ae10c247d091fd6be87a718a34af2f9dffaf05fc8") { // cetus_worker_buck_sui_worker_info
+          lyf_bounty_amount_base += 0.003051127  
+          lyf_bounty_amount_farming += 3.752369645 
+        } else if (workerInfoAddr ==  "0x44bff32bda79532beafeb35ce80f5673b03bc3411229b6bb55d368827271ea9f") { // cetus_worker_usdc_sui_worker_info
+          lyf_bounty_amount_base += 65.95147   
+          lyf_bounty_amount_farming += 31.452353557  
+        } else if (workerInfoAddr ==  "0xc3f471085526079f294d8395cc078393a7e7f8f750d6d7871679c58bfab38ac8") { // cetus_worker_usdc_usdt_worker_info
+          lyf_bounty_amount_base += 65.302081    
+          lyf_bounty_amount_farming += 0.224893   
+        } else if (workerInfoAddr ==  "0x5dfdcaaa330e31605b8444f0d65d3e46fd2d0f4addf44d2284d05b1225ab2dca") { // cetus_worker_usdc_cetus_worker_info
+          lyf_bounty_amount_farming += 383.742297962   
+        } else if (workerInfoAddr ==  "0x6b65414a6244fdbd71d0e1fc8e0a27c717f68db51faf5a7cce7256abae9a320e") { // cetus_worker_usdc_wusdc_worker_info
+          lyf_bounty_amount_base += 2.785156    
+        } else if (workerInfoAddr ==  "0x1c0a2e9e57e51b8f3557c3a6a1163b4909d9a14516ad7ecf7dd7814e7328d6fc") { // cetus_worker_usdc_buck_worker_info
+          lyf_bounty_amount_base += 145.44525 
+          lyf_bounty_amount_farming += 0.074098078 
+        }
+      } else if (ctx.checkpoint >= 122460676 && ctx.checkpoint < 152567410) {
+        if (workerInfoAddr == "0x3d946af3a3c0bec5f232541accf2108b97326734e626f704dda1dfb7450deb4c") { // cetus_worker_sui_wusdc_worker_info
+          lyf_bounty_amount_base += 234.05498811 + 617.654678904 + 373.471966116 + 149.788466622 + 337.608564779 + 190.727072161 + 497.246800172 + 1621.432414741
+                                    + 1629.644628357 + 58.540725677 
+          lyf_bounty_amount_farming += 4.816902 + 250.064697 
+        } else if (workerInfoAddr == "0xc28878cfc99628743b13eebca9bdff703daeccb285f8c6ea48120b06f4079926") { // cetus_worker_wusdc_usdt_worker_info
+          lyf_bounty_amount_base += 24.559492 + 1209.94069 + 275.241564
+          lyf_bounty_amount_farming += 0.03312 + 9.425678 
+        } else if (workerInfoAddr ==  "0x1774ca4f9e37f37c6b0df9c7f9526adc67113532eb4eaa07f36942092c8e5f51") { // cetus_worker_wusdc_weth_worker_info
+          lyf_bounty_amount_base += 0.018202 + 0.093351 + 51.541006 + 25.520089 
+          lyf_bounty_amount_farming += 0.00051611 + 0.00772854 
+        } else if (workerInfoAddr == "0x98f354c9e166862f079aaadd5e85940c55c440a8461e8e468513e2a86106042c") { // cetus_worker_wusdc_sui_worker_info
+          lyf_bounty_amount_base += 14.913658 + 104.807058 + 28.427997 + 33.093834 + 35.35516 + 128.304062 + 46.785203 
+          lyf_bounty_amount_farming += 9.903149248 + 399.640630603 + 124.410474194 + 211.686159186 + 290.965774938 + 449.207588479 + 12.300582296 
+        } else if (workerInfoAddr == "0x3f99d841487141e46602424b1b4125751a2df29a23b65f6c56786f3679f2c2c1") { // cetus_worker_usdt_wusdc_worker_info
+          lyf_bounty_amount_base += 20.772669 + 0.233152 
+          lyf_bounty_amount_farming += 0.145496 
+        } else if (workerInfoAddr == "0xbeb69ca36f0ab6cb87247a366f50aab851180332216730e63e983ca0e617f326") { // cetus_worker_weth_wusdc_worker_info
+          lyf_bounty_amount_base += 0.02010501 + 0.06229361 + 0.00008385 + 0.00886397 
+          lyf_bounty_amount_farming += 238.066171 + 26.145011 
+        } else if (workerInfoAddr == "0x83d7639b08ffc1408f4383352a2070b2f58328caa7fbbdfa42ec5f3cf4694a5d") { // cetus_worker_sui_cetus_worker_info
+          lyf_bounty_amount_base += 0.865561636 + 1.078166473 
+          lyf_bounty_amount_farming += 15.752826815 + 8.546183514 
+        } else if (workerInfoAddr == "0xc792fa9679b2f73d8debad2963b4cdf629cf78edcab78e2b8c3661b91d7f6a45") { // cetus_worker_sui_hasui_worker_info
+          lyf_bounty_amount_base += 0.012178072 
+        } else if (workerInfoAddr ==  "0x88af306756ce514c6a70b378336489f8773ed48f8880d3171a60c2ecb8e7a5ec") { // cetus_worker_cetus_wusdc_worker_info
+          lyf_bounty_amount_base += 0.286531 + 788.737622021 
+          lyf_bounty_amount_farming += 0.012975   
+        } else if (workerInfoAddr == "0xd093219b4b2be6c44461f1bb32a70b81c496bc14655e7e81d2687f3d77d085da") { // cetus_worker_wusdc_cetus_worker_info
+          lyf_bounty_amount_farming += 2.588900667 + 392.667336261 
+        } else if (workerInfoAddr == "0xed1bc37595a30e98c984a1e2c4860babf3420bffd9f4333ffc6fa22f2f9099b8") { // cetus_worker_hasui_sui_worker_info
+          lyf_bounty_amount_farming += 0.0028575 
+        } else if (workerInfoAddr == "0x7a41fbf19809f80fd1a7282b218ec8326dfaadc2ad20604d052c12d5076596b4") { // cetus_worker_sui_sca_worker_info
+          lyf_bounty_amount_base += 30.242805993 + 8.853680676 + 15.056800318 
+          lyf_bounty_amount_farming += 11.198748955 + 530.849823783 + 448.927939036 
+        } else if (workerInfoAddr == "0x18d1556fddf2eaacfe922b3ce3a3c339d19363d190b3e0c22b6291ab1cf57d6c") { // cetus_worker_sui_usdc_worker_info
+          lyf_bounty_amount_base += 55.337232931 + 164.887684294 
+          lyf_bounty_amount_farming += 9.918433 + 507.633365 
+        } else if (workerInfoAddr == "0x89a808d0ba894599b89e7d8010682ce937af991fafebecb11667bb11d407d8c3") { // cetus_worker_sui_buck_worker_info
+          lyf_bounty_amount_base += 4.591460438 + 66.295544844   
+          lyf_bounty_amount_farming += 0.21568191 + 102.714316274 
+        } else if (workerInfoAddr == "0x9b0e6176f25aeff94388fcf2c7d98ca481997f9e08160875263c4c50b669d242") { // cetus_worker_wusdc_usdc_worker_info
+          lyf_bounty_amount_base += 0.798463 
+          lyf_bounty_amount_farming += 493.935603 + 0.813168 
+        } else if (workerInfoAddr == "0x6759e2cb781a5a4f47b8b55684b1ab87ba46a7ff770a3e2f2c42cf94fb306d76") { // cetus_worker_wusdc_usdc_worker_info
+          lyf_bounty_amount_base += 4.849358 + 33.928655 
+          lyf_bounty_amount_farming += 4.935888 + 35.359184 
+        } else if (workerInfoAddr ==  "0x7b62b4ea193bb6abf99380b3ad341db84ee28c289bf624c16fb6e7eed21ae988") { // cetus_worker_cetus_usdc_worker_info
+          lyf_bounty_amount_base += 21.132569472 + 135.436878918 
+          lyf_bounty_amount_farming += 10.160491 
+        } else if (workerInfoAddr ==  "0x9f3086aaa1f3790b06bb01c0077d0a709cdb234fbae13c70fa5fdeafacb119aa") { // cetus_worker_sca_sui_worker_info
+          lyf_bounty_amount_base += 204.28811979 + 112.833567681 
+          lyf_bounty_amount_farming += 3.288753614 + 3.963059557 
+        } else if (workerInfoAddr ==  "0x05d0e4b408c1a66bc7ed21a591970962f7e60ebc569a35ff1c61cbb2cdbf3832") { // cetus_worker_buck_usdc_worker_info
+          lyf_bounty_amount_base += 8.314615007 + 547.731429996 
+          lyf_bounty_amount_farming += 879.057951 + 1197.775522 
+        } else if (workerInfoAddr ==  "0xae7c55844e42ef1296af174ae10c247d091fd6be87a718a34af2f9dffaf05fc8") { // cetus_worker_buck_sui_worker_info
+          lyf_bounty_amount_base += 0.003051127 + 32.856299737  
+          lyf_bounty_amount_farming += 3.752369645 + 22.607759477 
+        } else if (workerInfoAddr ==  "0x44bff32bda79532beafeb35ce80f5673b03bc3411229b6bb55d368827271ea9f") { // cetus_worker_usdc_sui_worker_info
+          lyf_bounty_amount_base += 65.95147 + 1160.389302
+          lyf_bounty_amount_farming += 31.452353557 + 354.106920307 
+        } else if (workerInfoAddr ==  "0xc3f471085526079f294d8395cc078393a7e7f8f750d6d7871679c58bfab38ac8") { // cetus_worker_usdc_usdt_worker_info
+          lyf_bounty_amount_base += 65.302081 + 398.120921
+          lyf_bounty_amount_farming += 0.224893 + 61.360648
+        } else if (workerInfoAddr ==  "0x5dfdcaaa330e31605b8444f0d65d3e46fd2d0f4addf44d2284d05b1225ab2dca") { // cetus_worker_usdc_cetus_worker_info
+          lyf_bounty_amount_base += 1.176368
+          lyf_bounty_amount_farming += 383.742297962 + 16.250537094
+        } else if (workerInfoAddr ==  "0x6b65414a6244fdbd71d0e1fc8e0a27c717f68db51faf5a7cce7256abae9a320e") { // cetus_worker_usdc_wusdc_worker_info
+          lyf_bounty_amount_base += 2.785156 + 0.798614 
+          lyf_bounty_amount_farming += 0.777693 
+        } else if (workerInfoAddr ==  "0x1c0a2e9e57e51b8f3557c3a6a1163b4909d9a14516ad7ecf7dd7814e7328d6fc") { // cetus_worker_usdc_buck_worker_info
+          lyf_bounty_amount_base += 145.44525 + 16.49404 
+          lyf_bounty_amount_farming += 0.074098078 + 6.280984326 
+        } else if (workerInfoAddr ==  "0x090d1bbf706bfdb00dfa7f2faeba793ccff87c2845f23312ed94c3f6a5aa02fd") { // cetus_worker_usdc_suiusdt_worker_info
+          lyf_bounty_amount_base += 5925.959861  
+          lyf_bounty_amount_farming += 329.875721 
+        } else if (workerInfoAddr ==  "0x85b95d5c30f481e45e51493771140d11ccdd28ca8fdf2a9abb0431d31b7298d0") { // cetus_worker_usdc_fdusd_1_worker_info
+          lyf_bounty_amount_base += 182.968745   
+          lyf_bounty_amount_farming += 226.776853 
+        } else if (workerInfoAddr ==  "0xf658a0a9eb06b349a5493100094066c0b3548c18545ae5b7607748d1dcb997ca") { // cetus_worker_usdc_fdusd_2_worker_info
+          lyf_bounty_amount_base += 4.419655    
+          lyf_bounty_amount_farming += 4.705771  
+        } else if (workerInfoAddr ==  "0x2ce694787928598ad30daf85d68b26d1fb4e271385201576f76a81381281e843") { // cetus_worker_usdc_fdusd_3_worker_info
+          lyf_bounty_amount_base += 3.148213     
+          lyf_bounty_amount_farming += 2.882779 
+        } else if (workerInfoAddr ==  "0x0547da166a7dbc7fa9f6c67c48e20651fbbe748f4eb4be984f4062889e3a837c") { // cetus_worker_usdc_fdusd_4_worker_info
+          lyf_bounty_amount_base += 3.286029      
+          lyf_bounty_amount_farming += 3.067245  
+        } else if (workerInfoAddr ==  "0x0c4e2689734925f4d760d4feb91e32542d67a56a27f62896ce2f682bb72bea90") { // cetus_worker_usdc_fdusd_5_worker_info
+          lyf_bounty_amount_base += 0.00108       
+          lyf_bounty_amount_farming += 0.000814   
+        } else if (workerInfoAddr ==  "0x8c0684fa6a81c15f2956e5d01b66a8794182935c400fad9b78414db2e0127b98") { // cetus_worker_usdc_fdusd_6_worker_info
+          lyf_bounty_amount_base += 0.001185        
+          lyf_bounty_amount_farming += 0.000892    
+        } else if (workerInfoAddr ==  "0xe9c2b3d537084d20c1cb6c61f567f4b7f38aa890db8b76a92e5ebab3625fb3d3") { // cetus_worker_suiusdt_usdc_worker_info
+          lyf_bounty_amount_base += 1.536293         
+          lyf_bounty_amount_farming += 28.533126 
+        } else if (workerInfoAddr ==  "0xa04a6445403ad44a23d9828db39057d08580689db40dc413919c5e13af94f395") { // cetus_worker_fdusd_usdc_worker_info
+          lyf_bounty_amount_base += 5.354928          
+          lyf_bounty_amount_farming += 4.120407 
+        }
+      } else if (ctx.checkpoint >= 152567410) {
+        if (workerInfoAddr == "0x89a808d0ba894599b89e7d8010682ce937af991fafebecb11667bb11d407d8c3") { // cetus_worker_sui_buck_worker_info
+          lyf_bounty_amount_base += 4.591460438 + 66.295544844 + 66.547030645 
+          lyf_bounty_amount_farming += 0.21568191 + 102.714316274 + 73.835083571 
+        } else if (workerInfoAddr == "0x98f354c9e166862f079aaadd5e85940c55c440a8461e8e468513e2a86106042c") { // cetus_worker_wusdc_sui_worker_info
+          lyf_bounty_amount_base += 14.913658 + 104.807058 + 28.427997 + 33.093834 + 35.35516 + 128.304062 + 46.785203 + 1.281275 
+          lyf_bounty_amount_farming += 9.903149248 + 399.640630603 + 124.410474194 + 211.686159186 + 290.965774938 + 449.207588479 + 12.300582296 + 0.511030025 
+        } else if (workerInfoAddr == "0xc28878cfc99628743b13eebca9bdff703daeccb285f8c6ea48120b06f4079926") { // cetus_worker_wusdc_usdt_worker_info
+          lyf_bounty_amount_base += 24.559492 + 1209.94069 + 275.241564 + 0.474415 
+          lyf_bounty_amount_farming += 0.03312 + 9.425678 + 0.519984 
+        } else if (workerInfoAddr ==  "0x1774ca4f9e37f37c6b0df9c7f9526adc67113532eb4eaa07f36942092c8e5f51") { // cetus_worker_wusdc_weth_worker_info
+          lyf_bounty_amount_base += 0.018202 + 0.093351 + 51.541006 + 25.520089 + 0.846622 
+          lyf_bounty_amount_farming += 0.00051611 + 0.00772854 + 0.00046739 
+        } else if (workerInfoAddr == "0x6759e2cb781a5a4f47b8b55684b1ab87ba46a7ff770a3e2f2c42cf94fb306d76") { // cetus_worker_wusdc_usdc_worker_info
+          lyf_bounty_amount_base += 4.849358 + 33.928655 + 20.423696 
+          lyf_bounty_amount_farming += 4.935888 + 35.359184 + 20.684548 
+        } else if (workerInfoAddr == "0xbeb69ca36f0ab6cb87247a366f50aab851180332216730e63e983ca0e617f326") { // cetus_worker_weth_wusdc_worker_info
+          lyf_bounty_amount_base += 0.02010501 + 0.06229361 + 0.00008385 + 0.00886397 + 0.0020114 
+          lyf_bounty_amount_farming += 238.066171 + 26.145011 + 3.935606 
+        } else if (workerInfoAddr ==  "0x9f3086aaa1f3790b06bb01c0077d0a709cdb234fbae13c70fa5fdeafacb119aa") { // cetus_worker_sca_sui_worker_info
+          lyf_bounty_amount_base += 204.28811979 + 112.833567681 + 111.681920933 
+          lyf_bounty_amount_farming += 3.288753614 + 3.963059557 + 3.934077388 
+        } else if (workerInfoAddr ==  "0x05d0e4b408c1a66bc7ed21a591970962f7e60ebc569a35ff1c61cbb2cdbf3832") { // cetus_worker_buck_usdc_worker_info
+          lyf_bounty_amount_base += 8.314615007 + 547.731429996 + 168.069139047 
+          lyf_bounty_amount_farming += 879.057951 + 1197.775522 + 829.174422 
+        } else if (workerInfoAddr ==  "0xae7c55844e42ef1296af174ae10c247d091fd6be87a718a34af2f9dffaf05fc8") { // cetus_worker_buck_sui_worker_info
+          lyf_bounty_amount_base += 0.003051127 + 32.856299737 + 61.439820424 
+          lyf_bounty_amount_farming += 3.752369645 + 22.607759477 + 51.744064889 
+        } else if (workerInfoAddr ==  "0x44bff32bda79532beafeb35ce80f5673b03bc3411229b6bb55d368827271ea9f") { // cetus_worker_usdc_sui_worker_info
+          lyf_bounty_amount_base += 65.95147 + 1160.389302 + 357.518229 
+          lyf_bounty_amount_farming += 31.452353557 + 354.106920307 + 132.338939157 
+        } else if (workerInfoAddr ==  "0xc3f471085526079f294d8395cc078393a7e7f8f750d6d7871679c58bfab38ac8") { // cetus_worker_usdc_usdt_worker_info
+          lyf_bounty_amount_base += 65.302081 + 398.120921 + 188.286669 
+          lyf_bounty_amount_farming += 0.224893 + 61.360648 + 15.45465 
+        } else if (workerInfoAddr ==  "0x1c0a2e9e57e51b8f3557c3a6a1163b4909d9a14516ad7ecf7dd7814e7328d6fc") { // cetus_worker_usdc_buck_worker_info
+          lyf_bounty_amount_base += 145.44525 + 16.49404 + 45.563417 
+          lyf_bounty_amount_farming += 0.074098078 + 6.280984326 + 10.253157034 
+        } else if (workerInfoAddr ==  "0x27e235491f516aaa2b6d7a4b1fd402a518f3da93d1e208ec9e7c072b4cf32e0a") { // cetus_worker_usdc_wusdc_worker_info
+          lyf_bounty_amount_base += 21.377129 
+          lyf_bounty_amount_farming += 21.538665  
+        } else if (workerInfoAddr ==  "0x090d1bbf706bfdb00dfa7f2faeba793ccff87c2845f23312ed94c3f6a5aa02fd") { // cetus_worker_usdc_suiusdt_worker_info
+          lyf_bounty_amount_base += 5925.959861 + 6235.885862 
+          lyf_bounty_amount_farming += 329.875721 + 242.369327 
+        } else if (workerInfoAddr ==  "0x85b95d5c30f481e45e51493771140d11ccdd28ca8fdf2a9abb0431d31b7298d0") { // cetus_worker_usdc_fdusd_1_worker_info
+          lyf_bounty_amount_base += 182.968745 + 516.626712 
+          lyf_bounty_amount_farming += 226.776853 + 448.770736 
+        } else if (workerInfoAddr ==  "0xf658a0a9eb06b349a5493100094066c0b3548c18545ae5b7607748d1dcb997ca") { // cetus_worker_usdc_fdusd_2_worker_info
+          lyf_bounty_amount_base += 4.419655 + 474.881054 
+          lyf_bounty_amount_farming += 4.705771 + 403.67926 
+        } else if (workerInfoAddr ==  "0x2ce694787928598ad30daf85d68b26d1fb4e271385201576f76a81381281e843") { // cetus_worker_usdc_fdusd_3_worker_info
+          lyf_bounty_amount_base += 3.148213 + 363.101248  
+          lyf_bounty_amount_farming += 2.882779 + 332.483768 
+        } else if (workerInfoAddr ==  "0x0547da166a7dbc7fa9f6c67c48e20651fbbe748f4eb4be984f4062889e3a837c") { // cetus_worker_usdc_fdusd_4_worker_info
+          lyf_bounty_amount_base += 3.286029 + 472.543065 
+          lyf_bounty_amount_farming += 3.067245 + 402.149059
+        } else if (workerInfoAddr ==  "0x0c4e2689734925f4d760d4feb91e32542d67a56a27f62896ce2f682bb72bea90") { // cetus_worker_usdc_fdusd_5_worker_info
+          lyf_bounty_amount_base += 0.00108 + 519.66731
+          lyf_bounty_amount_farming += 0.000814 + 450.078236
+        } else if (workerInfoAddr ==  "0x8c0684fa6a81c15f2956e5d01b66a8794182935c400fad9b78414db2e0127b98") { // cetus_worker_usdc_fdusd_6_worker_info
+          lyf_bounty_amount_base += 0.001185 + 509.137456 
+          lyf_bounty_amount_farming += 0.000892 + 436.814468 
+        } else if (workerInfoAddr ==  "0xf823b1460defefa6f3923e4f4eb93795f421756de29afed344ddd6d6dd91be29") { // cetus_worker_usdc_usdy_worker_info
+          lyf_bounty_amount_base += 275.92847 
+          lyf_bounty_amount_farming += 4.218704 
+        } else if (workerInfoAddr ==  "0xc602fd3f71b40e8ba3c7e01f8e42987cfb660e282fc645952d03ae59a075aea2") { // cetus_worker_usdc_suiusdt_2_worker_info
+          lyf_bounty_amount_base += 887.464786 
+          lyf_bounty_amount_farming += 36.451941  
+        } else if (workerInfoAddr ==  "0xceba2697cb06fd3f1b5647bc192f30a96749ee43262ff4bd7ea9d5a2d00cee40") { // cetus_worker_usdc_ausd_worker_info
+          lyf_bounty_amount_base += 2.28054 
+          lyf_bounty_amount_farming += 0.152465   
+        } else if (workerInfoAddr ==  "0xe9c2b3d537084d20c1cb6c61f567f4b7f38aa890db8b76a92e5ebab3625fb3d3") { // cetus_worker_suiusdt_usdc_worker_info
+          lyf_bounty_amount_base += 1.536293 + 7.546642 
+          lyf_bounty_amount_farming += 28.533126 + 162.986799 
+        } else if (workerInfoAddr ==  "0x01faaad863c448800d2b7223609436c2cdf001c4c397d66eb59bb89a82828b6d") { // cetus_worker_suiusdt_usdc_2_worker_info
+          lyf_bounty_amount_base += 0.001967  
+          lyf_bounty_amount_farming += 0.024329  
+        } else if (workerInfoAddr ==  "0xa04a6445403ad44a23d9828db39057d08580689db40dc413919c5e13af94f395") { // cetus_worker_fdusd_usdc_worker_info
+          lyf_bounty_amount_base += 5.354928 + 42.209619 
+          lyf_bounty_amount_farming += 4.120407 + 51.91123 
+        } else if (workerInfoAddr ==  "0x3ef9304468faecfaf7d2317960b9e69fb85ea2610cc089244f3c0d54abf167e7") { // cetus_worker_usdy_usdc_worker_info
+          lyf_bounty_amount_base += 0.009606 
+          lyf_bounty_amount_farming += 1.654867 
+        } else if (workerInfoAddr ==  "0x989baaba20b51b6aec07bd0c235ee9a2ee3e709071d34c547abf84841b4a5d5b") { // cetus_worker_ausd_usdc_worker_info
+          lyf_bounty_amount_base += 0.000804  
+          lyf_bounty_amount_farming += 0.025658 
+        } else if (workerInfoAddr ==  "0x9af96eeb7ca6c1d17cad76607cd04b4ee712908345b64d66e9d3df9f053c5b82") { // cetus_worker_stablefarm_sui_hasui_worker_info
+          lyf_bounty_amount_base += 49.231234961   
+          lyf_bounty_amount_farming += 7.458195331  
+        } else if (workerInfoAddr ==  "0x4e0f84b2d00700102553482e46ec08bd65b29e0d4fc9af8b39b0b25e299fcf1f") { // cetus_worker_stablefarm_hasui_sui_worker_info
+          lyf_bounty_amount_base += 0.023678472 
+          lyf_bounty_amount_farming += 0.183556956   
+        } else if (workerInfoAddr == "0x3d946af3a3c0bec5f232541accf2108b97326734e626f704dda1dfb7450deb4c") { // cetus_worker_sui_wusdc_worker_info
+          lyf_bounty_amount_base += 234.05498811 + 617.654678904 + 373.471966116 + 149.788466622 + 337.608564779 + 190.727072161 + 497.246800172 + 1621.432414741
+                                    + 1629.644628357 + 58.540725677 + 5.010045266 
+          lyf_bounty_amount_farming += 4.816902 + 250.064697 + 13.550188 
+        } else if (workerInfoAddr == "0x7a41fbf19809f80fd1a7282b218ec8326dfaadc2ad20604d052c12d5076596b4") { // cetus_worker_sui_sca_worker_info
+          lyf_bounty_amount_base += 30.242805993 + 8.853680676 + 15.056800318 + 8.558741774 
+          lyf_bounty_amount_farming += 11.198748955 + 530.849823783 + 448.927939036 + 246.359276464 
+        } else if (workerInfoAddr == "0x18d1556fddf2eaacfe922b3ce3a3c339d19363d190b3e0c22b6291ab1cf57d6c") { // cetus_worker_sui_usdc_worker_info
+          lyf_bounty_amount_base += 55.337232931 + 164.887684294 + 139.266276924 
+          lyf_bounty_amount_farming += 9.918433 + 507.633365 + 384.609784 
+        } else if (workerInfoAddr == "0x3f99d841487141e46602424b1b4125751a2df29a23b65f6c56786f3679f2c2c1") { // cetus_worker_usdt_wusdc_worker_info
+          lyf_bounty_amount_base += 20.772669 + 0.233152 
+          lyf_bounty_amount_farming += 0.145496 
+        } else if (workerInfoAddr == "0x83d7639b08ffc1408f4383352a2070b2f58328caa7fbbdfa42ec5f3cf4694a5d") { // cetus_worker_sui_cetus_worker_info
+          lyf_bounty_amount_base += 0.865561636 + 1.078166473 
+          lyf_bounty_amount_farming += 15.752826815 + 8.546183514 
+        } else if (workerInfoAddr == "0xc792fa9679b2f73d8debad2963b4cdf629cf78edcab78e2b8c3661b91d7f6a45") { // cetus_worker_sui_hasui_worker_info
+          lyf_bounty_amount_base += 0.012178072 
+        } else if (workerInfoAddr ==  "0x88af306756ce514c6a70b378336489f8773ed48f8880d3171a60c2ecb8e7a5ec") { // cetus_worker_cetus_wusdc_worker_info
+          lyf_bounty_amount_base += 0.286531 + 788.737622021 
+          lyf_bounty_amount_farming += 0.012975   
+        } else if (workerInfoAddr == "0xd093219b4b2be6c44461f1bb32a70b81c496bc14655e7e81d2687f3d77d085da") { // cetus_worker_wusdc_cetus_worker_info
+          lyf_bounty_amount_farming += 2.588900667 + 392.667336261 
+        } else if (workerInfoAddr == "0xed1bc37595a30e98c984a1e2c4860babf3420bffd9f4333ffc6fa22f2f9099b8") { // cetus_worker_hasui_sui_worker_info
+          lyf_bounty_amount_farming += 0.0028575 
+        } else if (workerInfoAddr == "0x9b0e6176f25aeff94388fcf2c7d98ca481997f9e08160875263c4c50b669d242") { // cetus_worker_wusdc_usdc_worker_info
+          lyf_bounty_amount_base += 0.798463 
+          lyf_bounty_amount_farming += 493.935603 + 0.813168 
+        } else if (workerInfoAddr ==  "0x7b62b4ea193bb6abf99380b3ad341db84ee28c289bf624c16fb6e7eed21ae988") { // cetus_worker_cetus_usdc_worker_info
+          lyf_bounty_amount_base += 21.132569472 + 135.436878918 
+          lyf_bounty_amount_farming += 10.160491 
+        } else if (workerInfoAddr ==  "0x5dfdcaaa330e31605b8444f0d65d3e46fd2d0f4addf44d2284d05b1225ab2dca") { // cetus_worker_usdc_cetus_worker_info
+          lyf_bounty_amount_base += 1.176368
+          lyf_bounty_amount_farming += 383.742297962 + 16.250537094
+        } else if (workerInfoAddr ==  "0x6b65414a6244fdbd71d0e1fc8e0a27c717f68db51faf5a7cce7256abae9a320e") { // cetus_worker_usdc_wusdc_worker_info
+          lyf_bounty_amount_base += 2.785156 + 0.798614 
+          lyf_bounty_amount_farming += 0.777693 
+        }
+      }
 
-//       const coinAmounts = getCoinAmountFromLiquidity(new BN(totalLiquidity.toString()), new BN(currentSqrtPrice.toString()), lowerSqrtPriceX64, upperSqrtPriceX64, false)
+      const farmPairName = coin_symbol_a + '-' + coin_symbol_b
 
-//       const coinAamount = coinAmounts.coinA
-//       const coinBamount = coinAmounts.coinB
-//       // console.log("coinAamount:", coinAamount.toString(), ", coinBamount:", coinBamount.toString())
+      if (isReverseWorkerInfo(workerInfoAddr)) { // if reverse, coin A is farming , coin B is base
+        lyf_bounty_usd = lyf_bounty_amount_base * priceB! + lyf_bounty_amount_farming * priceA!
+        ctx.meter.Gauge("lyf_bounty_amount").record(lyf_bounty_amount_base, {farmPairName , coin_symbol_b, project: "mole" })
+        ctx.meter.Gauge("lyf_bounty_amount").record(lyf_bounty_amount_farming, {farmPairName , coin_symbol_a, project: "mole" })
 
-//       const priceA = await getPriceByType(SuiNetwork.MAIN_NET, coinTypeA, ctx.timestamp)
-//       const priceB = await getPriceByType(SuiNetwork.MAIN_NET, coinTypeB, ctx.timestamp)
+      } else { // // if no reverse, coin A is baes , coin B is farming
+        lyf_bounty_usd = lyf_bounty_amount_base * priceA! + lyf_bounty_amount_farming * priceB!
+        ctx.meter.Gauge("lyf_bounty_amount").record(lyf_bounty_amount_base, {farmPairName , coin_symbol_a, project: "mole" })
+        ctx.meter.Gauge("lyf_bounty_amount").record(lyf_bounty_amount_farming, {farmPairName , coin_symbol_b, project: "mole" })
+      }
+      ctx.meter.Gauge("lyf_bounty_usd").record(lyf_bounty_usd, {farmPairName , project: "mole" })
 
-//       const lyf_usd_farm_usd = Number(coinAamount) * priceA! / Math.pow(10, coinInfoA.decimal) + Number(coinBamount) * priceB! / Math.pow(10, coinInfoB.decimal)
-
-//       // console.log("lyf_usd_farm_usd:", lyf_usd_farm_usd)
-
-//       const farmPairName = coin_symbol_a + '-' + coin_symbol_b
-
-//       ctx.meter.Gauge("lyf_usd_farm_usd").record(lyf_usd_farm_usd, {farmPairName , project: "mole" })
-    
-//       const total_share = Number(res!.total_share)
-//       console.log("total_share:", total_share)
-
-//       const sharesMap = workerInfoSharesMap.get(workerInfoAddr)!
-     
-//       for (let [key, value] of sharesMap) {
-//         const positionId = key
-//         const share = Number(value)
-
-//         const shareRatio = share / total_share
-//         console.log("shareRatio:", shareRatio)
-
-//         const lyf_usd_farm_user_usd = lyf_usd_farm_usd * shareRatio
-
-//         // let uid = ""
-//         // const positionMap = workerAddrUserMap.get(workerAddr)
-//         // if (positionMap) {
-//         //   uid = positionMap.get(positionId)!
-//         //   console.log("get theuid right:", uid)
-//         // } else {
-//         //   console.log("get nouid ", ", workerAddr:", workerAddr,  ", positionMap:", positionMap)
-//         // }
-
-//         ctx.meter.Gauge("lyf_usd_farm_user_usd").record(lyf_usd_farm_user_usd, {farmPairName, positionId, project: "mole" })
-//         console.log("lyf_usd_farm_user_usd:", lyf_usd_farm_user_usd, ", farmPairName:", farmPairName, ", positionId:", positionId )
-//       }
-    
-//     }
-//     catch (e) {
-//       console.log(`${e.message} error at ${JSON.stringify(self)}`)
-//     }
-//   }, 480, 1440, undefined, { owned: false })
-// }
-  
+    }
+    catch (e) {
+      console.log(`${e.message} error at ${JSON.stringify(self)}`)
+    }
+  }, 480, 1440, undefined, { owned: false })
+}
 
 
 
