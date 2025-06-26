@@ -5,6 +5,8 @@ export const LAUNCHPAD_MAINNET = "0x80d114c5d474eabc2eb2fcd1a0903f1eb5b5096a8dc4
 
 
 export const POOLS_MOLE_LIST = [
+    // Before Cetus Incident
+
     // cetus_clmm_pool_wusdc_sui
     "0xcf994611fd4c48e277ce3ffd4d4364c914af2c3cbb05f7bf6facd371de688630",
     // cetus_clmm_pool_usdt_wusdc: 
@@ -172,4 +174,20 @@ export const MOLE_WORKER_INFO_LIST = [
     "0xceba2697cb06fd3f1b5647bc192f30a96749ee43262ff4bd7ea9d5a2d00cee40",
     // cetus_worker_ausd_usdc_worker_info:
     "0x989baaba20b51b6aec07bd0c235ee9a2ee3e709071d34c547abf84841b4a5d5b",
+    
+    // -- - after cetus --- 
+      
+    // cetus_worker_usdc_suiusdt_2_worker_info: 
+    "0x85ad5f6b8dd39b2a9dbb05161a563db52f91d724390273a739199dbfa640405b",
+    // cetus_worker_suiusdt_usdc_2_worker_info:
+    "0x888821cfa0e8d3e4de4602d91b17ea2e156e534a233424611b8f27e5d4bac439",
+    // cetus_worker_usdc_buck_worker_info:
+     "0x567032b6d5a37897662294c6442d893ba3e5dfcd16ed7b1a6ccf8e69ae7de288",
+    // cetus_worker_buck_usdc_worker_info:
+    "0xaee16401df87f6c7dbe6397c960f6b7993f9d005e9d11cbda8f4d079e94cde8a",
+    // cetus_worker_stablefarm_hasui_sui_worker_info:
+    "0x19d8089f3168a7f07d0aca36ea428585025d64ce4aeeb8cdf50ee72213ef07da",
+    // cetus_worker_stablefarm_sui_hasui_worker_info:
+    "0x47b2a1ad2a87de3351f8e7d7ce39b529a15af53e7b4ba89c8c69781ba2f6829f",
+
 ]
