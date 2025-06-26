@@ -286,10 +286,6 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
     startCheckpoint: 145868343n
   })
   .onTimeInterval(async (self, _, ctx) => {
-     if (ctx.checkpoint > 159034012) {
-      return
-    }
-
     try {
       let res = await ctx.coder.decodeType(self, clmmPool.Pool.type())
       let retry = 0
