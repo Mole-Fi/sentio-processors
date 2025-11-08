@@ -98,16 +98,25 @@ SuiWrappedObjectProcessor.bind({
 
         // Borrowing interest = a * utilization + b
         let a, b
-        if (use_rate < 0.6) {
-          a = 0.183333333 
-          b = 0
-        } else if (use_rate >= 0.6 && use_rate < 0.95) {
-          a = 0 
-          b = 0.11
+
+        if (coin_symbol == 'SUI' || coin_symbol == 'haSUI' || coin_symbol == 'stSUI') {
+          if (use_rate < 0.6) {
+            a = 0.055
+            b = 0
+          } else if (use_rate >= 0.6 && use_rate < 1) {
+            a = 0 
+            b = 0.033
+          }
         } else {
-          a = 3
-          b = -2.74
+          if (use_rate < 0.6) {
+            a = 0.1666666 
+            b = 0
+          } else if (use_rate >= 0.6 && use_rate < 1) {
+            a = 0 
+            b = 0.10
+          }
         }
+        
         const savings_borrowing_interest =  a * use_rate + b
         ctx.meter.Gauge("savings_borrowing_interest").record(savings_borrowing_interest, { coin_symbol, coinType, project: "mole" })
 
@@ -116,7 +125,7 @@ SuiWrappedObjectProcessor.bind({
         // apr to apy
         const savings_lending_interest_apy =  Math.pow(1 + savings_lending_interest_apr / 365, 365) - 1
 
-        ctx.meter.Gauge("savings_lending_interest").record(savings_lending_interest_apy, { coin_symbol, coinType, project: "mole" })
+        ctx.meter.Gauge("savings_lending_interest").record(savings_lending_interest_apr, { coin_symbol, coinType, project: "mole" })
 
       }
     }
