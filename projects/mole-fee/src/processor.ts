@@ -296,7 +296,7 @@ constant.POOLS_MOLE_LIST.forEach((valueDexType, keyPoolId) => {
       if (valueDexType == 0) { // Cetus
         res = await ctx.coder.decodeType(self, clmmPool.Pool.type())
       } else if (valueDexType == 1) { // Bluefin
-        await ctx.coder.decodeType(self, bluefinPool.Pool.type())
+        res = await ctx.coder.decodeType(self, bluefinPool.Pool.type())
       } else {
         console.error("Wrong dex type:", valueDexType)
       }
@@ -307,7 +307,7 @@ constant.POOLS_MOLE_LIST.forEach((valueDexType, keyPoolId) => {
         if (valueDexType == 0) { // Cetus
           res = await ctx.coder.decodeType(self, clmmPool.Pool.type())
         } else if (valueDexType == 1) { // Bluefin
-          await ctx.coder.decodeType(self, bluefinPool.Pool.type())
+          res = await ctx.coder.decodeType(self, bluefinPool.Pool.type())
         } else {
           console.error("Wrong dex type:", valueDexType)
         }

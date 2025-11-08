@@ -1,0 +1,7315 @@
+{
+  "admin": {
+    "fileFormatVersion": 6,
+    "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+    "name": "admin",
+    "friends": [],
+    "structs": {
+      "AdminCap": {
+        "abilities": {
+          "abilities": [
+            "Key"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "UID",
+                "typeArguments": []
+              }
+            }
+          }
+        ]
+      },
+      "ProtocolFeeCap": {
+        "abilities": {
+          "abilities": [
+            "Key"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "UID",
+                "typeArguments": []
+              }
+            }
+          }
+        ]
+      }
+    },
+    "exposedFunctions": {
+      "add_reward_manager": {
+        "visibility": "Public",
+        "isEntry": true,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "admin",
+                "name": "AdminCap",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          "Address"
+        ],
+        "return": []
+      },
+      "add_seconds_to_reward_emission": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          "U64",
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "tx_context",
+                "name": "TxContext",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": []
+      },
+      "claim_protocol_fee": {
+        "visibility": "Public",
+        "isEntry": true,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "admin",
+                "name": "ProtocolFeeCap",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          "U64",
+          "U64",
+          "Address",
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "tx_context",
+                "name": "TxContext",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": []
+      },
+      "initialize_pool_reward": {
+        "visibility": "Public",
+        "isEntry": true,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          "U64",
+          "U64",
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "coin",
+              "name": "Coin",
+              "typeArguments": [
+                {
+                  "TypeParameter": 2
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          },
+          "U8",
+          "U64",
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "tx_context",
+                "name": "TxContext",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": []
+      },
+      "transer_admin_cap": {
+        "visibility": "Public",
+        "isEntry": true,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "admin",
+              "name": "AdminCap",
+              "typeArguments": []
+            }
+          },
+          "Address"
+        ],
+        "return": []
+      },
+      "transer_protocol_fee_cap": {
+        "visibility": "Public",
+        "isEntry": true,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "admin",
+              "name": "ProtocolFeeCap",
+              "typeArguments": []
+            }
+          },
+          "Address"
+        ],
+        "return": []
+      },
+      "update_pool_reward_emission": {
+        "visibility": "Public",
+        "isEntry": true,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          "U64",
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "coin",
+              "name": "Coin",
+              "typeArguments": [
+                {
+                  "TypeParameter": 2
+                }
+              ]
+            }
+          },
+          "U64",
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "tx_context",
+                "name": "TxContext",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": []
+      }
+    }
+  },
+  "bit_math": {
+    "fileFormatVersion": 6,
+    "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+    "name": "bit_math",
+    "friends": [],
+    "structs": {},
+    "exposedFunctions": {
+      "least_significant_bit": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          "U256"
+        ],
+        "return": [
+          "U8"
+        ]
+      },
+      "most_significant_bit": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          "U256"
+        ],
+        "return": [
+          "U8"
+        ]
+      }
+    }
+  },
+  "config": {
+    "fileFormatVersion": 6,
+    "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+    "name": "config",
+    "friends": [
+      {
+        "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+        "name": "admin"
+      }
+    ],
+    "structs": {
+      "GlobalConfig": {
+        "abilities": {
+          "abilities": [
+            "Store",
+            "Key"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "UID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "min_tick",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "max_tick",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "version",
+            "type": "U64"
+          },
+          {
+            "name": "reward_managers",
+            "type": {
+              "Vector": "Address"
+            }
+          }
+        ]
+      }
+    },
+    "exposedFunctions": {
+      "get_tick_range": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "set_reward_manager": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          "Address"
+        ],
+        "return": []
+      },
+      "verify_reward_manager": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          "Address"
+        ],
+        "return": [
+          "Bool"
+        ]
+      },
+      "verify_version": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": []
+      }
+    }
+  },
+  "constants": {
+    "fileFormatVersion": 6,
+    "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+    "name": "constants",
+    "friends": [],
+    "structs": {},
+    "exposedFunctions": {
+      "blue_reward_type": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "manager": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "max_u128": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U128"
+        ]
+      },
+      "max_u16": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U16"
+        ]
+      },
+      "max_u256": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U256"
+        ]
+      },
+      "max_u32": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U32"
+        ]
+      },
+      "max_u64": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "max_u8": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U8"
+        ]
+      },
+      "protocol_fee_share": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "q64": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U128"
+        ]
+      }
+    }
+  },
+  "errors": {
+    "fileFormatVersion": 6,
+    "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+    "name": "errors",
+    "friends": [],
+    "structs": {},
+    "exposedFunctions": {
+      "add_check_failed": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "insufficient_amount": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "insufficient_coin_balance": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "insufficient_liquidity": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "insufficient_pool_balance": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "invalid_coins": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "invalid_fee_growth": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "invalid_last_update_time": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "invalid_observation_timestamp": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "invalid_pool": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "invalid_price_limit": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "invalid_tick_range": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "invalid_timestamp": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "non_empty_position": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "not_authorized": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "overflow": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "pool_is_paused": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "position_does_not_belong_to_pool": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "reward_index_not_found": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "slippage_exceeds": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "swap_amount_exceeds": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "tick_score_out_of_bounds": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "update_rewards_info_check_failed": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      },
+      "version_mismatch": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          "U64"
+        ]
+      }
+    }
+  },
+  "events": {
+    "fileFormatVersion": 6,
+    "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+    "name": "events",
+    "friends": [
+      {
+        "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+        "name": "admin"
+      },
+      {
+        "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+        "name": "gateway"
+      },
+      {
+        "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+        "name": "pool"
+      },
+      {
+        "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+        "name": "position"
+      }
+    ],
+    "structs": {
+      "AdminCapTransferred": {
+        "abilities": {
+          "abilities": [
+            "Copy",
+            "Drop"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "owner",
+            "type": "Address"
+          }
+        ]
+      },
+      "AssetSwap": {
+        "abilities": {
+          "abilities": [
+            "Copy",
+            "Drop"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "pool_id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "ID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "a2b",
+            "type": "Bool"
+          },
+          {
+            "name": "amount_in",
+            "type": "U64"
+          },
+          {
+            "name": "amount_out",
+            "type": "U64"
+          },
+          {
+            "name": "pool_coin_a_amount",
+            "type": "U64"
+          },
+          {
+            "name": "pool_coin_b_amount",
+            "type": "U64"
+          },
+          {
+            "name": "fee",
+            "type": "U64"
+          },
+          {
+            "name": "before_liquidity",
+            "type": "U128"
+          },
+          {
+            "name": "after_liquidity",
+            "type": "U128"
+          },
+          {
+            "name": "before_sqrt_price",
+            "type": "U128"
+          },
+          {
+            "name": "after_sqrt_price",
+            "type": "U128"
+          },
+          {
+            "name": "current_tick",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "exceeded",
+            "type": "Bool"
+          },
+          {
+            "name": "sequence_number",
+            "type": "U128"
+          }
+        ]
+      },
+      "FlashSwap": {
+        "abilities": {
+          "abilities": [
+            "Copy",
+            "Drop"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "pool_id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "ID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "a2b",
+            "type": "Bool"
+          },
+          {
+            "name": "amount_in",
+            "type": "U64"
+          },
+          {
+            "name": "amount_out",
+            "type": "U64"
+          },
+          {
+            "name": "fee",
+            "type": "U64"
+          },
+          {
+            "name": "before_liquidity",
+            "type": "U128"
+          },
+          {
+            "name": "after_liquidity",
+            "type": "U128"
+          },
+          {
+            "name": "before_sqrt_price",
+            "type": "U128"
+          },
+          {
+            "name": "after_sqrt_price",
+            "type": "U128"
+          },
+          {
+            "name": "current_tick",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "exceeded",
+            "type": "Bool"
+          },
+          {
+            "name": "sequence_number",
+            "type": "U128"
+          }
+        ]
+      },
+      "LiquidityProvided": {
+        "abilities": {
+          "abilities": [
+            "Copy",
+            "Drop"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "pool_id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "ID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "position_id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "ID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "coin_a_amount",
+            "type": "U64"
+          },
+          {
+            "name": "coin_b_amount",
+            "type": "U64"
+          },
+          {
+            "name": "pool_coin_a_amount",
+            "type": "U64"
+          },
+          {
+            "name": "pool_coin_b_amount",
+            "type": "U64"
+          },
+          {
+            "name": "liquidity",
+            "type": "U128"
+          },
+          {
+            "name": "before_liquidity",
+            "type": "U128"
+          },
+          {
+            "name": "after_liquidity",
+            "type": "U128"
+          },
+          {
+            "name": "current_sqrt_price",
+            "type": "U128"
+          },
+          {
+            "name": "current_tick_index",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "lower_tick",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "upper_tick",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "sequence_number",
+            "type": "U128"
+          }
+        ]
+      },
+      "LiquidityRemoved": {
+        "abilities": {
+          "abilities": [
+            "Copy",
+            "Drop"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "pool_id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "ID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "position_id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "ID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "coin_a_amount",
+            "type": "U64"
+          },
+          {
+            "name": "coin_b_amount",
+            "type": "U64"
+          },
+          {
+            "name": "pool_coin_a_amount",
+            "type": "U64"
+          },
+          {
+            "name": "pool_coin_b_amount",
+            "type": "U64"
+          },
+          {
+            "name": "liquidity",
+            "type": "U128"
+          },
+          {
+            "name": "before_liquidity",
+            "type": "U128"
+          },
+          {
+            "name": "after_liquidity",
+            "type": "U128"
+          },
+          {
+            "name": "current_sqrt_price",
+            "type": "U128"
+          },
+          {
+            "name": "current_tick_index",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "lower_tick",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "upper_tick",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "sequence_number",
+            "type": "U128"
+          }
+        ]
+      },
+      "PoolCreated": {
+        "abilities": {
+          "abilities": [
+            "Copy",
+            "Drop"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "ID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "coin_a",
+            "type": {
+              "Struct": {
+                "address": "0x1",
+                "module": "string",
+                "name": "String",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "coin_a_symbol",
+            "type": {
+              "Struct": {
+                "address": "0x1",
+                "module": "string",
+                "name": "String",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "coin_a_decimals",
+            "type": "U8"
+          },
+          {
+            "name": "coin_a_url",
+            "type": {
+              "Struct": {
+                "address": "0x1",
+                "module": "string",
+                "name": "String",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "coin_b",
+            "type": {
+              "Struct": {
+                "address": "0x1",
+                "module": "string",
+                "name": "String",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "coin_b_symbol",
+            "type": {
+              "Struct": {
+                "address": "0x1",
+                "module": "string",
+                "name": "String",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "coin_b_decimals",
+            "type": "U8"
+          },
+          {
+            "name": "coin_b_url",
+            "type": {
+              "Struct": {
+                "address": "0x1",
+                "module": "string",
+                "name": "String",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "current_sqrt_price",
+            "type": "U128"
+          },
+          {
+            "name": "current_tick_index",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "tick_spacing",
+            "type": "U32"
+          },
+          {
+            "name": "fee_rate",
+            "type": "U64"
+          },
+          {
+            "name": "protocol_fee_share",
+            "type": "U64"
+          }
+        ]
+      },
+      "PositionClosed": {
+        "abilities": {
+          "abilities": [
+            "Copy",
+            "Drop"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "pool_id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "ID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "position_id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "ID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "tick_lower",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "tick_upper",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          }
+        ]
+      },
+      "PositionOpened": {
+        "abilities": {
+          "abilities": [
+            "Copy",
+            "Drop"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "pool_id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "ID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "position_id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "ID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "tick_lower",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "tick_upper",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          }
+        ]
+      },
+      "ProtocolFeeCapTransferred": {
+        "abilities": {
+          "abilities": [
+            "Copy",
+            "Drop"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "owner",
+            "type": "Address"
+          }
+        ]
+      },
+      "ProtocolFeeCollected": {
+        "abilities": {
+          "abilities": [
+            "Copy",
+            "Drop"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "pool_id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "ID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "sender",
+            "type": "Address"
+          },
+          {
+            "name": "destination",
+            "type": "Address"
+          },
+          {
+            "name": "coin_a_amount",
+            "type": "U64"
+          },
+          {
+            "name": "coin_b_amount",
+            "type": "U64"
+          },
+          {
+            "name": "pool_coin_a_amount",
+            "type": "U64"
+          },
+          {
+            "name": "pool_coin_b_amount",
+            "type": "U64"
+          },
+          {
+            "name": "sequence_number",
+            "type": "U128"
+          }
+        ]
+      },
+      "UpdatePoolRewardEmissionEvent": {
+        "abilities": {
+          "abilities": [
+            "Copy",
+            "Drop"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "pool_id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "ID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "reward_coin_symbol",
+            "type": {
+              "Struct": {
+                "address": "0x1",
+                "module": "string",
+                "name": "String",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "reward_coin_type",
+            "type": {
+              "Struct": {
+                "address": "0x1",
+                "module": "string",
+                "name": "String",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "reward_coin_decimals",
+            "type": "U8"
+          },
+          {
+            "name": "total_reward",
+            "type": "U64"
+          },
+          {
+            "name": "ended_at_seconds",
+            "type": "U64"
+          },
+          {
+            "name": "last_update_time",
+            "type": "U64"
+          },
+          {
+            "name": "reward_per_seconds",
+            "type": "U128"
+          },
+          {
+            "name": "sequence_number",
+            "type": "U128"
+          }
+        ]
+      },
+      "UserFeeCollected": {
+        "abilities": {
+          "abilities": [
+            "Copy",
+            "Drop"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "pool_id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "ID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "position_id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "ID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "coin_a_amount",
+            "type": "U64"
+          },
+          {
+            "name": "coin_b_amount",
+            "type": "U64"
+          },
+          {
+            "name": "pool_coin_a_amount",
+            "type": "U64"
+          },
+          {
+            "name": "pool_coin_b_amount",
+            "type": "U64"
+          },
+          {
+            "name": "sequence_number",
+            "type": "U128"
+          }
+        ]
+      },
+      "UserRewardCollected": {
+        "abilities": {
+          "abilities": [
+            "Copy",
+            "Drop"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "pool_id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "ID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "position_id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "ID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "reward_type",
+            "type": {
+              "Struct": {
+                "address": "0x1",
+                "module": "string",
+                "name": "String",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "reward_symbol",
+            "type": {
+              "Struct": {
+                "address": "0x1",
+                "module": "string",
+                "name": "String",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "reward_decimals",
+            "type": "U8"
+          },
+          {
+            "name": "reward_amount",
+            "type": "U64"
+          },
+          {
+            "name": "sequence_number",
+            "type": "U128"
+          }
+        ]
+      }
+    },
+    "exposedFunctions": {
+      "emit_admin_cap_transfer_event": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          "Address"
+        ],
+        "return": []
+      },
+      "emit_flash_swap_event": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          },
+          "Bool",
+          "U64",
+          "U64",
+          "U64",
+          "U128",
+          "U128",
+          "U128",
+          "U128",
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          "Bool",
+          "U128"
+        ],
+        "return": []
+      },
+      "emit_liquidity_provided_event": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          },
+          "U64",
+          "U64",
+          "U64",
+          "U64",
+          "U128",
+          "U128",
+          "U128",
+          "U128",
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          "U128"
+        ],
+        "return": []
+      },
+      "emit_liquidity_removed_event": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          },
+          "U64",
+          "U64",
+          "U64",
+          "U64",
+          "U128",
+          "U128",
+          "U128",
+          "U128",
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          "U128"
+        ],
+        "return": []
+      },
+      "emit_pool_created_event": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          },
+          "U8",
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          },
+          "U8",
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          },
+          "U128",
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          "U32",
+          "U64",
+          "U64"
+        ],
+        "return": []
+      },
+      "emit_position_close_event": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          }
+        ],
+        "return": []
+      },
+      "emit_position_open_event": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          }
+        ],
+        "return": []
+      },
+      "emit_protocol_fee_cap_transfer_event": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          "Address"
+        ],
+        "return": []
+      },
+      "emit_protocol_fee_collected": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          },
+          "Address",
+          "Address",
+          "U64",
+          "U64",
+          "U64",
+          "U64",
+          "U128"
+        ],
+        "return": []
+      },
+      "emit_swap_event": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          },
+          "Bool",
+          "U64",
+          "U64",
+          "U64",
+          "U64",
+          "U64",
+          "U128",
+          "U128",
+          "U128",
+          "U128",
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          "Bool",
+          "U128"
+        ],
+        "return": []
+      },
+      "emit_update_pool_reward_emission_event": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          },
+          "U8",
+          "U64",
+          "U64",
+          "U64",
+          "U128",
+          "U128"
+        ],
+        "return": []
+      },
+      "emit_user_fee_collected": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          },
+          "U64",
+          "U64",
+          "U64",
+          "U64",
+          "U128"
+        ],
+        "return": []
+      },
+      "emit_user_reward_collected": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          },
+          "U8",
+          "U64",
+          "U128"
+        ],
+        "return": []
+      }
+    }
+  },
+  "gateway": {
+    "fileFormatVersion": 6,
+    "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+    "name": "gateway",
+    "friends": [],
+    "structs": {},
+    "exposedFunctions": {
+      "close_position": {
+        "visibility": "Public",
+        "isEntry": true,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "position",
+              "name": "Position",
+              "typeArguments": []
+            }
+          },
+          "Address",
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "tx_context",
+                "name": "TxContext",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": []
+      },
+      "collect_fee": {
+        "visibility": "Public",
+        "isEntry": true,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "position",
+                "name": "Position",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "tx_context",
+                "name": "TxContext",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": []
+      },
+      "collect_reward": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "position",
+                "name": "Position",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "tx_context",
+                "name": "TxContext",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": []
+      },
+      "create_pool": {
+        "visibility": "Public",
+        "isEntry": true,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Vector": "U8"
+          },
+          {
+            "Vector": "U8"
+          },
+          {
+            "Vector": "U8"
+          },
+          "U8",
+          {
+            "Vector": "U8"
+          },
+          {
+            "Vector": "U8"
+          },
+          "U8",
+          {
+            "Vector": "U8"
+          },
+          "U32",
+          "U64",
+          "U128",
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "tx_context",
+                "name": "TxContext",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": []
+      },
+      "flash_swap": {
+        "visibility": "Public",
+        "isEntry": true,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "coin",
+              "name": "Coin",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "coin",
+              "name": "Coin",
+              "typeArguments": [
+                {
+                  "TypeParameter": 1
+                }
+              ]
+            }
+          },
+          "Bool",
+          "Bool",
+          "U64",
+          "U64",
+          "U128",
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "tx_context",
+                "name": "TxContext",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": []
+      },
+      "provide_liquidity": {
+        "visibility": "Public",
+        "isEntry": true,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "position",
+                "name": "Position",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "coin",
+              "name": "Coin",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "coin",
+              "name": "Coin",
+              "typeArguments": [
+                {
+                  "TypeParameter": 1
+                }
+              ]
+            }
+          },
+          "U64",
+          "U64",
+          "U128",
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "tx_context",
+                "name": "TxContext",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": []
+      },
+      "provide_liquidity_with_fixed_amount": {
+        "visibility": "Public",
+        "isEntry": true,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "position",
+                "name": "Position",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "coin",
+              "name": "Coin",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "coin",
+              "name": "Coin",
+              "typeArguments": [
+                {
+                  "TypeParameter": 1
+                }
+              ]
+            }
+          },
+          "U64",
+          "U64",
+          "U64",
+          "Bool",
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "tx_context",
+                "name": "TxContext",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": []
+      },
+      "remove_liquidity": {
+        "visibility": "Public",
+        "isEntry": true,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "position",
+                "name": "Position",
+                "typeArguments": []
+              }
+            }
+          },
+          "U128",
+          "U64",
+          "U64",
+          "Address",
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "tx_context",
+                "name": "TxContext",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": []
+      },
+      "route_swap": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "coin",
+              "name": "Coin",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "coin",
+              "name": "Coin",
+              "typeArguments": [
+                {
+                  "TypeParameter": 1
+                }
+              ]
+            }
+          },
+          "Bool",
+          "Bool",
+          "Bool",
+          "U64",
+          "U64",
+          "U128",
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "tx_context",
+                "name": "TxContext",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "coin",
+              "name": "Coin",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "coin",
+              "name": "Coin",
+              "typeArguments": [
+                {
+                  "TypeParameter": 1
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "swap_assets": {
+        "visibility": "Public",
+        "isEntry": true,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "coin",
+              "name": "Coin",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "coin",
+              "name": "Coin",
+              "typeArguments": [
+                {
+                  "TypeParameter": 1
+                }
+              ]
+            }
+          },
+          "Bool",
+          "Bool",
+          "U64",
+          "U64",
+          "U128",
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "tx_context",
+                "name": "TxContext",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": []
+      }
+    }
+  },
+  "oracle": {
+    "fileFormatVersion": 6,
+    "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+    "name": "oracle",
+    "friends": [
+      {
+        "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+        "name": "pool"
+      }
+    ],
+    "structs": {
+      "Observation": {
+        "abilities": {
+          "abilities": [
+            "Copy",
+            "Drop",
+            "Store"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "timestamp",
+            "type": "U64"
+          },
+          {
+            "name": "tick_cumulative",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i64",
+                "name": "I64",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "seconds_per_liquidity_cumulative",
+            "type": "U256"
+          },
+          {
+            "name": "initialized",
+            "type": "Bool"
+          }
+        ]
+      },
+      "ObservationManager": {
+        "abilities": {
+          "abilities": [
+            "Copy",
+            "Drop",
+            "Store"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "observations",
+            "type": {
+              "Vector": {
+                "Struct": {
+                  "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                  "module": "oracle",
+                  "name": "Observation",
+                  "typeArguments": []
+                }
+              }
+            }
+          },
+          {
+            "name": "observation_index",
+            "type": "U64"
+          },
+          {
+            "name": "observation_cardinality",
+            "type": "U64"
+          },
+          {
+            "name": "observation_cardinality_next",
+            "type": "U64"
+          }
+        ]
+      }
+    },
+    "exposedFunctions": {
+      "binary_search": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "oracle",
+                "name": "ObservationManager",
+                "typeArguments": []
+              }
+            }
+          },
+          "U64"
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "oracle",
+              "name": "Observation",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "oracle",
+              "name": "Observation",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "default_observation": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "oracle",
+              "name": "Observation",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "get_surrounding_observations": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "oracle",
+                "name": "ObservationManager",
+                "typeArguments": []
+              }
+            }
+          },
+          "U64",
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          "U128"
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "oracle",
+              "name": "Observation",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "oracle",
+              "name": "Observation",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "initialize_manager": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          "U64"
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "oracle",
+              "name": "ObservationManager",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "observe_single": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "oracle",
+                "name": "ObservationManager",
+                "typeArguments": []
+              }
+            }
+          },
+          "U64",
+          "U64",
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          "U128"
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i64",
+              "name": "I64",
+              "typeArguments": []
+            }
+          },
+          "U256"
+        ]
+      },
+      "transform": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "oracle",
+                "name": "Observation",
+                "typeArguments": []
+              }
+            }
+          },
+          "U64",
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          "U128"
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "oracle",
+              "name": "Observation",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "update": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "oracle",
+                "name": "ObservationManager",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          "U128",
+          "U64"
+        ],
+        "return": []
+      }
+    }
+  },
+  "pool": {
+    "fileFormatVersion": 6,
+    "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+    "name": "pool",
+    "friends": [
+      {
+        "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+        "name": "admin"
+      },
+      {
+        "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+        "name": "gateway"
+      }
+    ],
+    "structs": {
+      "FlashSwapReceipt": {
+        "abilities": {
+          "abilities": []
+        },
+        "typeParameters": [
+          {
+            "constraints": {
+              "abilities": []
+            },
+            "isPhantom": true
+          },
+          {
+            "constraints": {
+              "abilities": []
+            },
+            "isPhantom": true
+          }
+        ],
+        "fields": [
+          {
+            "name": "pool_id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "ID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "a2b",
+            "type": "Bool"
+          },
+          {
+            "name": "pay_amount",
+            "type": "U64"
+          }
+        ]
+      },
+      "Pool": {
+        "abilities": {
+          "abilities": [
+            "Store",
+            "Key"
+          ]
+        },
+        "typeParameters": [
+          {
+            "constraints": {
+              "abilities": []
+            },
+            "isPhantom": true
+          },
+          {
+            "constraints": {
+              "abilities": []
+            },
+            "isPhantom": true
+          }
+        ],
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "UID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "name",
+            "type": {
+              "Struct": {
+                "address": "0x1",
+                "module": "string",
+                "name": "String",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "coin_a",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "balance",
+                "name": "Balance",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "name": "coin_b",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "balance",
+                "name": "Balance",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "name": "fee_rate",
+            "type": "U64"
+          },
+          {
+            "name": "protocol_fee_share",
+            "type": "U64"
+          },
+          {
+            "name": "fee_growth_global_coin_a",
+            "type": "U128"
+          },
+          {
+            "name": "fee_growth_global_coin_b",
+            "type": "U128"
+          },
+          {
+            "name": "protocol_fee_coin_a",
+            "type": "U64"
+          },
+          {
+            "name": "protocol_fee_coin_b",
+            "type": "U64"
+          },
+          {
+            "name": "ticks_manager",
+            "type": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "tick",
+                "name": "TickManager",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "observations_manager",
+            "type": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "oracle",
+                "name": "ObservationManager",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "current_sqrt_price",
+            "type": "U128"
+          },
+          {
+            "name": "current_tick_index",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "liquidity",
+            "type": "U128"
+          },
+          {
+            "name": "reward_infos",
+            "type": {
+              "Vector": {
+                "Struct": {
+                  "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                  "module": "pool",
+                  "name": "PoolRewardInfo",
+                  "typeArguments": []
+                }
+              }
+            }
+          },
+          {
+            "name": "is_paused",
+            "type": "Bool"
+          },
+          {
+            "name": "icon_url",
+            "type": {
+              "Struct": {
+                "address": "0x1",
+                "module": "string",
+                "name": "String",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "position_index",
+            "type": "U128"
+          },
+          {
+            "name": "sequence_number",
+            "type": "U128"
+          }
+        ]
+      },
+      "PoolRewardInfo": {
+        "abilities": {
+          "abilities": [
+            "Copy",
+            "Drop",
+            "Store"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "reward_coin_symbol",
+            "type": {
+              "Struct": {
+                "address": "0x1",
+                "module": "string",
+                "name": "String",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "reward_coin_decimals",
+            "type": "U8"
+          },
+          {
+            "name": "reward_coin_type",
+            "type": {
+              "Struct": {
+                "address": "0x1",
+                "module": "string",
+                "name": "String",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "last_update_time",
+            "type": "U64"
+          },
+          {
+            "name": "ended_at_seconds",
+            "type": "U64"
+          },
+          {
+            "name": "total_reward",
+            "type": "U64"
+          },
+          {
+            "name": "total_reward_allocated",
+            "type": "U64"
+          },
+          {
+            "name": "reward_per_seconds",
+            "type": "U128"
+          },
+          {
+            "name": "reward_growth_global",
+            "type": "U128"
+          }
+        ]
+      },
+      "SwapResult": {
+        "abilities": {
+          "abilities": [
+            "Copy",
+            "Drop"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "a2b",
+            "type": "Bool"
+          },
+          {
+            "name": "by_amount_in",
+            "type": "Bool"
+          },
+          {
+            "name": "amount_specified",
+            "type": "U64"
+          },
+          {
+            "name": "amount_specified_remaining",
+            "type": "U64"
+          },
+          {
+            "name": "amount_calculated",
+            "type": "U64"
+          },
+          {
+            "name": "fee_growth_global",
+            "type": "U128"
+          },
+          {
+            "name": "fee_amount",
+            "type": "U64"
+          },
+          {
+            "name": "protocol_fee",
+            "type": "U64"
+          },
+          {
+            "name": "start_sqrt_price",
+            "type": "U128"
+          },
+          {
+            "name": "end_sqrt_price",
+            "type": "U128"
+          },
+          {
+            "name": "current_tick_index",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "is_exceed",
+            "type": "Bool"
+          },
+          {
+            "name": "starting_liquidity",
+            "type": "U128"
+          },
+          {
+            "name": "liquidity",
+            "type": "U128"
+          },
+          {
+            "name": "steps",
+            "type": "U64"
+          },
+          {
+            "name": "step_results",
+            "type": {
+              "Vector": {
+                "Struct": {
+                  "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                  "module": "pool",
+                  "name": "SwapStepResult",
+                  "typeArguments": []
+                }
+              }
+            }
+          }
+        ]
+      },
+      "SwapStepResult": {
+        "abilities": {
+          "abilities": [
+            "Copy",
+            "Drop",
+            "Store"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "tick_index_next",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "initialized",
+            "type": "Bool"
+          },
+          {
+            "name": "sqrt_price_start",
+            "type": "U128"
+          },
+          {
+            "name": "sqrt_price_next",
+            "type": "U128"
+          },
+          {
+            "name": "amount_in",
+            "type": "U64"
+          },
+          {
+            "name": "amount_out",
+            "type": "U64"
+          },
+          {
+            "name": "fee_amount",
+            "type": "U64"
+          },
+          {
+            "name": "remaining_amount",
+            "type": "U64"
+          }
+        ]
+      }
+    },
+    "exposedFunctions": {
+      "add_liquidity": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "position",
+                "name": "Position",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 1
+                }
+              ]
+            }
+          },
+          "U128"
+        ],
+        "return": [
+          "U64",
+          "U64",
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 1
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "add_liquidity_with_fixed_amount": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "position",
+                "name": "Position",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 1
+                }
+              ]
+            }
+          },
+          "U64",
+          "Bool"
+        ],
+        "return": [
+          "U64",
+          "U64",
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 1
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "add_reward_info": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "pool",
+              "name": "PoolRewardInfo",
+              "typeArguments": []
+            }
+          }
+        ],
+        "return": []
+      },
+      "calculate_swap_results": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          "Bool",
+          "Bool",
+          "U64",
+          "U128"
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "pool",
+              "name": "SwapResult",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "close_position": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "position",
+              "name": "Position",
+              "typeArguments": []
+            }
+          }
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 1
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "coin_reserves": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "return": [
+          "U64",
+          "U64"
+        ]
+      },
+      "collect_fee": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "position",
+                "name": "Position",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          "U64",
+          "U64",
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 1
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "collect_reward": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "position",
+                "name": "Position",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 2
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "current_sqrt_price": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "return": [
+          "U128"
+        ]
+      },
+      "current_tick_index": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "default_reward_info": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          },
+          "U8",
+          "U64"
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "pool",
+              "name": "PoolRewardInfo",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "flash_swap": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          "Bool",
+          "Bool",
+          "U64",
+          "U128"
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 1
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "pool",
+              "name": "FlashSwapReceipt",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                },
+                {
+                  "TypeParameter": 1
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "get_pool_manager": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "return": [
+          "Address"
+        ]
+      },
+      "get_protocol_fee_for_coin_a": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "return": [
+          "U64"
+        ]
+      },
+      "get_protocol_fee_for_coin_b": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "return": [
+          "U64"
+        ]
+      },
+      "liquidity": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "return": [
+          "U128"
+        ]
+      },
+      "new": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Vector": "U8"
+          },
+          {
+            "Vector": "U8"
+          },
+          {
+            "Vector": "U8"
+          },
+          "U8",
+          {
+            "Vector": "U8"
+          },
+          {
+            "Vector": "U8"
+          },
+          "U8",
+          {
+            "Vector": "U8"
+          },
+          "U32",
+          "U64",
+          "U128",
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "tx_context",
+                "name": "TxContext",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": []
+      },
+      "open_position": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          "U32",
+          "U32",
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "tx_context",
+                "name": "TxContext",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "position",
+              "name": "Position",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "remove_liquidity": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "position",
+                "name": "Position",
+                "typeArguments": []
+              }
+            }
+          },
+          "U128",
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          "U64",
+          "U64",
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 1
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "repay_flash_swap": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 1
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "pool",
+              "name": "FlashSwapReceipt",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                },
+                {
+                  "TypeParameter": 1
+                }
+              ]
+            }
+          }
+        ],
+        "return": []
+      },
+      "sequence_number": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "return": [
+          "U128"
+        ]
+      },
+      "set_protocol_fee_amount": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          "U64",
+          "U64"
+        ],
+        "return": []
+      },
+      "swap": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "config",
+                "name": "GlobalConfig",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 1
+                }
+              ]
+            }
+          },
+          "Bool",
+          "Bool",
+          "U64",
+          "U64",
+          "U128"
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 1
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "swap_pay_amount": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "FlashSwapReceipt",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "return": [
+          "U64"
+        ]
+      },
+      "update_pool_reward_emission": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 2
+                }
+              ]
+            }
+          },
+          "U64",
+          "U64",
+          "Bool"
+        ],
+        "return": []
+      },
+      "update_reward_infos": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          "U64"
+        ],
+        "return": [
+          {
+            "Vector": "U128"
+          }
+        ]
+      },
+      "verify_pool_manager": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          "Address"
+        ],
+        "return": [
+          "Bool"
+        ]
+      },
+      "withdraw_balances": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          },
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "pool",
+                "name": "Pool",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  },
+                  {
+                    "TypeParameter": 1
+                  }
+                ]
+              }
+            }
+          },
+          "U64",
+          "U64"
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 1
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "position": {
+    "fileFormatVersion": 6,
+    "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+    "name": "position",
+    "friends": [
+      {
+        "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+        "name": "pool"
+      }
+    ],
+    "structs": {
+      "POSITION": {
+        "abilities": {
+          "abilities": [
+            "Drop"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "dummy_field",
+            "type": "Bool"
+          }
+        ]
+      },
+      "Position": {
+        "abilities": {
+          "abilities": [
+            "Store",
+            "Key"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "UID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "pool_id",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "object",
+                "name": "ID",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "lower_tick",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "upper_tick",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "fee_rate",
+            "type": "U64"
+          },
+          {
+            "name": "liquidity",
+            "type": "U128"
+          },
+          {
+            "name": "fee_growth_coin_a",
+            "type": "U128"
+          },
+          {
+            "name": "fee_growth_coin_b",
+            "type": "U128"
+          },
+          {
+            "name": "token_a_fee",
+            "type": "U64"
+          },
+          {
+            "name": "token_b_fee",
+            "type": "U64"
+          },
+          {
+            "name": "name",
+            "type": {
+              "Struct": {
+                "address": "0x1",
+                "module": "string",
+                "name": "String",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "coin_type_a",
+            "type": {
+              "Struct": {
+                "address": "0x1",
+                "module": "string",
+                "name": "String",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "coin_type_b",
+            "type": {
+              "Struct": {
+                "address": "0x1",
+                "module": "string",
+                "name": "String",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "description",
+            "type": {
+              "Struct": {
+                "address": "0x1",
+                "module": "string",
+                "name": "String",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "image_url",
+            "type": {
+              "Struct": {
+                "address": "0x1",
+                "module": "string",
+                "name": "String",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "position_index",
+            "type": "U128"
+          },
+          {
+            "name": "reward_infos",
+            "type": {
+              "Vector": {
+                "Struct": {
+                  "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                  "module": "position",
+                  "name": "PositionRewardInfo",
+                  "typeArguments": []
+                }
+              }
+            }
+          }
+        ]
+      },
+      "PositionRewardInfo": {
+        "abilities": {
+          "abilities": [
+            "Copy",
+            "Drop",
+            "Store"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "reward_growth_inside_last",
+            "type": "U128"
+          },
+          {
+            "name": "coins_owed_reward",
+            "type": "U64"
+          }
+        ]
+      }
+    },
+    "exposedFunctions": {
+      "coins_owed_reward": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "position",
+                "name": "Position",
+                "typeArguments": []
+              }
+            }
+          },
+          "U64"
+        ],
+        "return": [
+          "U64"
+        ]
+      },
+      "decrease_reward_amount": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "position",
+                "name": "Position",
+                "typeArguments": []
+              }
+            }
+          },
+          "U64",
+          "U64"
+        ],
+        "return": []
+      },
+      "del": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "position",
+              "name": "Position",
+              "typeArguments": []
+            }
+          }
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "get_accrued_fee": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "position",
+                "name": "Position",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          "U64",
+          "U64"
+        ]
+      },
+      "is_empty": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "position",
+                "name": "Position",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          "Bool"
+        ]
+      },
+      "liquidity": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "position",
+                "name": "Position",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          "U128"
+        ]
+      },
+      "lower_tick": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "position",
+                "name": "Position",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "new": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          },
+          "U128",
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          "U64",
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "tx_context",
+                "name": "TxContext",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "position",
+              "name": "Position",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "pool_id": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "position",
+                "name": "Position",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "object",
+              "name": "ID",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "set_fee_amounts": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "position",
+                "name": "Position",
+                "typeArguments": []
+              }
+            }
+          },
+          "U64",
+          "U64"
+        ],
+        "return": []
+      },
+      "update": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "position",
+                "name": "Position",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i128",
+              "name": "I128",
+              "typeArguments": []
+            }
+          },
+          "U128",
+          "U128",
+          {
+            "Vector": "U128"
+          }
+        ],
+        "return": []
+      },
+      "upper_tick": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "position",
+                "name": "Position",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          }
+        ]
+      }
+    }
+  },
+  "tick": {
+    "fileFormatVersion": 6,
+    "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+    "name": "tick",
+    "friends": [
+      {
+        "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+        "name": "pool"
+      }
+    ],
+    "structs": {
+      "TickInfo": {
+        "abilities": {
+          "abilities": [
+            "Copy",
+            "Drop",
+            "Store"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "index",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i32",
+                "name": "I32",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "sqrt_price",
+            "type": "U128"
+          },
+          {
+            "name": "liquidity_gross",
+            "type": "U128"
+          },
+          {
+            "name": "liquidity_net",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i128",
+                "name": "I128",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "fee_growth_outside_a",
+            "type": "U128"
+          },
+          {
+            "name": "fee_growth_outside_b",
+            "type": "U128"
+          },
+          {
+            "name": "tick_cumulative_out_side",
+            "type": {
+              "Struct": {
+                "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                "module": "i64",
+                "name": "I64",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "name": "seconds_per_liquidity_out_side",
+            "type": "U256"
+          },
+          {
+            "name": "seconds_out_side",
+            "type": "U64"
+          },
+          {
+            "name": "reward_growths_outside",
+            "type": {
+              "Vector": "U128"
+            }
+          }
+        ]
+      },
+      "TickManager": {
+        "abilities": {
+          "abilities": [
+            "Store"
+          ]
+        },
+        "typeParameters": [],
+        "fields": [
+          {
+            "name": "tick_spacing",
+            "type": "U32"
+          },
+          {
+            "name": "ticks",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "table",
+                "name": "Table",
+                "typeArguments": [
+                  {
+                    "Struct": {
+                      "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                      "module": "i32",
+                      "name": "I32",
+                      "typeArguments": []
+                    }
+                  },
+                  {
+                    "Struct": {
+                      "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                      "module": "tick",
+                      "name": "TickInfo",
+                      "typeArguments": []
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "name": "bitmap",
+            "type": {
+              "Struct": {
+                "address": "0x2",
+                "module": "table",
+                "name": "Table",
+                "typeArguments": [
+                  {
+                    "Struct": {
+                      "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                      "module": "i32",
+                      "name": "I32",
+                      "typeArguments": []
+                    }
+                  },
+                  "U256"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "exposedFunctions": {
+      "bitmap": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "tick",
+                "name": "TickManager",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "table",
+                "name": "Table",
+                "typeArguments": [
+                  {
+                    "Struct": {
+                      "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                      "module": "i32",
+                      "name": "I32",
+                      "typeArguments": []
+                    }
+                  },
+                  "U256"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "create_tick": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          }
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "tick",
+              "name": "TickInfo",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "cross": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "tick",
+                "name": "TickManager",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          "U128",
+          "U128",
+          {
+            "Vector": "U128"
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i64",
+              "name": "I64",
+              "typeArguments": []
+            }
+          },
+          "U256",
+          "U64"
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i128",
+              "name": "I128",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "get_fee_and_reward_growths_inside": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "tick",
+                "name": "TickManager",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          "U128",
+          "U128",
+          {
+            "Vector": "U128"
+          }
+        ],
+        "return": [
+          "U128",
+          "U128",
+          {
+            "Vector": "U128"
+          }
+        ]
+      },
+      "get_fee_and_reward_growths_outside": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "tick",
+                "name": "TickManager",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          }
+        ],
+        "return": [
+          "U128",
+          "U128",
+          {
+            "Vector": "U128"
+          }
+        ]
+      },
+      "get_mutable_tick_from_manager": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "tick",
+                "name": "TickManager",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          }
+        ],
+        "return": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "tick",
+                "name": "TickInfo",
+                "typeArguments": []
+              }
+            }
+          }
+        ]
+      },
+      "get_mutable_tick_from_table": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "table",
+                "name": "Table",
+                "typeArguments": [
+                  {
+                    "Struct": {
+                      "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                      "module": "i32",
+                      "name": "I32",
+                      "typeArguments": []
+                    }
+                  },
+                  {
+                    "Struct": {
+                      "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                      "module": "tick",
+                      "name": "TickInfo",
+                      "typeArguments": []
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          }
+        ],
+        "return": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "tick",
+                "name": "TickInfo",
+                "typeArguments": []
+              }
+            }
+          }
+        ]
+      },
+      "get_tick_from_manager": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "tick",
+                "name": "TickManager",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          }
+        ],
+        "return": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "tick",
+                "name": "TickInfo",
+                "typeArguments": []
+              }
+            }
+          }
+        ]
+      },
+      "get_tick_from_table": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "table",
+                "name": "Table",
+                "typeArguments": [
+                  {
+                    "Struct": {
+                      "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                      "module": "i32",
+                      "name": "I32",
+                      "typeArguments": []
+                    }
+                  },
+                  {
+                    "Struct": {
+                      "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                      "module": "tick",
+                      "name": "TickInfo",
+                      "typeArguments": []
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          }
+        ],
+        "return": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "tick",
+                "name": "TickInfo",
+                "typeArguments": []
+              }
+            }
+          }
+        ]
+      },
+      "initialize_manager": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          "U32",
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "tx_context",
+                "name": "TxContext",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+              "module": "tick",
+              "name": "TickManager",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "is_tick_initialized": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "tick",
+                "name": "TickManager",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          }
+        ],
+        "return": [
+          "Bool"
+        ]
+      },
+      "liquidity_gross": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "tick",
+                "name": "TickInfo",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          "U128"
+        ]
+      },
+      "liquidity_net": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "tick",
+                "name": "TickInfo",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i128",
+              "name": "I128",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "mutable_bitmap": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "tick",
+                "name": "TickManager",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "table",
+                "name": "Table",
+                "typeArguments": [
+                  {
+                    "Struct": {
+                      "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                      "module": "i32",
+                      "name": "I32",
+                      "typeArguments": []
+                    }
+                  },
+                  "U256"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "remove": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "tick",
+                "name": "TickManager",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          }
+        ],
+        "return": []
+      },
+      "sqrt_price": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "tick",
+                "name": "TickInfo",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          "U128"
+        ]
+      },
+      "tick_spacing": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "tick",
+                "name": "TickManager",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          "U32"
+        ]
+      },
+      "update": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+                "module": "tick",
+                "name": "TickManager",
+                "typeArguments": []
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i128",
+              "name": "I128",
+              "typeArguments": []
+            }
+          },
+          "U128",
+          "U128",
+          {
+            "Vector": "U128"
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i64",
+              "name": "I64",
+              "typeArguments": []
+            }
+          },
+          "U256",
+          "U64",
+          "Bool"
+        ],
+        "return": [
+          "Bool"
+        ]
+      }
+    }
+  },
+  "tick_bitmap": {
+    "fileFormatVersion": 6,
+    "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+    "name": "tick_bitmap",
+    "friends": [
+      {
+        "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+        "name": "pool"
+      }
+    ],
+    "structs": {},
+    "exposedFunctions": {
+      "cast_to_u8": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          }
+        ],
+        "return": [
+          "U8"
+        ]
+      },
+      "flip_tick": {
+        "visibility": "Friend",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "table",
+                "name": "Table",
+                "typeArguments": [
+                  {
+                    "Struct": {
+                      "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                      "module": "i32",
+                      "name": "I32",
+                      "typeArguments": []
+                    }
+                  },
+                  "U256"
+                ]
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          "U32"
+        ],
+        "return": []
+      },
+      "next_initialized_tick_within_one_word": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "table",
+                "name": "Table",
+                "typeArguments": [
+                  {
+                    "Struct": {
+                      "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+                      "module": "i32",
+                      "name": "I32",
+                      "typeArguments": []
+                    }
+                  },
+                  "U256"
+                ]
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          "U32",
+          "Bool"
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i32",
+              "name": "I32",
+              "typeArguments": []
+            }
+          },
+          "Bool"
+        ]
+      }
+    }
+  },
+  "utils": {
+    "fileFormatVersion": 6,
+    "address": "0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267",
+    "name": "utils",
+    "friends": [],
+    "structs": {},
+    "exposedFunctions": {
+      "add_delta": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          "U128",
+          {
+            "Struct": {
+              "address": "0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57",
+              "module": "i128",
+              "name": "I128",
+              "typeArguments": []
+            }
+          }
+        ],
+        "return": [
+          "U128"
+        ]
+      },
+      "deposit_balance": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "balance",
+                "name": "Balance",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          "U64"
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "get_type_string": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "overflow_add": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          "U256",
+          "U256"
+        ],
+        "return": [
+          "U256"
+        ]
+      },
+      "timestamp_seconds": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          {
+            "Reference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "clock",
+                "name": "Clock",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": [
+          "U64"
+        ]
+      },
+      "transfer_balance": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          "Address",
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "tx_context",
+                "name": "TxContext",
+                "typeArguments": []
+              }
+            }
+          }
+        ],
+        "return": []
+      },
+      "transfer_coin": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "coin",
+              "name": "Coin",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          },
+          "Address"
+        ],
+        "return": []
+      },
+      "u128_to_string": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [],
+        "parameters": [
+          "U128"
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x1",
+              "module": "string",
+              "name": "String",
+              "typeArguments": []
+            }
+          }
+        ]
+      },
+      "withdraw_balance": {
+        "visibility": "Public",
+        "isEntry": false,
+        "typeParameters": [
+          {
+            "abilities": []
+          }
+        ],
+        "parameters": [
+          {
+            "MutableReference": {
+              "Struct": {
+                "address": "0x2",
+                "module": "balance",
+                "name": "Balance",
+                "typeArguments": [
+                  {
+                    "TypeParameter": 0
+                  }
+                ]
+              }
+            }
+          },
+          "U64"
+        ],
+        "return": [
+          {
+            "Struct": {
+              "address": "0x2",
+              "module": "balance",
+              "name": "Balance",
+              "typeArguments": [
+                {
+                  "TypeParameter": 0
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

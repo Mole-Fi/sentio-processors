@@ -1,8 +1,9 @@
 import { SuiNetwork, SuiObjectProcessor, SuiWrappedObjectProcessor} from "@sentio/sdk/sui"
 import { vault } from './types/sui/0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81efa1ae12ee76406804dda7f.js'
 import { pool as clmmPool } from './types/sui/0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb.js'
+import { pool as bluefinPool } from './types/sui/0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267.js'
 import { getPriceByType } from "@sentio/sdk/utils"
-import { buildCoinInfo, coinAddrAUSD, coinAddrBUCK, coinAddrCETUS, coinAddrFDUSD, coinAddrHASUI, coinAddrNAVX, coinAddrSCA, coinAddrSUI, coinAddrsuiUSDT, coinAddrUSDC, coinAddrUSDT, coinAddrUSDY, coinAddrWBTC, coinAddrWETH, coinAddrwUSDC, getCoinAmountFromLiquidity, getCoinTypeByVaultConfigId, getPoolByToken, getResponseContentByWorkerInfo, i32BitsToNumber, isReverseWorkerInfo, isStableFarmByPoolId, isStableFarmByWorkerInfo, sleep, tickIndexToSqrtPriceX64, vaultAusdConfigId, vaultBuckConfigId, vaultCetusConfigId, vaultFdusdConfigId, vaultHaSuiConfigId, vaultNavxConfigId, vaultScaConfigId, vaultSuiConfigId, vaultsuiUsdtConfigId, vaultUsdcConfigId, vaultUsdtConfigId, vaultUsdyConfigId, vaultWbtcConfigId, vaultWethConfigId, vaultwUsdcConfigId} from './utils/mole_utils.js'
+import { buildCoinInfo, coinAddrAUSD, coinAddrBUCK, coinAddrCETUS, coinAddrFDUSD, coinAddrHASUI, coinAddrNAVX, coinAddrSCA, coinAddrSTSUI, coinAddrSUI, coinAddrsuiUSDT, coinAddrUSDC, coinAddrUSDT, coinAddrUSDY, coinAddrWBTC, coinAddrWETH, coinAddrwUSDC, getCoinAmountFromLiquidity, getCoinTypeByVaultConfigId, getPoolByToken, getResponseContentByWorkerInfo, i32BitsToNumber, isReverseWorkerInfo, sleep, tickIndexToSqrtPriceX64, vaultAusdConfigId, vaultBuckConfigId, vaultCetusConfigId, vaultFdusdConfigId, vaultHaSuiConfigId, vaultNavxConfigId, vaultScaConfigId, vaultStSuiConfigId, vaultSuiConfigId, vaultsuiUsdtConfigId, vaultUsdcConfigId, vaultUsdtConfigId, vaultUsdyConfigId, vaultWbtcConfigId, vaultWethConfigId, vaultwUsdcConfigId} from './utils/mole_utils.js'
 import * as constant from './utils/constant.js'
 import { ANY_TYPE } from '@sentio/sdk/move'
 import { string$ } from "@sentio/sdk/sui/builtin/0x1";
@@ -25,7 +26,7 @@ SuiWrappedObjectProcessor.bind({
       while (!fields && retry < 300) {
         await sleep(300);
         fields = await ctx.coder.getDynamicFields(dynamicFieldObjects, string$.String.type(),  objectType)
-        retry++     
+        retry++
         
         if (retry == 299) {
           throw new Error("getDynamicFields error")
@@ -278,21 +279,38 @@ let gCurrentSqrtPriceUsdcUsdy
 let gCurrentSqrtPriceUsdcsuiUsdt2
 //@ts-ignore
 let gCurrentSqrtPriceUsdcAusd
+//@ts-ignore
+let gCurrentSqrtPricesuiUsdtUsdcBluefin
+//@ts-ignore
+let gCurrentSqrtPriceStSuiSuiBluefin
 
-
-for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
+constant.POOLS_MOLE_LIST.forEach((valueDexType, keyPoolId) => {
   SuiObjectProcessor.bind({
-    objectId: constant.POOLS_MOLE_LIST[i],
+    objectId: keyPoolId,
     network: SuiNetwork.MAIN_NET,
     startCheckpoint: 23543749n
   })
   .onTimeInterval(async (self, _, ctx) => {
     try {
-      let res = await ctx.coder.decodeType(self, clmmPool.Pool.type())
+      let res 
+      if (valueDexType == 0) { // Cetus
+        res = await ctx.coder.decodeType(self, clmmPool.Pool.type())
+      } else if (valueDexType == 1) { // Bluefin
+        res = await ctx.coder.decodeType(self, bluefinPool.Pool.type())
+      } else {
+        console.error("Wrong dex type:", valueDexType)
+      }
+
       let retry = 0
       while (!res && retry < 300) {
         await sleep(300);
-        res = await ctx.coder.decodeType(self, clmmPool.Pool.type())
+        if (valueDexType == 0) { // Cetus
+          res = await ctx.coder.decodeType(self, clmmPool.Pool.type())
+        } else if (valueDexType == 1) { // Bluefin
+          res = await ctx.coder.decodeType(self, bluefinPool.Pool.type())
+        } else {
+          console.error("Wrong dex type:", valueDexType)
+        }
         retry++
 
         if (retry == 299) {
@@ -357,6 +375,10 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
         gCurrentSqrtPriceUsdcsuiUsdt2 = currentSqrtPrice
       } else if ('0x0fea99ed9c65068638963a81587c3b8cafb71dc38c545319f008f7e9feb2b5f8' == ctx.objectId) {
         gCurrentSqrtPriceUsdcAusd = currentSqrtPrice
+      } else if ('0x62af128423465822e5a0979ccad2b0b5ee50a58c6a2c8ea3dd7fda1cda3cfbe7' == ctx.objectId) {
+        gCurrentSqrtPricesuiUsdtUsdcBluefin = currentSqrtPrice
+      } else if ('0x4746414e445cebdc19666b6e4de9b79a46ca7bcaa894bf10ec230e649376356e' == ctx.objectId) {
+        gCurrentSqrtPriceStSuiSuiBluefin = currentSqrtPrice
       } else {
         console.error("Has not object : ", ctx.objectId)
       }
@@ -366,14 +388,14 @@ for (let i = 0; i < constant.POOLS_MOLE_LIST.length; i++) {
   catch (e) {
         console.log(`${e.message} error at ${JSON.stringify(self)}`)
       }
-    }, 480, 1440, undefined, { owned: false })
-}
+    }, 480, 1440, undefined, { owned: false }) 
+}); 
 
 
 
 // Worker info    
-for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
-  const workerInfoAddr = constant.MOLE_WORKER_INFO_LIST[i]
+constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
+  const workerInfoAddr = keyWorkerInfoId
 
   SuiObjectProcessor.bind({
     objectId: workerInfoAddr,
@@ -389,7 +411,7 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
       // console.log("ctx.objectId:" , ctx.objectId, ",res : ", JSON.stringify(res))
       
       let liquidity, tickLowerIndex, tickUpperIndex, poolId, coinTypeA, coinTypeB
-      if (isStableFarmByWorkerInfo(workerInfoAddr)) {
+      if (valueWorkerType == 1) { // cetus stable farming
         //@ts-ignore
         liquidity = Number(res!.stable_farming_position_nft.clmm_postion.liquidity)
         //@ts-ignore
@@ -403,7 +425,7 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
         //@ts-ignore
         coinTypeB = '0x' + res!.stable_farming_position_nft.clmm_postion.coin_type_b.name
 
-      } else {
+      } else if (valueWorkerType == 0) { // cetus clmm
         //@ts-ignore
         liquidity = Number(res!.position_nft.liquidity)
         //@ts-ignore
@@ -416,6 +438,21 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
         coinTypeA = '0x' + res!.position_nft.coin_type_a.name
         //@ts-ignore
         coinTypeB = '0x' + res!.position_nft.coin_type_b.name
+      } else if (valueWorkerType == 2) { // bluefin
+        //@ts-ignore
+        liquidity = Number(res!.position_nft.liquidity)
+        //@ts-ignore
+        tickLowerIndex = i32BitsToNumber((res!.position_nft.lower_tick.bits).toString())
+        //@ts-ignore
+        tickUpperIndex = i32BitsToNumber((res!.position_nft.upper_tick.bits).toString())
+        //@ts-ignore
+        poolId = res!.position_nft.pool_id
+        //@ts-ignore
+        coinTypeA = '0x' + res!.position_nft.coin_type_a
+        //@ts-ignore
+        coinTypeB = '0x' + res!.position_nft.coin_type_b
+      } else {
+        console.error("wrong workerinfo type")
       }
 
       let coinInfoA = await buildCoinInfo(ctx, coinTypeA)
@@ -544,7 +581,10 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceBuckwUsdcNew
         coin_symbol_b = coin_symbol_b + '-new'
-      } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrsuiUSDT) {
+      } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrsuiUSDT
+        && (workerInfoAddr == "0x85ad5f6b8dd39b2a9dbb05161a563db52f91d724390273a739199dbfa640405b" 
+         || workerInfoAddr == "0x888821cfa0e8d3e4de4602d91b17ea2e156e534a233424611b8f27e5d4bac439"
+      )) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceUsdcsuiUsdt
       } else if (coinTypeA == coinAddrFDUSD && coinTypeB == coinAddrUSDC) {
@@ -556,6 +596,15 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
       } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrAUSD) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceUsdcAusd
+      } else if (coinTypeA == coinAddrsuiUSDT && coinTypeB == coinAddrUSDC
+        && (workerInfoAddr == "0x12552c511257169cba63a0b2159e812d5fe578781ec051435063b346b5c05f03" 
+         || workerInfoAddr == "0x235e04373fb6799990ae1c148257fcd8ce68e99fd67a70d5250e398615a7051c"
+      )) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPricesuiUsdtUsdcBluefin
+      } else if (coinTypeA == coinAddrSTSUI && coinTypeB == coinAddrSUI) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceStSuiSuiBluefin
       } else {
         console.error("Has not price : coin_symbol_a:", coin_symbol_a, ",coin_symbol_b:",coin_symbol_b )
       }
@@ -587,7 +636,10 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
 
       const lyf_usd_farm_usd = Number(coinAamount) * priceA! / Math.pow(10, coinInfoA.decimal) + Number(coinBamount) * priceB! / Math.pow(10, coinInfoB.decimal)
 
-      const farmPairName = coin_symbol_a + '-' + coin_symbol_b
+      let farmPairName = coin_symbol_a + '-' + coin_symbol_b
+      if (valueWorkerType == 2) {
+        farmPairName += '-Bluefin'
+      }
 
       ctx.meter.Gauge("lyf_usd_farm_usd").record(lyf_usd_farm_usd, {farmPairName , project: "mole" })
 
@@ -597,7 +649,7 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
   }, 480, 1440, undefined, { owned: false })
-}
+}); 
 
 
 // caculate savings fee
@@ -687,6 +739,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0
           } else if (configAddr == vaultAusdConfigId) {
             accumulateFee = 0
+          } else if (configAddr == vaultStSuiConfigId) {
+            accumulateFee = 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -720,6 +774,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultUsdyConfigId) {
             accumulateFee = 0 + 0
           } else if (configAddr == vaultAusdConfigId) {
+            accumulateFee = 0 + 0
+          } else if (configAddr == vaultStSuiConfigId) {
             accumulateFee = 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -755,6 +811,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0
           } else if (configAddr == vaultAusdConfigId) {
             accumulateFee = 0 + 0 + 0
+          } else if (configAddr == vaultStSuiConfigId) {
+            accumulateFee = 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -788,6 +846,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultUsdyConfigId) {
             accumulateFee = 0 + 0 + 0 + 0
           } else if (configAddr == vaultAusdConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0
+          } else if (configAddr == vaultStSuiConfigId) {
             accumulateFee = 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -823,6 +883,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultAusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultStSuiConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -856,6 +918,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultUsdyConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultAusdConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultStSuiConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -891,6 +955,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultAusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultStSuiConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -924,6 +990,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultUsdyConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultAusdConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultStSuiConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -959,6 +1027,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultAusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultStSuiConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -992,6 +1062,8 @@ SuiWrappedObjectProcessor.bind({
           } else if (configAddr == vaultUsdyConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultAusdConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultStSuiConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
@@ -1027,6 +1099,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else if (configAddr == vaultAusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultStSuiConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -1061,6 +1135,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0.131627
           } else if (configAddr == vaultAusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0.000086
+          } else if (configAddr == vaultStSuiConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -1095,6 +1171,8 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0.131627
           } else if (configAddr == vaultAusdConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0.000086
+          } else if (configAddr == vaultStSuiConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -1136,8 +1214,8 @@ SuiWrappedObjectProcessor.bind({
 
 
 // Calculate Farming Fee    
-for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
-  const workerInfoAddr = constant.MOLE_WORKER_INFO_LIST[i]
+constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
+  const workerInfoAddr = keyWorkerInfoId
 
   if (
     // cetus_worker_navx_sui_worker_info: 
@@ -1165,7 +1243,7 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
     // cetus_worker_cetus_sui_worker_info:
     || workerInfoAddr == "0xb690a7107f198c538fac2d40418d1708e08b886c8dfbe86c585412bea18cadcb"
   ) {
-    continue
+    return;
   }
 
   SuiObjectProcessor.bind({
@@ -1182,33 +1260,33 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
       console.log("ctx.objectId:" , ctx.objectId, ",res : ", JSON.stringify(res))
       
       let baseBounty, farmingBounty, coinTypeA, coinTypeB, coinBaseDecimal, coinFarmingDecimal
-      if (isStableFarmByWorkerInfo(workerInfoAddr)) {
-        //@ts-ignore
-        baseBounty = Number(res!.tiny_coin_base_bounty)
-        //@ts-ignore
-        farmingBounty = Number(res!.tiny_coin_farming_bounty)
-        //@ts-ignore
-        coinBaseDecimal = Number(res!.coin_base_decimals)
-        //@ts-ignore
-        coinFarmingDecimal = Number(res!.coin_farming_decimals)
+
+      //@ts-ignore
+      baseBounty = Number(res!.tiny_coin_base_bounty)
+      //@ts-ignore
+      farmingBounty = Number(res!.tiny_coin_farming_bounty)
+      //@ts-ignore
+      coinBaseDecimal = Number(res!.coin_base_decimals)
+      //@ts-ignore
+      coinFarmingDecimal = Number(res!.coin_farming_decimals)
+
+      if (valueWorkerType == 1) { // cetus stable farming
         //@ts-ignore
         coinTypeA = '0x' + res!.stable_farming_position_nft.clmm_postion.coin_type_a.name
         //@ts-ignore
         coinTypeB = '0x' + res!.stable_farming_position_nft.clmm_postion.coin_type_b.name
-
-      } else {
-         //@ts-ignore
-        baseBounty = Number(res!.tiny_coin_base_bounty)
-        //@ts-ignore
-        farmingBounty = Number(res!.tiny_coin_farming_bounty)
-        //@ts-ignore
-        coinBaseDecimal = Number(res!.coin_base_decimals)
-        //@ts-ignore
-        coinFarmingDecimal = Number(res!.coin_farming_decimals)
+      } else if (valueWorkerType == 0) { // cetus clmm  
         //@ts-ignore
         coinTypeA = '0x' + res!.position_nft.coin_type_a.name
         //@ts-ignore
         coinTypeB = '0x' + res!.position_nft.coin_type_b.name
+      } else if (valueWorkerType == 2) { // bluefin
+        //@ts-ignore
+        coinTypeA = '0x' + res!.position_nft.coin_type_a
+        //@ts-ignore
+        coinTypeB = '0x' + res!.position_nft.coin_type_b
+      } else {
+        console.error("wrong worker_info type")
       }
 
       let coinInfoA = await buildCoinInfo(ctx, coinTypeA)
@@ -1895,7 +1973,10 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
         // New works after cetus incident - end
       }
 
-      const farmPairName = coin_symbol_a + '-' + coin_symbol_b
+      let farmPairName = coin_symbol_a + '-' + coin_symbol_b
+      if (valueWorkerType == 2) {
+        farmPairName += '-Bluefin'
+      }
 
       if (isReverseWorkerInfo(workerInfoAddr)) { // if reverse, coin A is farming , coin B is base
         lyf_bounty_usd = lyf_bounty_amount_base * priceB! + lyf_bounty_amount_farming * priceA!
@@ -1914,7 +1995,7 @@ for (let i = 0; i < constant.MOLE_WORKER_INFO_LIST.length; i++) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
   }, 480, 1440, undefined, { owned: false })
-}
+}); 
 
 
 
