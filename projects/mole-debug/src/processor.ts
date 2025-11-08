@@ -205,7 +205,7 @@ import { dynamic_field } from "@sentio/sdk/sui/builtin/0x2";
 //   // black list
 //   if (constant.POOLS_TVL_BLACK_LIST.includes(pool)) { return }
 //   // white list
-//   if (!constant.POOLS_MOLE_LIST.includes(pool)) { return }
+//   if (!constant.POOLS_MOLE_CETUS_LIST.includes(pool)) { return }
 
 //   const poolInfo = await helper.getOrCreatePool(ctx, pool)
 //   const pairName = poolInfo.pairName
@@ -249,7 +249,7 @@ import { dynamic_field } from "@sentio/sdk/sui/builtin/0x2";
 //   // black list
 //   if (constant.POOLS_TVL_BLACK_LIST.includes(pool)) { return }
 //   // white list
-//   if (!constant.POOLS_MOLE_LIST.includes(pool)) { return }
+//   if (!constant.POOLS_MOLE_CETUS_LIST.includes(pool)) { return }
 
 //   const poolInfo = await helper.getOrCreatePool(ctx, pool)
 //   const pairName = poolInfo.pairName
