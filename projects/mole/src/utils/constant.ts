@@ -65,7 +65,9 @@ export const POOLS_MOLE_LIST = new Map([
     // bluefin_pool_suiusdt_usdc
     ["0x62af128423465822e5a0979ccad2b0b5ee50a58c6a2c8ea3dd7fda1cda3cfbe7", 1],
     // bluefin_pool_stsui_sui
-    ["0x4746414e445cebdc19666b6e4de9b79a46ca7bcaa894bf10ec230e649376356e", 1]
+    ["0x4746414e445cebdc19666b6e4de9b79a46ca7bcaa894bf10ec230e649376356e", 1],
+    // bluefin_pool_buck_usdc
+    ["0x9f70edecd4af60ca9ce5544530cc5596a7d3a93d6a8c5207241f206e73384797", 1]
 ])
 
 
@@ -211,5 +213,6 @@ export const MOLE_WORKER_INFO_LIST = new Map([
     ["0x8a1068568ccbd45262feea49a22d0ed42a28969e9fc0720ceb2306c838f9832f", 2],
     // bluefin_worker_sui_stsui_worker_info:
     ["0x66f72cf2babece8f8bdfd7b370be35de5bd9fc67c7a13f45332149a213db5298", 2],
-
+    // bluefin_worker_buck_usdc_worker_info
+    ["0x218c06ec2ae747e889ca5720e603272f49fb3724a5777b0c3a8e7ea6dd2e5f9e", 2]
 ])

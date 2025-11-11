@@ -72,7 +72,7 @@ import { bluefin_clmm_worker as bluefin_worker_suiusdt_usdc } from '../types/sui
 import { bluefin_clmm_worker as bluefin_worker_usdc_suiusdt } from '../types/sui/0x57c7150eee9676d63fda730eba275c243be45219dc24c83cfab0897ce6ab6184.js'
 import { bluefin_clmm_worker as bluefin_worker_stsui_sui } from '../types/sui/0x49edcb8c45b9a1f5de8d3a7bce497828a52ed05f643acae2488e02a7696dd3f6.js'
 import { bluefin_clmm_worker as bluefin_worker_sui_stsui } from '../types/sui/0x3feb7079f05c8a5a533690839168b20bd3d782009635308ab364d812f7f3b428.js'
-
+import { bluefin_clmm_worker as bluefin_worker_buck_usdc } from '../types/sui/0x184c2043d71874b3038e12bafa614ab262e3937aa3a753fa8edde4befa5790fc.js'
 
 export const vaultWethConfigId = "0x7fa4aa18fc4488947dc7528b5177c4475ec478c28014e77a31dc2318fa4f125e"
 export const vaultHaSuiConfigId = "0xa069ec74c6bb6d6df53e22d9bf00625a3d65da67c4d9e2868c8e348201251dd0"
@@ -605,7 +605,8 @@ export function getShareObjectByWorkerInfo(workerInfoAddr: string) {
     sharesObjectId = "0xa311a17c2956c9908cc1e8afd4a52ce170a94c0c533bd6e53a071a4908a27984"
   } else if (workerInfoAddr == "0x66f72cf2babece8f8bdfd7b370be35de5bd9fc67c7a13f45332149a213db5298") {
     sharesObjectId = "0x343cf18c24f270b0bb3591153c677225c257fa2495eefcb14a43f6c2de7584f9"
-
+  } else if (workerInfoAddr == "0x218c06ec2ae747e889ca5720e603272f49fb3724a5777b0c3a8e7ea6dd2e5f9e") {
+    sharesObjectId = "0xe6ed1cdfddf031b67e40d38f08bdbb646670d4bdb1080783b9e9a632b7d4b731"
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }
@@ -790,6 +791,8 @@ export async function getResponseContentByWorkerInfo(workerInfoAddr: string, ctx
     res = await ctx.coder.decodeType(self, bluefin_worker_stsui_sui.WorkerInfo.type())
   } else if (workerInfoAddr == "0x66f72cf2babece8f8bdfd7b370be35de5bd9fc67c7a13f45332149a213db5298") {   
     res = await ctx.coder.decodeType(self, bluefin_worker_sui_stsui.WorkerInfo.type())
+  } else if (workerInfoAddr == "0x218c06ec2ae747e889ca5720e603272f49fb3724a5777b0c3a8e7ea6dd2e5f9e") {
+    res = await ctx.coder.decodeType(self, bluefin_worker_buck_usdc.WorkerInfo.type())
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }
@@ -932,6 +935,8 @@ export function isReverseWorkerInfo(workerInfoAddr: string) {
     isReverse = false
   } else if (workerInfoAddr == "0x66f72cf2babece8f8bdfd7b370be35de5bd9fc67c7a13f45332149a213db5298") {
     isReverse = true
+  } else if (workerInfoAddr == "0x218c06ec2ae747e889ca5720e603272f49fb3724a5777b0c3a8e7ea6dd2e5f9e") {
+    isReverse = false
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }

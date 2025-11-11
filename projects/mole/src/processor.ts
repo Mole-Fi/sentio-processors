@@ -292,6 +292,8 @@ let gCurrentSqrtPriceUsdcAusd
 let gCurrentSqrtPricesuiUsdtUsdcBluefin
 //@ts-ignore
 let gCurrentSqrtPriceStSuiSuiBluefin
+//@ts-ignore
+let gCurrentSqrtPriceBuckUsdcBluefin
 
 constant.POOLS_MOLE_LIST.forEach((valueDexType, keyPoolId) => {
   SuiObjectProcessor.bind({
@@ -388,6 +390,8 @@ constant.POOLS_MOLE_LIST.forEach((valueDexType, keyPoolId) => {
         gCurrentSqrtPricesuiUsdtUsdcBluefin = currentSqrtPrice
       } else if ('0x4746414e445cebdc19666b6e4de9b79a46ca7bcaa894bf10ec230e649376356e' == ctx.objectId) {
         gCurrentSqrtPriceStSuiSuiBluefin = currentSqrtPrice
+      } else if ('0x9f70edecd4af60ca9ce5544530cc5596a7d3a93d6a8c5207241f206e73384797' == ctx.objectId) {
+        gCurrentSqrtPriceBuckUsdcBluefin = currentSqrtPrice
       } else {
         console.error("Has not object : ", ctx.objectId)
       }
@@ -564,10 +568,14 @@ constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
       )) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceUsdcwUsdc
-      } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrBUCK) {
+      } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrBUCK
+        && workerInfoAddr == "0x3001c0d95f0498b8e92fe95878b25e1c2e85ff213f3ff5b1ef088390ed185fc1"
+      ) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceUsdcBuck
-      } else if (coinTypeA == coinAddrBUCK && coinTypeB == coinAddrUSDC) {
+      } else if (coinTypeA == coinAddrBUCK && coinTypeB == coinAddrUSDC
+        && workerInfoAddr == "0x0ffcc188b67223e6e883bc8e997e051af38657699d7ba745e43e8489b6104cdc"
+      ) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceBuckUsdc
       } else if (coinTypeA == coinAddrBUCK && coinTypeB == coinAddrSUI) {
@@ -614,6 +622,11 @@ constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
       } else if (coinTypeA == coinAddrSTSUI && coinTypeB == coinAddrSUI) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceStSuiSuiBluefin
+      } else if (coinTypeA == coinAddrBUCK && coinTypeB == coinAddrUSDC
+        && workerInfoAddr == "0x218c06ec2ae747e889ca5720e603272f49fb3724a5777b0c3a8e7ea6dd2e5f9e" 
+      ) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceBuckUsdcBluefin
       } else {
         console.error("Has not price : coin_symbol_a:", coin_symbol_a, ",coin_symbol_b:",coin_symbol_b )
       }
