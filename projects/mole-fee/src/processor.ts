@@ -3,7 +3,7 @@ import { vault } from './types/sui/0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81ef
 import { pool as clmmPool } from './types/sui/0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb.js'
 import { pool as bluefinPool } from './types/sui/0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267.js'
 import { getPriceByType } from "@sentio/sdk/utils"
-import { buildCoinInfo, coinAddrAUSD, coinAddrBUCK, coinAddrCETUS, coinAddrFDUSD, coinAddrHASUI, coinAddrNAVX, coinAddrSCA, coinAddrSTSUI, coinAddrSUI, coinAddrsuiUSDT, coinAddrUSDC, coinAddrUSDT, coinAddrUSDY, coinAddrWBTC, coinAddrWETH, coinAddrwUSDC, getCoinAmountFromLiquidity, getCoinTypeByVaultConfigId, getPoolByToken, getResponseContentByWorkerInfo, i32BitsToNumber, isReverseWorkerInfo, sleep, tickIndexToSqrtPriceX64, vaultAusdConfigId, vaultBuckConfigId, vaultCetusConfigId, vaultFdusdConfigId, vaultHaSuiConfigId, vaultNavxConfigId, vaultScaConfigId, vaultStSuiConfigId, vaultSuiConfigId, vaultsuiUsdtConfigId, vaultUsdcConfigId, vaultUsdtConfigId, vaultUsdyConfigId, vaultWbtcConfigId, vaultWethConfigId, vaultwUsdcConfigId} from './utils/mole_utils.js'
+import { buildCoinInfo, coinAddrAUSD, coinAddrBUCK, coinAddrCETUS, coinAddrFDUSD, coinAddrHASUI, coinAddrLBTC, coinAddrNAVX, coinAddrSCA, coinAddrSTSUI, coinAddrSUI, coinAddrsuiUSDT, coinAddrsuiWBTC, coinAddrUSDC, coinAddrUSDT, coinAddrUSDY, coinAddrWBTC, coinAddrWETH, coinAddrwUSDC, getCoinAmountFromLiquidity, getCoinTypeByVaultConfigId, getPoolByToken, getResponseContentByWorkerInfo, i32BitsToNumber, isReverseWorkerInfo, sleep, tickIndexToSqrtPriceX64, vaultAusdConfigId, vaultBuckConfigId, vaultCetusConfigId, vaultFdusdConfigId, vaultHaSuiConfigId, vaultLbtcConfigId, vaultNavxConfigId, vaultScaConfigId, vaultStSuiConfigId, vaultSuiConfigId, vaultsuiUsdtConfigId, vaultsuiWBTCConfigId, vaultUsdcConfigId, vaultUsdtConfigId, vaultUsdyConfigId, vaultWbtcConfigId, vaultWethConfigId, vaultwUsdcConfigId} from './utils/mole_utils.js'
 import * as constant from './utils/constant.js'
 import { ANY_TYPE } from '@sentio/sdk/move'
 import { string$ } from "@sentio/sdk/sui/builtin/0x1";
@@ -14,7 +14,7 @@ SuiWrappedObjectProcessor.bind({
   //object owner address of vault_usdt_vault_info/vault_sui_vault_info etc.
   objectId: "0x0dcd6ff3155967823494c7d4dd3bc952e551102879562ff7c75019b290281583",
   network: SuiNetwork.MAIN_NET,
-  startCheckpoint: 210597929n
+  startCheckpoint: 213833871n
 })
   .onTimeInterval(async (dynamicFieldObjects, ctx) => {
     try {
@@ -99,7 +99,7 @@ SuiWrappedObjectProcessor.bind({
         // Borrowing interest = a * utilization + b
         let a, b
 
-        if (coin_symbol == 'SUI' || coin_symbol == 'haSUI' || coin_symbol == 'stSUI') {
+        if (coin_symbol == 'SUI' || coin_symbol == 'haSUI' || coin_symbol == 'stSUI' || coin_symbol == 'LBTC' || coin_symbol == 'suiWBTC') {
           if (use_rate < 0.6) {
             a = 0.055
             b = 0
@@ -138,7 +138,7 @@ SuiWrappedObjectProcessor.bind({
 SuiObjectProcessor.bind({
   objectId: "0xcf994611fd4c48e277ce3ffd4d4364c914af2c3cbb05f7bf6facd371de688630", // random fake id because no used in here
   network: SuiNetwork.MAIN_NET,
-  startCheckpoint: 210597929n
+  startCheckpoint: 213833871n
 })
 .onTimeInterval(async (self, _, ctx) => {
   try {
@@ -184,7 +184,7 @@ catch (e) {
   SuiObjectProcessor.bind({
     objectId: "0xcf994611fd4c48e277ce3ffd4d4364c914af2c3cbb05f7bf6facd371de688630", // random fake id because no used in here
     network: SuiNetwork.MAIN_NET,
-    startCheckpoint: 210597929n
+    startCheckpoint: 213833871n
   })
   .onTimeInterval(async (self, _, ctx) => {
     try {
@@ -294,12 +294,15 @@ let gCurrentSqrtPricesuiUsdtUsdcBluefin
 let gCurrentSqrtPriceStSuiSuiBluefin
 //@ts-ignore
 let gCurrentSqrtPriceBuckUsdcBluefin
+//@ts-ignore
+let gCurrentSqrtPriceLbtcSuiWbtcBluefin
+
 
 constant.POOLS_MOLE_LIST.forEach((valueDexType, keyPoolId) => {
   SuiObjectProcessor.bind({
     objectId: keyPoolId,
     network: SuiNetwork.MAIN_NET,
-    startCheckpoint: 210597929n
+    startCheckpoint: 213833871n
   })
   .onTimeInterval(async (self, _, ctx) => {
     try {
@@ -392,6 +395,8 @@ constant.POOLS_MOLE_LIST.forEach((valueDexType, keyPoolId) => {
         gCurrentSqrtPriceStSuiSuiBluefin = currentSqrtPrice
       } else if ('0x9f70edecd4af60ca9ce5544530cc5596a7d3a93d6a8c5207241f206e73384797' == ctx.objectId) {
         gCurrentSqrtPriceBuckUsdcBluefin = currentSqrtPrice
+      } else if ('0x715959c4a67cc6b8d2d4c0db628618d947a032041453a24c3a5315beb613331a' == ctx.objectId) {
+        gCurrentSqrtPriceLbtcSuiWbtcBluefin = currentSqrtPrice
       } else {
         console.error("Has not object : ", ctx.objectId)
       }
@@ -413,7 +418,7 @@ constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
   SuiObjectProcessor.bind({
     objectId: workerInfoAddr,
     network: SuiNetwork.MAIN_NET,
-    startCheckpoint: 210597929n
+    startCheckpoint: 213833871n
   })
   .onTimeInterval(async (self, _, ctx) => {
     // console.log("ctx.objectId:" , ctx.objectId, ", slef:",JSON.stringify(self))
@@ -616,6 +621,7 @@ constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
       } else if (coinTypeA == coinAddrsuiUSDT && coinTypeB == coinAddrUSDC
         && (workerInfoAddr == "0x12552c511257169cba63a0b2159e812d5fe578781ec051435063b346b5c05f03" 
          || workerInfoAddr == "0x235e04373fb6799990ae1c148257fcd8ce68e99fd67a70d5250e398615a7051c"
+         || workerInfoAddr == "0xc2512435e24509da820b17b836202830542baa94c4872ca37d832c8193f38b5f"
       )) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPricesuiUsdtUsdcBluefin
@@ -627,6 +633,9 @@ constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
       ) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceBuckUsdcBluefin
+     } else if (coinTypeA == coinAddrLBTC && coinTypeB == coinAddrsuiWBTC) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceLbtcSuiWbtcBluefin
       } else {
         console.error("Has not price : coin_symbol_a:", coin_symbol_a, ",coin_symbol_b:",coin_symbol_b )
       }
@@ -679,7 +688,7 @@ SuiWrappedObjectProcessor.bind({
   //object owner address of vault_usdt_vault_info/vault_sui_vault_info etc.
   objectId: "0x0dcd6ff3155967823494c7d4dd3bc952e551102879562ff7c75019b290281583",
   network: SuiNetwork.MAIN_NET,
-  startCheckpoint: 210597929n
+  startCheckpoint: 213833871n
 })
   .onTimeInterval(async (dynamicFieldObjects, ctx) => {
     try {
@@ -1195,6 +1204,10 @@ SuiWrappedObjectProcessor.bind({
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0.000086
           } else if (configAddr == vaultStSuiConfigId) {
             accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultLbtcConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
+          } else if (configAddr == vaultsuiWBTCConfigId) {
+            accumulateFee = 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0
           } else {
             console.error("CoinType not suppport!")
           }
@@ -1271,7 +1284,7 @@ constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
   SuiObjectProcessor.bind({
     objectId: workerInfoAddr,
     network: SuiNetwork.MAIN_NET,
-    startCheckpoint: 210597929n
+    startCheckpoint: 213833871n
   })
   .onTimeInterval(async (self, _, ctx) => {
     // console.log("ctx.objectId:" , ctx.objectId, ", slef:",JSON.stringify(self))
