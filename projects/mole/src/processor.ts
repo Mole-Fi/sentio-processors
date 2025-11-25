@@ -685,6 +685,7 @@ constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
         && (workerInfoAddr == "0x12552c511257169cba63a0b2159e812d5fe578781ec051435063b346b5c05f03" 
          || workerInfoAddr == "0x235e04373fb6799990ae1c148257fcd8ce68e99fd67a70d5250e398615a7051c"
          || workerInfoAddr == "0xc2512435e24509da820b17b836202830542baa94c4872ca37d832c8193f38b5f"
+         || workerInfoAddr == "0x35c02931d9645134c87178173df047a0a71e4324597f14368606af766e0be863"
       )) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPricesuiUsdtUsdcBluefin

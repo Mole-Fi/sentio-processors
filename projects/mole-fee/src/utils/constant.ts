@@ -221,4 +221,6 @@ export const MOLE_WORKER_INFO_LIST = new Map([
     ["0xe4297de0dda97bd2843badee6a621cf4eba631222c58ea7d3b686ca42ddb81c6", 2],
     // bluefin_worker_usdc_suiusdt_2_worker_info
     ["0xc2512435e24509da820b17b836202830542baa94c4872ca37d832c8193f38b5f", 2],
+    // bluefin_worker_suiusdt_usdc_worker_info: 
+    ["0x35c02931d9645134c87178173df047a0a71e4324597f14368606af766e0be863", 2],
 ])
