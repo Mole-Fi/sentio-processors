@@ -99,21 +99,85 @@ SuiWrappedObjectProcessor.bind({
         // Borrowing interest = a * utilization + b
         let a, b
 
-        if (coin_symbol == 'SUI' || coin_symbol == 'haSUI' || coin_symbol == 'stSUI' || coin_symbol == 'LBTC' || coin_symbol == 'suiWBTC') {
+        if (coin_symbol == 'suiUSDT') {
           if (use_rate < 0.6) {
-            a = 0.055
+            a = 1/6
+            b = 0
+          } else if (use_rate >= 0.6 && use_rate < 1) {
+            a = 0 
+            b = 0.06
+          }
+        } else if (coin_symbol == 'BUCK') {
+          if (use_rate < 0.6) {
+            a = 9/60
+            b = 0
+          } else if (use_rate >= 0.6 && use_rate < 1) {
+            a = 0 
+            b = 0.045
+          }
+        } else if (coin_symbol == 'FDUSD') {
+          if (use_rate < 0.6) {
+            a = 15/60
+            b = 0
+          } else if (use_rate >= 0.6 && use_rate < 1) {
+            a = 0 
+            b = 0.15
+          }
+        } else if (coin_symbol == 'SUI') {
+          if (use_rate < 0.6) {
+            a = 3.3/60
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
             b = 0.033
           }
-        } else {
+        } else if (coin_symbol == 'haSUI') {
           if (use_rate < 0.6) {
-            a = 0.1666666 
+            a = 3/60
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
-            b = 0.10
+            b = 0.03
+          }
+        } else if (coin_symbol == 'USDC') {
+          if (use_rate < 0.6) {
+            a = 5/60
+            b = 0
+          } else if (use_rate >= 0.6 && use_rate < 1) {
+            a = 0 
+            b = 0.06
+          }
+        } else if (coin_symbol == 'stSUI') {
+          if (use_rate < 0.6) {
+            a = 9/60
+            b = 0
+          } else if (use_rate >= 0.6 && use_rate < 1) {
+            a = 0 
+            b = 0.05
+          }
+        } else if (coin_symbol == 'LBTC') {
+          if (use_rate < 0.6) {
+            a = 9/60
+            b = 0
+          } else if (use_rate >= 0.6 && use_rate < 1) {
+            a = 0 
+            b = 0.05
+          }
+        } else if (coin_symbol == 'suiWBTC') {
+          if (use_rate < 0.6) {
+            a = 9/60
+            b = 0
+          } else if (use_rate >= 0.6 && use_rate < 1) {
+            a = 0 
+            b = 0.05
+          }
+        } else {
+          if (use_rate < 0.6) {
+            a = 9/60 
+            b = 0
+          } else if (use_rate >= 0.6 && use_rate < 1) {
+            a = 0 
+            b = 0.095
           }
         }
         
