@@ -99,8 +99,6 @@ SuiWrappedObjectProcessor.bind({
         // Borrowing interest = a * utilization + b
         let a, b
 
-        console.log("coin_symbol is :", coin_symbol) 
-
         if (coin_symbol == 'suiUSDT') {
           if (use_rate < 0.6) {
             a = 1/6
@@ -174,8 +172,6 @@ SuiWrappedObjectProcessor.bind({
             b = 0.05
           }
         } else {
-          console.log("common coin_symbol is :", coin_symbol) 
-
           if (use_rate < 0.6) {
             a = 9/60 
             b = 0
