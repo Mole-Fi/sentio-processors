@@ -69,13 +69,15 @@ import{ cetus_clmm_worker as cetus_clmm_worker_usdc_buck_after_cetus } from '../
 import { stable_farming_worker as stable_farm_worker_hasui_sui_after_cetus } from '../types/sui/0x71f8de86a9fa5f1e6bdba87dd1982e989f63d8d54e5a3b28601ac8de8b17724d.js'
 import { stable_farming_worker as stable_farm_worker_sui_hasui_after_cetus } from '../types/sui/0x1cfcbaeb7d8e53ca9db19b9e1fc928f16d5e35817c86b03307a4ed50e29c7517.js'
 import { bluefin_clmm_worker as bluefin_worker_suiusdt_usdc_old } from '../types/sui/0x48cf4e3ace7c371fd49700d8383300111a0352b8ecf6622eefcd72bacc4ec30d.js'
-import { bluefin_clmm_worker as bluefin_worker_usdc_suiusdt } from '../types/sui/0x57c7150eee9676d63fda730eba275c243be45219dc24c83cfab0897ce6ab6184.js'
+import { bluefin_clmm_worker as bluefin_worker_usdc_suiusdt_old } from '../types/sui/0x57c7150eee9676d63fda730eba275c243be45219dc24c83cfab0897ce6ab6184.js'
 import { bluefin_clmm_worker as bluefin_worker_stsui_sui } from '../types/sui/0x49edcb8c45b9a1f5de8d3a7bce497828a52ed05f643acae2488e02a7696dd3f6.js'
 import { bluefin_clmm_worker as bluefin_worker_sui_stsui } from '../types/sui/0x3feb7079f05c8a5a533690839168b20bd3d782009635308ab364d812f7f3b428.js'
 import { bluefin_clmm_worker as bluefin_worker_buck_usdc } from '../types/sui/0x184c2043d71874b3038e12bafa614ab262e3937aa3a753fa8edde4befa5790fc.js'
 import { bluefin_clmm_worker as bluefin_worker_lbtc_suiwbtc } from '../types/sui/0x93c062d2672a7090758406070a7df48e17a9a6c633014049d8f578bbcff943f0.js'
-import { bluefin_clmm_worker as bluefin_worker_usdc_suiusdt_2 } from '../types/sui/0xa536ee4488c7b4ce968d94925928b88df3d3fa0e01a134a285c1e00c830fd985.js'
+import { bluefin_clmm_worker as bluefin_worker_usdc_suiusdt } from '../types/sui/0xa536ee4488c7b4ce968d94925928b88df3d3fa0e01a134a285c1e00c830fd985.js'
 import { bluefin_clmm_worker as bluefin_worker_suiusdt_usdc } from '../types/sui/0xcf9fd9331aaaf2e788a1678e59e1221f3791c30cf3cbb65358af50df11a5c8d0.js'
+import { bluefin_clmm_worker as bluefin_worker_usdc_suiusdt_2 } from '../types/sui/0xc852ea166e258625852658b264baa9ee19291c31d2f652265958fd3da52fd221.js'
+import { bluefin_clmm_worker as bluefin_worker_usdc_suiusdt_3 } from '../types/sui/0x7d8184a8dd4491fee80c65bc788896843a40c852068d2d042a102dbb2298d7a8.js'
 
 export const vaultWethConfigId = "0x7fa4aa18fc4488947dc7528b5177c4475ec478c28014e77a31dc2318fa4f125e"
 export const vaultHaSuiConfigId = "0xa069ec74c6bb6d6df53e22d9bf00625a3d65da67c4d9e2868c8e348201251dd0"
@@ -636,6 +638,10 @@ export function getShareObjectByWorkerInfo(workerInfoAddr: string) {
     sharesObjectId = "0xec80f7b4a8e74d2418c3a142b5ed8160846ffdad6fa2be26afa11bc912643078"
   } else if (workerInfoAddr == "0x35c02931d9645134c87178173df047a0a71e4324597f14368606af766e0be863") {
     sharesObjectId = "0x177aaf2f0f2746d71065a0dca8befd478d63da7109183c77e230ce3ec94d53d0"
+  } else if (workerInfoAddr == "0x2345b2f17ece01c23810a2f74f4b4593d4277a4ae189d4a356242beb28e20348") {
+    sharesObjectId = "0x4dd6d7b9fc9a4796c005c380c02e5fd21af655bd4cc79cde07f0e36da24253bd"
+  } else if (workerInfoAddr == "0x10711a0f01a0eed736f21e456ec8a8228fb1127137126a45a1ab8954a16fe8a7") {
+    sharesObjectId = "0x18a2377e7a28ad8dc8a286a8e9936705e265b794422ac4d9e8ad015dcbcb3c5a"
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }
@@ -819,7 +825,7 @@ export async function getResponseContentByWorkerInfo(workerInfoAddr: string, ctx
   } else if (workerInfoAddr == "0x12552c511257169cba63a0b2159e812d5fe578781ec051435063b346b5c05f03") {   
     res = await ctx.coder.decodeType(self, bluefin_worker_suiusdt_usdc_old.WorkerInfo.type())
   } else if (workerInfoAddr == "0x235e04373fb6799990ae1c148257fcd8ce68e99fd67a70d5250e398615a7051c") {   
-    res = await ctx.coder.decodeType(self, bluefin_worker_usdc_suiusdt.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, bluefin_worker_usdc_suiusdt_old.WorkerInfo.type())
   } else if (workerInfoAddr == "0x8a1068568ccbd45262feea49a22d0ed42a28969e9fc0720ceb2306c838f9832f") {   
     res = await ctx.coder.decodeType(self, bluefin_worker_stsui_sui.WorkerInfo.type())
   } else if (workerInfoAddr == "0x66f72cf2babece8f8bdfd7b370be35de5bd9fc67c7a13f45332149a213db5298") {   
@@ -829,9 +835,13 @@ export async function getResponseContentByWorkerInfo(workerInfoAddr: string, ctx
   } else if (workerInfoAddr == "0xe4297de0dda97bd2843badee6a621cf4eba631222c58ea7d3b686ca42ddb81c6") {
     res = await ctx.coder.decodeType(self, bluefin_worker_lbtc_suiwbtc.WorkerInfo.type())
   } else if (workerInfoAddr == "0xc2512435e24509da820b17b836202830542baa94c4872ca37d832c8193f38b5f") {
-    res = await ctx.coder.decodeType(self, bluefin_worker_usdc_suiusdt_2.WorkerInfo.type())
+    res = await ctx.coder.decodeType(self, bluefin_worker_usdc_suiusdt.WorkerInfo.type())
   } else if (workerInfoAddr == "0x35c02931d9645134c87178173df047a0a71e4324597f14368606af766e0be863") {
     res = await ctx.coder.decodeType(self, bluefin_worker_suiusdt_usdc.WorkerInfo.type())
+  } else if (workerInfoAddr == "0x2345b2f17ece01c23810a2f74f4b4593d4277a4ae189d4a356242beb28e20348") {
+    res = await ctx.coder.decodeType(self, bluefin_worker_usdc_suiusdt_2.WorkerInfo.type())
+  } else if (workerInfoAddr == "0x10711a0f01a0eed736f21e456ec8a8228fb1127137126a45a1ab8954a16fe8a7") {
+    res = await ctx.coder.decodeType(self, bluefin_worker_usdc_suiusdt_3.WorkerInfo.type())
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }
@@ -982,6 +992,10 @@ export function isReverseWorkerInfo(workerInfoAddr: string) {
     isReverse = true
   } else if (workerInfoAddr == "0x35c02931d9645134c87178173df047a0a71e4324597f14368606af766e0be863") {
     isReverse = false
+  } else if (workerInfoAddr == "0x2345b2f17ece01c23810a2f74f4b4593d4277a4ae189d4a356242beb28e20348") {
+    isReverse = true
+  } else if (workerInfoAddr == "0x10711a0f01a0eed736f21e456ec8a8228fb1127137126a45a1ab8954a16fe8a7") {
+    isReverse = true
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }

@@ -219,8 +219,12 @@ export const MOLE_WORKER_INFO_LIST = new Map([
     ["0x218c06ec2ae747e889ca5720e603272f49fb3724a5777b0c3a8e7ea6dd2e5f9e", 2],
     // bluefin_worker_lbtc_suiwbtc_worker_info
     ["0xe4297de0dda97bd2843badee6a621cf4eba631222c58ea7d3b686ca42ddb81c6", 2],
-    // bluefin_worker_usdc_suiusdt_2_worker_info
+    // bluefin_worker_usdc_suiusdt_worker_info
     ["0xc2512435e24509da820b17b836202830542baa94c4872ca37d832c8193f38b5f", 2],
     // bluefin_worker_suiusdt_usdc_worker_info: 
     ["0x35c02931d9645134c87178173df047a0a71e4324597f14368606af766e0be863", 2],
+    // bluefin_worker_usdc_suiusdt_2_worker_info:
+    ["0x2345b2f17ece01c23810a2f74f4b4593d4277a4ae189d4a356242beb28e20348", 2],
+    // bluefin_worker_usdc_suiusdt_3_worker_info: 
+    ["0x10711a0f01a0eed736f21e456ec8a8228fb1127137126a45a1ab8954a16fe8a7", 2],
 ])
