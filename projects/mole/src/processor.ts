@@ -101,15 +101,15 @@ SuiWrappedObjectProcessor.bind({
 
         if (coin_symbol == 'suiUSDT') {
           if (use_rate < 0.6) {
-            a = 1/6
+            a = 4/60
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
-            b = 0.06
+            b = 0.04
           }
         } else if (coin_symbol == 'BUCK') {
           if (use_rate < 0.6) {
-            a = 9/60
+            a = 4.5/60
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
@@ -117,11 +117,11 @@ SuiWrappedObjectProcessor.bind({
           }
         } else if (coin_symbol == 'FDUSD') {
           if (use_rate < 0.6) {
-            a = 15/60
+            a = 5/60
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
-            b = 0.15
+            b = 0.05
           }
         } else if (coin_symbol == 'SUI') {
           if (use_rate < 0.6) {
@@ -141,15 +141,15 @@ SuiWrappedObjectProcessor.bind({
           }
         } else if (coin_symbol == 'USDC') {
           if (use_rate < 0.6) {
-            a = 5/60
+            a = 4/60
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
-            b = 0.06
+            b = 0.04
           }
         } else if (coin_symbol == 'stSUI') {
           if (use_rate < 0.6) {
-            a = 9/60
+            a = 5/60
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
@@ -157,7 +157,7 @@ SuiWrappedObjectProcessor.bind({
           }
         } else if (coin_symbol == 'LBTC') {
           if (use_rate < 0.6) {
-            a = 9/60
+            a = 5/60
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
@@ -165,7 +165,7 @@ SuiWrappedObjectProcessor.bind({
           }
         } else if (coin_symbol == 'suiWBTC') {
           if (use_rate < 0.6) {
-            a = 9/60
+            a = 5/60
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
