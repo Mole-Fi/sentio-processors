@@ -101,11 +101,11 @@ SuiWrappedObjectProcessor.bind({
 
         if (coin_symbol == 'suiUSDT') {
           if (use_rate < 0.6) {
-            a = 4/60
+            a = 3.5/60
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
-            b = 0.04
+            b = 0.035
           }
         } else if (coin_symbol == 'BUCK') {
           if (use_rate < 0.6) {
@@ -125,11 +125,11 @@ SuiWrappedObjectProcessor.bind({
           }
         } else if (coin_symbol == 'SUI') {
           if (use_rate < 0.6) {
-            a = 3.3/60
+            a = 3/60
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
-            b = 0.033
+            b = 0.03
           }
         } else if (coin_symbol == 'haSUI') {
           if (use_rate < 0.6) {
@@ -141,11 +141,11 @@ SuiWrappedObjectProcessor.bind({
           }
         } else if (coin_symbol == 'USDC') {
           if (use_rate < 0.6) {
-            a = 4/60
+            a = 3.5/60
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
-            b = 0.04
+            b = 0.035
           }
         } else if (coin_symbol == 'stSUI') {
           if (use_rate < 0.6) {
@@ -173,11 +173,11 @@ SuiWrappedObjectProcessor.bind({
           }
         } else {
           if (use_rate < 0.6) {
-            a = 9/60 
+            a = 5/60 
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
-            b = 0.095
+            b = 0.05
           }
         }
         
