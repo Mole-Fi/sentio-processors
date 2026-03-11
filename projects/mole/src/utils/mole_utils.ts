@@ -70,6 +70,7 @@ import{ cetus_clmm_worker as cetus_clmm_worker_buck_usdc_after_cetus } from '../
 import{ cetus_clmm_worker as cetus_clmm_worker_usdc_buck_after_cetus } from '../types/sui/0xde149300b8cb351f1adb042918b27b77bc7de73827fe7b14f65ae060022d9b66.js'
 import { stable_farming_worker as stable_farm_worker_hasui_sui_after_cetus } from '../types/sui/0x71f8de86a9fa5f1e6bdba87dd1982e989f63d8d54e5a3b28601ac8de8b17724d.js'
 import { stable_farming_worker as stable_farm_worker_sui_hasui_after_cetus } from '../types/sui/0x1cfcbaeb7d8e53ca9db19b9e1fc928f16d5e35817c86b03307a4ed50e29c7517.js'
+import { stable_farming_worker as stable_farm_worker_usdc_suiusde } from '../types/sui/0x6ea706f389887ad4683497f32854fa09a30d67d4e5a520dc43f13750c6f16582.js'
 import { bluefin_clmm_worker as bluefin_worker_suiusdt_usdc_old } from '../types/sui/0x48cf4e3ace7c371fd49700d8383300111a0352b8ecf6622eefcd72bacc4ec30d.js'
 import { bluefin_clmm_worker as bluefin_worker_usdc_suiusdt_old } from '../types/sui/0x57c7150eee9676d63fda730eba275c243be45219dc24c83cfab0897ce6ab6184.js'
 import { bluefin_clmm_worker as bluefin_worker_stsui_sui } from '../types/sui/0x49edcb8c45b9a1f5de8d3a7bce497828a52ed05f643acae2488e02a7696dd3f6.js'
@@ -122,6 +123,7 @@ export const coinAddrxSUI = "0x2b6602099970374cf58a2a1b9d96f005fccceb81e92eb0598
 export const coinAddrLBTC = "0x3e8e9423d80e1774a7ca128fccd8bf5f1f7753be658c5e645929037f7c819040::lbtc::LBTC"
 export const coinAddrsuiWBTC = "0xaafb102dd0902f5055cadecd687fb5b71ca82ef0e0285d90afde828ec58ca96b::btc::BTC"
 export const coinAddrDEEP = "0xdeeb7a4662eec9f2f3def03fb937a663dddaa2e215b8078a284d026b7946c270::deep::DEEP"
+export const coinAddrsuiUSDe = "0x41d587e5336f1c86cad50d38a7136db99333bb9bda91cea4ba69115defeb1402::sui_usde::SUI_USDE"
 
 
 export async function buildCoinInfo(ctx: SuiContext | SuiObjectContext, coinAddress: string): Promise<token.TokenInfo> {
@@ -651,6 +653,8 @@ export function getShareObjectByWorkerInfo(workerInfoAddr: string) {
     sharesObjectId = "0xad11906c47d181a3e8d7de88d87df9221b14d58d12bc301b2343d88e732f2cf5"
   } else if (workerInfoAddr == "0x9a0378cae1a6f0f9d88b8dad85aa2777dead136a850a94970e6b5aa8d6b45718") {
     sharesObjectId = "0x91c6ba5b3fead8274304e4ef109e88cc58610f4a6055b08c80226ec738c27cbf"
+  } else if (workerInfoAddr == "0x9ab5e5c95ff470bc2910a89596b7eeed4c67e45f004910ba643b556d03f64e0d") {
+    sharesObjectId = "0x8327e3eb1115df52e99d5e85dfae5de58d23ec23cf8e10c15101907811ef438a"
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }
@@ -857,6 +861,8 @@ export async function getResponseContentByWorkerInfo(workerInfoAddr: string, ctx
     res = await ctx.coder.decodeType(self, bluefin_worker_usdc_suiusdt_3.WorkerInfo.type())
   } else if (workerInfoAddr == "0x9a0378cae1a6f0f9d88b8dad85aa2777dead136a850a94970e6b5aa8d6b45718") {
     res = await ctx.coder.decodeType(self, bluefin_worker_usdc_suiusdt_4.WorkerInfo.type())
+  } else if (workerInfoAddr == "0x9ab5e5c95ff470bc2910a89596b7eeed4c67e45f004910ba643b556d03f64e0d") {
+    res = await ctx.coder.decodeType(self, stable_farm_worker_usdc_suiusde.WorkerInfo.type())
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }
@@ -1017,6 +1023,8 @@ export function isReverseWorkerInfo(workerInfoAddr: string) {
     isReverse = true
   } else if (workerInfoAddr == "0x9a0378cae1a6f0f9d88b8dad85aa2777dead136a850a94970e6b5aa8d6b45718") {
     isReverse = true
+  } else if (workerInfoAddr == "0x9ab5e5c95ff470bc2910a89596b7eeed4c67e45f004910ba643b556d03f64e0d") {
+    isReverse = false
   } else {
     console.error("Not support workerInfoAddr:", workerInfoAddr)
   }

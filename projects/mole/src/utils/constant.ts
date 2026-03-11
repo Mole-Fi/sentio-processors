@@ -61,6 +61,8 @@ export const POOLS_MOLE_LIST = new Map([
     ["0xb8a67c149fd1bc7f9aca1541c61e51ba13bdded64c273c278e50850ae3bff073", 0],
     // cetus_clmm_pool_usdc_ausd
     ["0x0fea99ed9c65068638963a81587c3b8cafb71dc38c545319f008f7e9feb2b5f8", 0],
+    // cetus_clmm_pool_usdc_suiusde
+    ["0x93372a4880cb4cbd4a9974a822c097aa36279a1dbeed7ebd7249d07b923238cf", 0],
 
     // bluefin_pool_suiusdt_usdc
     ["0x62af128423465822e5a0979ccad2b0b5ee50a58c6a2c8ea3dd7fda1cda3cfbe7", 1],
@@ -211,6 +213,8 @@ export const MOLE_WORKER_INFO_LIST = new Map([
     ["0x19d8089f3168a7f07d0aca36ea428585025d64ce4aeeb8cdf50ee72213ef07da", 1],
     // cetus_worker_stablefarm_sui_hasui_worker_info:
     ["0x47b2a1ad2a87de3351f8e7d7ce39b529a15af53e7b4ba89c8c69781ba2f6829f", 1],
+    // cetus_worker_stablefarm_usdc_suiusde_worker_info: 
+    ["0x9ab5e5c95ff470bc2910a89596b7eeed4c67e45f004910ba643b556d03f64e0d", 1],
     // bluefin_worker_suiusdt_usdc_worker_info: 
     ["0x12552c511257169cba63a0b2159e812d5fe578781ec051435063b346b5c05f03", 2],
     // bluefin_worker_usdc_suiusdt_worker_info:

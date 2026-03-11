@@ -3,7 +3,7 @@ import { vault } from './types/sui/0x5ffa69ee4ee14d899dcc750df92de12bad4bacf81ef
 import { pool as clmmPool } from './types/sui/0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb.js'
 import { pool as bluefinPool } from './types/sui/0x3492c874c1e3b3e2984e8c41b589e642d4d0a5d6459e5a9cfc2d52fd7c89c267.js'
 import { getPriceByType } from "@sentio/sdk/utils"
-import { buildCoinInfo, coinAddrAUSD, coinAddrBUCK, coinAddrCETUS, coinAddrFDUSD, coinAddrHASUI, coinAddrLBTC, coinAddrNAVX, coinAddrSCA, coinAddrSTSUI, coinAddrSUI, coinAddrsuiUSDT, coinAddrsuiWBTC, coinAddrUSDC, coinAddrUSDT, coinAddrUSDY, coinAddrWBTC, coinAddrWETH, coinAddrwUSDC, getCoinAmountFromLiquidity, getCoinTypeByVaultConfigId, getPoolByToken, getResponseContentByWorkerInfo, i32BitsToNumber, isReverseWorkerInfo, sleep, tickIndexToSqrtPriceX64, vaultAusdConfigId, vaultBuckConfigId, vaultCetusConfigId, vaultFdusdConfigId, vaultHaSuiConfigId, vaultLbtcConfigId, vaultNavxConfigId, vaultScaConfigId, vaultStSuiConfigId, vaultSuiConfigId, vaultsuiUsdtConfigId, vaultsuiWBTCConfigId, vaultUsdcConfigId, vaultUsdtConfigId, vaultUsdyConfigId, vaultWbtcConfigId, vaultWethConfigId, vaultwUsdcConfigId} from './utils/mole_utils.js'
+import { buildCoinInfo, coinAddrAUSD, coinAddrBUCK, coinAddrCETUS, coinAddrFDUSD, coinAddrHASUI, coinAddrLBTC, coinAddrNAVX, coinAddrSCA, coinAddrSTSUI, coinAddrSUI, coinAddrsuiUSDe, coinAddrsuiUSDT, coinAddrsuiWBTC, coinAddrUSDC, coinAddrUSDT, coinAddrUSDY, coinAddrWBTC, coinAddrWETH, coinAddrwUSDC, getCoinAmountFromLiquidity, getCoinTypeByVaultConfigId, getPoolByToken, getResponseContentByWorkerInfo, i32BitsToNumber, isReverseWorkerInfo, sleep, tickIndexToSqrtPriceX64, vaultAusdConfigId, vaultBuckConfigId, vaultCetusConfigId, vaultFdusdConfigId, vaultHaSuiConfigId, vaultLbtcConfigId, vaultNavxConfigId, vaultScaConfigId, vaultStSuiConfigId, vaultSuiConfigId, vaultsuiUsdtConfigId, vaultsuiWBTCConfigId, vaultUsdcConfigId, vaultUsdtConfigId, vaultUsdyConfigId, vaultWbtcConfigId, vaultWethConfigId, vaultwUsdcConfigId} from './utils/mole_utils.js'
 import * as constant from './utils/constant.js'
 import { ANY_TYPE } from '@sentio/sdk/move'
 import { string$ } from "@sentio/sdk/sui/builtin/0x1";
@@ -360,7 +360,8 @@ let gCurrentSqrtPriceStSuiSuiBluefin
 let gCurrentSqrtPriceBuckUsdcBluefin
 //@ts-ignore
 let gCurrentSqrtPriceLbtcSuiWbtcBluefin
-
+//@ts-ignore
+let gCurrentSqrtPriceUsdcsuiUsde
 
 constant.POOLS_MOLE_LIST.forEach((valueDexType, keyPoolId) => {
   SuiObjectProcessor.bind({
@@ -461,6 +462,8 @@ constant.POOLS_MOLE_LIST.forEach((valueDexType, keyPoolId) => {
         gCurrentSqrtPriceBuckUsdcBluefin = currentSqrtPrice
       } else if ('0x715959c4a67cc6b8d2d4c0db628618d947a032041453a24c3a5315beb613331a' == ctx.objectId) {
         gCurrentSqrtPriceLbtcSuiWbtcBluefin = currentSqrtPrice
+      } else if ('0x5f9bf70794aafe6f5a9418a217dea4378d562bfbfca41f94a4211f7ff35e4e0e' == ctx.objectId) {
+        gCurrentSqrtPriceUsdcsuiUsde = currentSqrtPrice
       } else {
         console.error("Has not object : ", ctx.objectId)
       }
@@ -706,6 +709,9 @@ constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
      } else if (coinTypeA == coinAddrLBTC && coinTypeB == coinAddrsuiWBTC) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceLbtcSuiWbtcBluefin
+      } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrsuiUSDe) {
+        //@ts-ignore
+        currentSqrtPrice = gCurrentSqrtPriceUsdcsuiUsde
       } else {
         console.error("Has not price : coin_symbol_a:", coin_symbol_a, ",coin_symbol_b:",coin_symbol_b )
       }
