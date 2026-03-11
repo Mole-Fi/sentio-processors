@@ -14,7 +14,7 @@ SuiWrappedObjectProcessor.bind({
   //object owner address of vault_usdt_vault_info/vault_sui_vault_info etc.
   objectId: "0x0dcd6ff3155967823494c7d4dd3bc952e551102879562ff7c75019b290281583",
   network: SuiNetwork.MAIN_NET,
-  startCheckpoint: 23543749n
+  startCheckpoint: 159074989n          
 })
   .onTimeInterval(async (dynamicFieldObjects, ctx) => {
     try {
@@ -196,13 +196,13 @@ SuiWrappedObjectProcessor.bind({
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
     }
-  }, 480, 1440, undefined, { owned: true })
+  }, 720, 1440, undefined, { owned: true })
 
   
 SuiObjectProcessor.bind({
   objectId: "0xcf994611fd4c48e277ce3ffd4d4364c914af2c3cbb05f7bf6facd371de688630", // random fake id because no used in here
   network: SuiNetwork.MAIN_NET,
-  startCheckpoint: 25721833n
+  startCheckpoint: 159074989n
 })
 .onTimeInterval(async (self, _, ctx) => {
   try {
@@ -241,14 +241,14 @@ SuiObjectProcessor.bind({
 catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
-  }, 480, 1440, undefined, { owned: false })
+  }, 720, 1440, undefined, { owned: false })
 
 
 
   SuiObjectProcessor.bind({
     objectId: "0xcf994611fd4c48e277ce3ffd4d4364c914af2c3cbb05f7bf6facd371de688630", // random fake id because no used in here
     network: SuiNetwork.MAIN_NET,
-    startCheckpoint: 26720650n
+    startCheckpoint: 159074989n
   })
   .onTimeInterval(async (self, _, ctx) => {
     try {
@@ -290,7 +290,7 @@ catch (e) {
   catch (e) {
         console.log(`${e.message} error at ${JSON.stringify(self)}`)
       }
-    }, 480, 1440, undefined, { owned: false })
+    }, 720, 1440, undefined, { owned: false })
   
   
 
@@ -367,7 +367,7 @@ constant.POOLS_MOLE_LIST.forEach((valueDexType, keyPoolId) => {
   SuiObjectProcessor.bind({
     objectId: keyPoolId,
     network: SuiNetwork.MAIN_NET,
-    startCheckpoint: 23543749n
+    startCheckpoint: 159074989n
   })
   .onTimeInterval(async (self, _, ctx) => {
     try {
@@ -473,7 +473,7 @@ constant.POOLS_MOLE_LIST.forEach((valueDexType, keyPoolId) => {
   catch (e) {
         console.log(`${e.message} error at ${JSON.stringify(self)}`)
       }
-    }, 480, 1440, undefined, { owned: false }) 
+    }, 720, 1440, undefined, { owned: false }) 
 }); 
 
 
@@ -485,7 +485,7 @@ constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
   SuiObjectProcessor.bind({
     objectId: workerInfoAddr,
     network: SuiNetwork.MAIN_NET,
-    startCheckpoint: 23543749n
+    startCheckpoint: 159074989n
   })
   .onTimeInterval(async (self, _, ctx) => {
     // console.log("ctx.objectId:" , ctx.objectId, ", slef:",JSON.stringify(self))
@@ -755,7 +755,7 @@ constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
-  }, 480, 1440, undefined, { owned: false })
+  }, 720, 1440, undefined, { owned: false })
 }); 
 
 
@@ -764,7 +764,7 @@ SuiWrappedObjectProcessor.bind({
   //object owner address of vault_usdt_vault_info/vault_sui_vault_info etc.
   objectId: "0x0dcd6ff3155967823494c7d4dd3bc952e551102879562ff7c75019b290281583",
   network: SuiNetwork.MAIN_NET,
-  startCheckpoint: 23543749n
+  startCheckpoint: 159074989n
 })
   .onTimeInterval(async (dynamicFieldObjects, ctx) => {
     try {
@@ -1320,7 +1320,7 @@ SuiWrappedObjectProcessor.bind({
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
     }
-  }, 480, 1440, undefined, { owned: true })
+  }, 720, 1440, undefined, { owned: true })
 
 
 
@@ -1360,7 +1360,7 @@ constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
   SuiObjectProcessor.bind({
     objectId: workerInfoAddr,
     network: SuiNetwork.MAIN_NET,
-    startCheckpoint: 23543749n
+    startCheckpoint: 159074989n
   })
   .onTimeInterval(async (self, _, ctx) => {
     // console.log("ctx.objectId:" , ctx.objectId, ", slef:",JSON.stringify(self))
@@ -2105,7 +2105,7 @@ constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
-  }, 480, 1440, undefined, { owned: false })
+  }, 720, 1440, undefined, { owned: false })
 }); 
 
 
