@@ -181,14 +181,23 @@ SuiWrappedObjectProcessor.bind({
           }
         }
         
-        const savings_borrowing_interest =  a * use_rate + b
+        let savings_borrowing_interest =  a * use_rate + b
+        if (!savings_borrowing_interest) {
+          savings_borrowing_interest = 0
+        }     
         ctx.meter.Gauge("savings_borrowing_interest").record(savings_borrowing_interest, { coin_symbol, coinType, project: "mole-fee" })
 
         // Lending interest = Borrowing Interest * Utilization * (1 - Borrow Protocol Fee)
-        const savings_lending_interest_apr = savings_borrowing_interest * use_rate * (1 - 0.19)
-        // apr to apy
-        const savings_lending_interest_apy =  Math.pow(1 + savings_lending_interest_apr / 365, 365) - 1
+        let savings_lending_interest_apr = savings_borrowing_interest * use_rate * (1 - 0.19)
+        if (!savings_lending_interest_apr) {
+          savings_lending_interest_apr = 0
+        }
 
+        // apr to apy
+        let savings_lending_interest_apy =  Math.pow(1 + savings_lending_interest_apr / 365, 365) - 1
+        if (!savings_lending_interest_apy) {
+          savings_lending_interest_apy = 0
+        }
         ctx.meter.Gauge("savings_lending_interest").record(savings_lending_interest_apr, { coin_symbol, coinType, project: "mole-fee" })
 
       }
@@ -462,7 +471,7 @@ constant.POOLS_MOLE_LIST.forEach((valueDexType, keyPoolId) => {
         gCurrentSqrtPriceBuckUsdcBluefin = currentSqrtPrice
       } else if ('0x715959c4a67cc6b8d2d4c0db628618d947a032041453a24c3a5315beb613331a' == ctx.objectId) {
         gCurrentSqrtPriceLbtcSuiWbtcBluefin = currentSqrtPrice
-      } else if ('0x5f9bf70794aafe6f5a9418a217dea4378d562bfbfca41f94a4211f7ff35e4e0e' == ctx.objectId) {
+      } else if ('0x93372a4880cb4cbd4a9974a822c097aa36279a1dbeed7ebd7249d07b923238cf' == ctx.objectId) {
         gCurrentSqrtPriceUsdcsuiUsde = currentSqrtPrice
       } else {
         console.error("Has not object : ", ctx.objectId)
