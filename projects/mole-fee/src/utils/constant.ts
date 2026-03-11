@@ -199,6 +199,10 @@ export const MOLE_WORKER_INFO_LIST = new Map([
     ["0x85ad5f6b8dd39b2a9dbb05161a563db52f91d724390273a739199dbfa640405b", 0],
     // cetus_worker_suiusdt_usdc_2_worker_info:
     ["0x888821cfa0e8d3e4de4602d91b17ea2e156e534a233424611b8f27e5d4bac439", 0],
+    // cetus_worker_usdc_suiusdt_3_worker_info: 
+    ["0xa128ba626e3ff9fc752ba1f48c56979da3bd7cca8835c86d6b4575ba763f0c9b", 0],
+    // cetus_worker_usdc_suiusdt_4_worker_info: 
+    ["0x9bdf9b6e9fd9adf3697671d41a9cce37c33969f90f229d0c7cce4e4842eb1b81", 0],
     // cetus_worker_usdc_buck_worker_info:
     ["0x567032b6d5a37897662294c6442d893ba3e5dfcd16ed7b1a6ccf8e69ae7de288", 0],
     // cetus_worker_buck_usdc_worker_info:
@@ -219,8 +223,14 @@ export const MOLE_WORKER_INFO_LIST = new Map([
     ["0x218c06ec2ae747e889ca5720e603272f49fb3724a5777b0c3a8e7ea6dd2e5f9e", 2],
     // bluefin_worker_lbtc_suiwbtc_worker_info
     ["0xe4297de0dda97bd2843badee6a621cf4eba631222c58ea7d3b686ca42ddb81c6", 2],
-    // bluefin_worker_usdc_suiusdt_2_worker_info
+    // bluefin_worker_usdc_suiusdt_worker_info
     ["0xc2512435e24509da820b17b836202830542baa94c4872ca37d832c8193f38b5f", 2],
     // bluefin_worker_suiusdt_usdc_worker_info: 
     ["0x35c02931d9645134c87178173df047a0a71e4324597f14368606af766e0be863", 2],
+    // bluefin_worker_usdc_suiusdt_2_worker_info:
+    ["0x2345b2f17ece01c23810a2f74f4b4593d4277a4ae189d4a356242beb28e20348", 2],
+    // bluefin_worker_usdc_suiusdt_3_worker_info: 
+    ["0x10711a0f01a0eed736f21e456ec8a8228fb1127137126a45a1ab8954a16fe8a7", 2],
+    // bluefin_worker_usdc_suiusdt_4_worker_info: 
+    ["0x9a0378cae1a6f0f9d88b8dad85aa2777dead136a850a94970e6b5aa8d6b45718", 2],
 ])

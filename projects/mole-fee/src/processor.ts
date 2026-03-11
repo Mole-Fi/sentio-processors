@@ -14,7 +14,7 @@ SuiWrappedObjectProcessor.bind({
   //object owner address of vault_usdt_vault_info/vault_sui_vault_info etc.
   objectId: "0x0dcd6ff3155967823494c7d4dd3bc952e551102879562ff7c75019b290281583",
   network: SuiNetwork.MAIN_NET,
-  startCheckpoint: 213833871n
+  startCheckpoint: 253182000n
 })
   .onTimeInterval(async (dynamicFieldObjects, ctx) => {
     try {
@@ -101,15 +101,15 @@ SuiWrappedObjectProcessor.bind({
 
         if (coin_symbol == 'suiUSDT') {
           if (use_rate < 0.6) {
-            a = 1/6
+            a = 3.5/60
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
-            b = 0.06
+            b = 0.035
           }
         } else if (coin_symbol == 'BUCK') {
           if (use_rate < 0.6) {
-            a = 9/60
+            a = 4.5/60
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
@@ -117,19 +117,19 @@ SuiWrappedObjectProcessor.bind({
           }
         } else if (coin_symbol == 'FDUSD') {
           if (use_rate < 0.6) {
-            a = 15/60
+            a = 5/60
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
-            b = 0.15
+            b = 0.05
           }
         } else if (coin_symbol == 'SUI') {
           if (use_rate < 0.6) {
-            a = 3.3/60
+            a = 3/60
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
-            b = 0.033
+            b = 0.03
           }
         } else if (coin_symbol == 'haSUI') {
           if (use_rate < 0.6) {
@@ -141,15 +141,15 @@ SuiWrappedObjectProcessor.bind({
           }
         } else if (coin_symbol == 'USDC') {
           if (use_rate < 0.6) {
-            a = 5/60
+            a = 3.5/60
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
-            b = 0.06
+            b = 0.035
           }
         } else if (coin_symbol == 'stSUI') {
           if (use_rate < 0.6) {
-            a = 9/60
+            a = 5/60
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
@@ -157,7 +157,7 @@ SuiWrappedObjectProcessor.bind({
           }
         } else if (coin_symbol == 'LBTC') {
           if (use_rate < 0.6) {
-            a = 9/60
+            a = 5/60
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
@@ -165,7 +165,7 @@ SuiWrappedObjectProcessor.bind({
           }
         } else if (coin_symbol == 'suiWBTC') {
           if (use_rate < 0.6) {
-            a = 9/60
+            a = 5/60
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
@@ -173,11 +173,11 @@ SuiWrappedObjectProcessor.bind({
           }
         } else {
           if (use_rate < 0.6) {
-            a = 9/60 
+            a = 5/60 
             b = 0
           } else if (use_rate >= 0.6 && use_rate < 1) {
             a = 0 
-            b = 0.095
+            b = 0.05
           }
         }
         
@@ -196,13 +196,13 @@ SuiWrappedObjectProcessor.bind({
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
     }
-  }, 480, 1440, undefined, { owned: true })
+  }, 60, 480, undefined, { owned: true })
 
   
 SuiObjectProcessor.bind({
   objectId: "0xcf994611fd4c48e277ce3ffd4d4364c914af2c3cbb05f7bf6facd371de688630", // random fake id because no used in here
   network: SuiNetwork.MAIN_NET,
-  startCheckpoint: 213833871n
+  startCheckpoint: 253182000n
 })
 .onTimeInterval(async (self, _, ctx) => {
   try {
@@ -241,14 +241,14 @@ SuiObjectProcessor.bind({
 catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
-  }, 480, 1440, undefined, { owned: false })
+  }, 60, 480, undefined, { owned: false })
 
 
 
   SuiObjectProcessor.bind({
     objectId: "0xcf994611fd4c48e277ce3ffd4d4364c914af2c3cbb05f7bf6facd371de688630", // random fake id because no used in here
     network: SuiNetwork.MAIN_NET,
-    startCheckpoint: 213833871n
+    startCheckpoint: 253182000n
   })
   .onTimeInterval(async (self, _, ctx) => {
     try {
@@ -290,7 +290,7 @@ catch (e) {
   catch (e) {
         console.log(`${e.message} error at ${JSON.stringify(self)}`)
       }
-    }, 480, 1440, undefined, { owned: false })
+    }, 60, 480, undefined, { owned: false })
   
   
 
@@ -366,7 +366,7 @@ constant.POOLS_MOLE_LIST.forEach((valueDexType, keyPoolId) => {
   SuiObjectProcessor.bind({
     objectId: keyPoolId,
     network: SuiNetwork.MAIN_NET,
-    startCheckpoint: 213833871n
+    startCheckpoint: 253182000n
   })
   .onTimeInterval(async (self, _, ctx) => {
     try {
@@ -470,7 +470,7 @@ constant.POOLS_MOLE_LIST.forEach((valueDexType, keyPoolId) => {
   catch (e) {
         console.log(`${e.message} error at ${JSON.stringify(self)}`)
       }
-    }, 480, 1440, undefined, { owned: false }) 
+    }, 60, 480, undefined, { owned: false }) 
 }); 
 
 
@@ -482,7 +482,7 @@ constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
   SuiObjectProcessor.bind({
     objectId: workerInfoAddr,
     network: SuiNetwork.MAIN_NET,
-    startCheckpoint: 213833871n
+    startCheckpoint: 253182000n
   })
   .onTimeInterval(async (self, _, ctx) => {
     // console.log("ctx.objectId:" , ctx.objectId, ", slef:",JSON.stringify(self))
@@ -670,6 +670,8 @@ constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
       } else if (coinTypeA == coinAddrUSDC && coinTypeB == coinAddrsuiUSDT
         && (workerInfoAddr == "0x85ad5f6b8dd39b2a9dbb05161a563db52f91d724390273a739199dbfa640405b" 
          || workerInfoAddr == "0x888821cfa0e8d3e4de4602d91b17ea2e156e534a233424611b8f27e5d4bac439"
+         || workerInfoAddr == "0xa128ba626e3ff9fc752ba1f48c56979da3bd7cca8835c86d6b4575ba763f0c9b"
+         || workerInfoAddr == "0x9bdf9b6e9fd9adf3697671d41a9cce37c33969f90f229d0c7cce4e4842eb1b81"
       )) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPriceUsdcsuiUsdt
@@ -687,6 +689,9 @@ constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
          || workerInfoAddr == "0x235e04373fb6799990ae1c148257fcd8ce68e99fd67a70d5250e398615a7051c"
          || workerInfoAddr == "0xc2512435e24509da820b17b836202830542baa94c4872ca37d832c8193f38b5f"
          || workerInfoAddr == "0x35c02931d9645134c87178173df047a0a71e4324597f14368606af766e0be863"
+         || workerInfoAddr == "0x2345b2f17ece01c23810a2f74f4b4593d4277a4ae189d4a356242beb28e20348"
+         || workerInfoAddr == "0x10711a0f01a0eed736f21e456ec8a8228fb1127137126a45a1ab8954a16fe8a7"
+         || workerInfoAddr == "0x9a0378cae1a6f0f9d88b8dad85aa2777dead136a850a94970e6b5aa8d6b45718"
       )) {
         //@ts-ignore
         currentSqrtPrice = gCurrentSqrtPricesuiUsdtUsdcBluefin
@@ -744,7 +749,7 @@ constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
-  }, 480, 1440, undefined, { owned: false })
+  }, 60, 480, undefined, { owned: false })
 }); 
 
 
@@ -753,7 +758,7 @@ SuiWrappedObjectProcessor.bind({
   //object owner address of vault_usdt_vault_info/vault_sui_vault_info etc.
   objectId: "0x0dcd6ff3155967823494c7d4dd3bc952e551102879562ff7c75019b290281583",
   network: SuiNetwork.MAIN_NET,
-  startCheckpoint: 213833871n
+  startCheckpoint: 253182000n
 })
   .onTimeInterval(async (dynamicFieldObjects, ctx) => {
     try {
@@ -1309,7 +1314,7 @@ SuiWrappedObjectProcessor.bind({
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(dynamicFieldObjects)}`)
     }
-  }, 480, 1440, undefined, { owned: true })
+  }, 60, 480, undefined, { owned: true })
 
 
 
@@ -1349,7 +1354,7 @@ constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
   SuiObjectProcessor.bind({
     objectId: workerInfoAddr,
     network: SuiNetwork.MAIN_NET,
-    startCheckpoint: 213833871n
+    startCheckpoint: 253182000n
   })
   .onTimeInterval(async (self, _, ctx) => {
     // console.log("ctx.objectId:" , ctx.objectId, ", slef:",JSON.stringify(self))
@@ -2094,7 +2099,7 @@ constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
     catch (e) {
       console.log(`${e.message} error at ${JSON.stringify(self)}`)
     }
-  }, 480, 1440, undefined, { owned: false })
+  }, 60, 480, undefined, { owned: false })
 }); 
 
 
