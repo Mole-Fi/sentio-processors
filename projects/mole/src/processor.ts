@@ -750,11 +750,26 @@ constant.MOLE_WORKER_INFO_LIST.forEach((valueWorkerType, keyWorkerInfoId) => {
       const priceA = await getPriceByType(SuiNetwork.MAIN_NET, coinTypeA, ctx.timestamp)
       const priceB = await getPriceByType(SuiNetwork.MAIN_NET, coinTypeB, ctx.timestamp)
 
-      const lyf_usd_farm_usd = Number(coinAamount) * priceA! / Math.pow(10, coinInfoA.decimal) + Number(coinBamount) * priceB! / Math.pow(10, coinInfoB.decimal)
+      let lyf_usd_farm_usd = Number(coinAamount) * priceA! / Math.pow(10, coinInfoA.decimal) + Number(coinBamount) * priceB! / Math.pow(10, coinInfoB.decimal)
 
       let farmPairName = coin_symbol_a + '-' + coin_symbol_b
       if (valueWorkerType == 2) {
         farmPairName += '-Bluefin'
+      }
+
+      if (ctx.checkpoint >= 254999468) {
+        if (workerInfoAddr == "0x85ad5f6b8dd39b2a9dbb05161a563db52f91d724390273a739199dbfa640405b"
+          || workerInfoAddr == "0xa128ba626e3ff9fc752ba1f48c56979da3bd7cca8835c86d6b4575ba763f0c9b"
+          || workerInfoAddr == "0x9bdf9b6e9fd9adf3697671d41a9cce37c33969f90f229d0c7cce4e4842eb1b81"
+          || workerInfoAddr == "0x888821cfa0e8d3e4de4602d91b17ea2e156e534a233424611b8f27e5d4bac439"
+          || workerInfoAddr == "0x35c02931d9645134c87178173df047a0a71e4324597f14368606af766e0be863"
+          || workerInfoAddr == "0xc2512435e24509da820b17b836202830542baa94c4872ca37d832c8193f38b5f"
+          || workerInfoAddr == "0x2345b2f17ece01c23810a2f74f4b4593d4277a4ae189d4a356242beb28e20348"
+          || workerInfoAddr == "0x10711a0f01a0eed736f21e456ec8a8228fb1127137126a45a1ab8954a16fe8a7"
+          || workerInfoAddr == "0x9a0378cae1a6f0f9d88b8dad85aa2777dead136a850a94970e6b5aa8d6b45718"
+        ) {
+          lyf_usd_farm_usd = lyf_usd_farm_usd * 10
+        }
       }
 
       ctx.meter.Gauge("lyf_usd_farm_usd").record(lyf_usd_farm_usd, {farmPairName , project: "mole" })
